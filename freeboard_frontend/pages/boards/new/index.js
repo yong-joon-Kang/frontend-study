@@ -21,6 +21,7 @@ ErrorText
 } from "../../../styles/createBoardEmotion"
 import { gql, useMutation } from "@apollo/client"
 import { useState } from "react"
+import { useRouter } from "next/router"
 
 const CREATE_BOARD = gql`
     mutation createBoard($writer: String, $password: String, $title: String!, $contents: String!){
@@ -49,7 +50,7 @@ mutation{
 `
 
 export default function CreateBoardPage(){
-test
+
     const [createBoard] = useMutation(CREATE_BOARD)
 
     const [writer, setWriter] = useState("")
@@ -61,6 +62,8 @@ test
     const [passwordErr, setPasswordErr] = useState("")
     const [titleErr, setTitleErr] = useState("")
     const [contentsErr, setContentsErr] = useState("")
+
+    const router = useRouter();
 
     const onWriterChanged = (event) => {
         setWriter(event.target.value)
@@ -104,17 +107,24 @@ test
             setContentsErr("")
         }
         
-        if(writer && password && title && contents){
-            const result = await createBoard({
-                variables: {
-                    writer: writer,
-                    password: password,
-                    title: title,
-                    contents: contents
-                }
-            })
-            console.log(result)
+        try{
+            if(writer && password && title && contents){
+                const result = await createBoard({
+                    variables: {
+                        writer: writer,
+                        password: password,
+                        title: title,
+                        contents: contents
+                    }
+                })
+                console.log(result)
+                alert("정상적으로 등록되었습니다.")
+                router.push(`/boards/detail/${result.data.createBoard._id}`)
+            }
+        }catch{
+
         }
+        
 
     }
 
