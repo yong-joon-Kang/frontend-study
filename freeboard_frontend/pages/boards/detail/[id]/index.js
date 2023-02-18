@@ -1,5 +1,6 @@
 import {
 Wrapper,
+CardWrapper,
 Header,
 HeadRight,
 ProfileImg,
@@ -10,7 +11,9 @@ LinkImg,
 LocationImg,
 HeadLeft,
 Contents,
-Footer
+Footer,
+ButtonWrapper,
+Button,
 } from "../../../../styles/detailBoardEmotion"
 import { useRouter } from "next/router"
 import { gql, useQuery } from "@apollo/client"
@@ -43,25 +46,32 @@ export default function detailPage(){
     
     return(
         <Wrapper>
-            <Header>
-                <HeadLeft>
-                    <ProfileImg src="/profileDef.png"></ProfileImg>
-                    <ProfileDetailWrap>
-                        <ProfileName>{data&&data.fetchBoard.writer}</ProfileName>
-                        <ProfileDate>{data&&data.fetchBoard.updatedAt}</ProfileDate>
-                    </ProfileDetailWrap>
-                </HeadLeft>
-                <HeadRight>
-                    <LinkImg src="/link.png"></LinkImg>
-                    <LocationImg src="/location.png"></LocationImg>
-                </HeadRight>
-            </Header>
-            <Contents>
-                게시글 제목입니다.
-            </Contents>
-            <Footer>
+            <CardWrapper>
+                <Header>
+                    <HeadLeft>
+                        <ProfileImg src="/profileDef.png"></ProfileImg>
+                        <ProfileDetailWrap>
+                            <ProfileName>{data&&data.fetchBoard.writer}</ProfileName>
+                            <ProfileDate>{data&&data.fetchBoard.updatedAt}</ProfileDate>
+                        </ProfileDetailWrap>
+                    </HeadLeft>
+                    <HeadRight>
+                        <LinkImg src="/link.png"></LinkImg>
+                        <LocationImg src="/location.png"></LocationImg>
+                    </HeadRight>
+                </Header>
+                <Contents>
+                    게시글 제목입니다.
+                </Contents>
+                <Footer>
 
-            </Footer>
+                </Footer>
+            </CardWrapper>
+            <ButtonWrapper>
+                <Button>목록으로</Button>
+                <Button>수정하기</Button>
+                <Button>삭제하기</Button>
+            </ButtonWrapper>
         </Wrapper>
     )
 }

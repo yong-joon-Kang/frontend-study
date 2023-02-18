@@ -58,7 +58,6 @@ width: 100%;
 height: 52px;
 border: 1px solid #BDBDBD;
 padding-left: 15px;
-margin-bottom: 10px;
 `
 
 export const ContentsInput = styled.textarea`
