@@ -1,0 +1,98 @@
+import BoardWritePresenterPage from "./BoardWrite.presenter"
+import { CREATE_BOARD } from "./BoardWrite.queries"
+import { useMutation } from "@apollo/client"
+import { useState } from "react"
+import { useRouter } from "next/router"
+
+export default function BoardWriteContainerPage(){
+    const [createBoard] = useMutation(CREATE_BOARD)
+
+    const [writer, setWriter] = useState("")
+    const [password, setPassword] = useState("")
+    const [title, setTitle] = useState("")
+    const [contents, setContents] = useState("")
+
+    const [writerErr, setWriterErr] = useState("")
+    const [passwordErr, setPasswordErr] = useState("")
+    const [titleErr, setTitleErr] = useState("")
+    const [contentsErr, setContentsErr] = useState("")
+
+    const router = useRouter();
+
+    const onWriterChanged = (event) => {
+        setWriter(event.target.value)
+    }
+
+    const onPasswordChanged = (event) => {
+        setPassword(event.target.value)
+    }
+
+    const onTitleChanged = (event) => {
+        setTitle(event.target.value)
+    }
+
+    const onContentsChanged = (event) => {
+        setContents(event.target.value)
+    }
+    
+    const onSubmit = async () => {
+        
+        if(writer === ""){
+            setWriterErr("작성자는 필수입력 입니다.")
+        }else{
+            setWriterErr("")
+        }
+
+        if(password === ""){
+            setPasswordErr("비밀번호는 필수입력 입니다.")
+        }else{
+            setPasswordErr("")
+        }
+
+        if(title === ""){
+            setTitleErr("제목은 필수입력 입니다.")
+        }else{
+            setTitleErr("")
+        }
+
+        if(contents === ""){
+            setContentsErr("내용은 필수입력 입니다.")
+        }else{
+            setContentsErr("")
+        }
+        
+        try{
+            if(writer && password && title && contents){
+                const result = await createBoard({
+                    variables: {
+                        writer: writer,
+                        password: password,
+                        title: title,
+                        contents: contents
+                    }
+                })
+                console.log(result)
+                alert("정상적으로 등록되었습니다.")
+                router.push(`/boards/detail/${result.data.createBoard._id}`)
+            }
+        }catch{
+
+        }
+        
+
+    }
+
+    return(
+        <BoardWritePresenterPage
+        writerErr={writerErr}
+        passwordErr={passwordErr}
+        titleErr={titleErr}
+        contentsErr={contentsErr}
+        onWriterChanged={onWriterChanged}
+        onPasswordChanged={onPasswordChanged}
+        onTitleChanged={onTitleChanged}
+        onContentsChanged={onContentsChanged}
+        onSubmit={onSubmit}
+        />
+    )
+}
