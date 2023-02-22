@@ -17,22 +17,48 @@ export default function BoardWriteContainerPage(){
     const [titleErr, setTitleErr] = useState("")
     const [contentsErr, setContentsErr] = useState("")
 
+    const [chkRegist, setChkRegist] = useState(Boolean)
+
     const router = useRouter();
 
     const onWriterChanged = (event) => {
         setWriter(event.target.value)
+
+        if(event.target.value && password && title && contents){
+            setChkRegist(true)
+        }else {
+            setChkRegist(false)
+        }
     }
 
     const onPasswordChanged = (event) => {
         setPassword(event.target.value)
+
+        if(writer && event.target.value && title && contents){
+            setChkRegist(true)
+        }else {
+            setChkRegist(false)
+        }
     }
 
     const onTitleChanged = (event) => {
         setTitle(event.target.value)
+
+        if(writer && password && event.target.value && contents){
+            setChkRegist(true)
+        }else {
+            setChkRegist(false)
+        }
     }
 
     const onContentsChanged = (event) => {
         setContents(event.target.value)
+
+        if(writer && password && title && event.target.value){
+            setChkRegist(true)
+        }else {
+            setChkRegist(false)
+        }
     }
     
     const onSubmit = async () => {
@@ -93,6 +119,7 @@ export default function BoardWriteContainerPage(){
         onTitleChanged={onTitleChanged}
         onContentsChanged={onContentsChanged}
         onSubmit={onSubmit}
+        chkRegist={chkRegist}
         />
     )
 }

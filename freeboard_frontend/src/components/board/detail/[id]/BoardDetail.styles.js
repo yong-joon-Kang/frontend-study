@@ -36,6 +36,11 @@ display: flex;
 flex-direction: column;
 `
 
+export const Title = styled.div`
+font-size: 2em;
+margin-bottom: 30px;
+`
+
 export const ProfileName = styled.div`
 
 `
@@ -57,6 +62,7 @@ float: right;
 
 export const Contents = styled.div`
 width: 100%;
+padding: 30px;
 `
 
 export const Footer = styled.div`
@@ -78,4 +84,5 @@ justify-content: center;
 display: flex;
 align-items: center;
 margin: 0 15px;
+cursor: pointer;
 `

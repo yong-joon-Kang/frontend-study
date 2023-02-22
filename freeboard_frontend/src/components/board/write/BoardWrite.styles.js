@@ -2,10 +2,11 @@ import styled from "@emotion/styled";
 
 export const Wrapper = styled.div`
 width: 1200px;
-height: 1847px;
 margin: 50px;
 box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
 padding: 50px;
+display: flex;
+flex-direction: column;
 `
 
 export const HeaderTitle = styled.div`
@@ -30,12 +31,10 @@ margin: 50px 0;
 
 export const RightWrap = styled.div`
 float: right;
-width: 48%;
 `
 
 export const LeftWrap = styled.div`
 float: left;
-width: 48%;
 `
 
 export const Label = styled.div`
@@ -47,22 +46,23 @@ margin-bottom: 10px;
 `
 
 export const WriterInput = styled.input`
-width: 100%;
+width: 560px;
 height: 52px;
 border: 1px solid #BDBDBD;
 padding-left: 15px;
 `
 
 export const TitleInput = styled.input`
-width: 100%;
+width: 1182px;
 height: 52px;
 border: 1px solid #BDBDBD;
 padding-left: 15px;
+margin-bottom: 10px;
 `
 
 export const ContentsInput = styled.textarea`
-width: 100%;
-height: 480px;
+width: 1170px;
+height: 380px;
 border: 1px solid #BDBDBD;
 resize: none;
 padding: 15px;
@@ -118,7 +118,13 @@ display: flex;
 
 
 export const SubmitBtn = styled.button`
-background: #FFD600;
+background: ${props => {
+    if(props.chkRegist === true){
+        return "#FFD600";
+    }else{
+        return "#BDBDBD";
+    }
+}};
 width: 170px;
 height: 52px;
 border: none;

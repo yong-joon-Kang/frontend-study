@@ -1,4 +1,4 @@
-import BoardWritePresenterPage from "../../../src/components/board/write/BoardWrite.Container"
+import BoardWritePresenterPage from "../../../src/components/board/write/BoardWrite.container"
 
 export default function CreateBoardPage(){
 

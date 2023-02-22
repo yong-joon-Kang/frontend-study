@@ -1,4 +1,5 @@
 import * as S from "./BoardDetail.styles"
+import { getDate } from "../../../../commons/libraries/utils"
 
 export default function BoardDetailPresenterPage(props){
 
@@ -10,7 +11,7 @@ export default function BoardDetailPresenterPage(props){
                         <S.ProfileImg src="/profileDef.png"></S.ProfileImg>
                         <S.ProfileDetailWrap>
                             <S.ProfileName>{props.data?.fetchBoard.writer}</S.ProfileName>
-                            <S.ProfileDate>{props.data?.fetchBoard.updatedAt}</S.ProfileDate>
+                            <S.ProfileDate>{getDate(props.data?.fetchBoard.updatedAt)}</S.ProfileDate>
                         </S.ProfileDetailWrap>
                     </S.HeadLeft>
                     <S.HeadRight>
@@ -19,16 +20,17 @@ export default function BoardDetailPresenterPage(props){
                     </S.HeadRight>
                 </S.Header>
                 <S.Contents>
-                    게시글 제목입니다.
+                    <S.Title>{props.data?.fetchBoard.title}</S.Title>
+                    {props.data?.fetchBoard.contents}
                 </S.Contents>
                 <S.Footer>
 
                 </S.Footer>
             </S.CardWrapper>
             <S.ButtonWrapper>
-                <S.Button>목록으로</S.Button>
+                <S.Button onClick={props.onClickBoardList}>목록으로</S.Button>
                 <S.Button>수정하기</S.Button>
-                <S.Button>삭제하기</S.Button>
+                <S.Button onClick={props.onClickBoardDelete}>삭제하기</S.Button>
             </S.ButtonWrapper>
         </S.Wrapper>
     )

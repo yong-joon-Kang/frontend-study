@@ -52,11 +52,11 @@ export default function BoardWritePresenterPage(props){
             </S.SubWrap>
             <S.SubWrap>
                 <S.Label>메인 설정</S.Label>
-                <S.Label><S.RadioBtn type="radio" name="chkMainOption" /> 유튜브</S.Label>
-                <S.Label><S.RadioBtn type="radio" name="chkMainOption" /> 사진</S.Label>
+                <label><S.RadioBtn type="radio" name="chkMainOption" /> 유튜브</label>
+                <label><S.RadioBtn type="radio" name="chkMainOption" /> 사진</label>
             </S.SubWrap>
             <S.SubmitWrap>
-                <S.SubmitBtn onClick={props.onSubmit}>등록하기</S.SubmitBtn>
+                <S.SubmitBtn onClick={props.onSubmit} chkRegist={props.chkRegist}>등록하기</S.SubmitBtn>
             </S.SubmitWrap>
         </S.Wrapper>
     )
