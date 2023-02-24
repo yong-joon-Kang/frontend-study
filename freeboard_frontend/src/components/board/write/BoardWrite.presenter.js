@@ -4,7 +4,7 @@ export default function BoardWritePresenterPage(props){
 
     return(
         <S.Wrapper>
-            <S.HeaderTitle>게시물 등록</S.HeaderTitle>
+            <S.HeaderTitle>{props.isEdit ? "게시물 수정" : "게시물 등록"}</S.HeaderTitle>
             <S.WriterWrap>
                 <S.LeftWrap>
                     <S.Label>작성자</S.Label>
@@ -56,7 +56,11 @@ export default function BoardWritePresenterPage(props){
                 <label><S.RadioBtn type="radio" name="chkMainOption" /> 사진</label>
             </S.SubWrap>
             <S.SubmitWrap>
-                <S.SubmitBtn onClick={props.onSubmit} chkRegist={props.chkRegist}>등록하기</S.SubmitBtn>
+                <S.SubmitBtn
+                    onClick={props.onSubmit}
+                    chkRegist={props.chkRegist}>
+                    {props.isEdit ? "수정하기" : "등록하기"}
+                </S.SubmitBtn>
             </S.SubmitWrap>
         </S.Wrapper>
     )

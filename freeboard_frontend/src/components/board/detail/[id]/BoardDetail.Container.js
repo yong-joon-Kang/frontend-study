@@ -33,11 +33,17 @@ export default function BoardDetailContainerPage(props){
         
     }
 
+    const onClickBoardEdit = () => {
+        console.log('testes')
+        Router.push(`/boards/detail/${props.router.query.id}/edit`)
+    }
+
     return(
         <BoardDetailPresenterPage
             data={data}
             onClickBoardList={onClickBoardList}
             onClickBoardDelete={onClickBoardDelete}
+            onClickBoardEdit={onClickBoardEdit}
         />
     )
 }

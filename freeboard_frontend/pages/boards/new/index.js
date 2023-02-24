@@ -1,8 +1,8 @@
-import BoardWritePresenterPage from "../../../src/components/board/write/BoardWrite.container"
+import BoardWriteContainerPage from "../../../src/components/board/write/BoardWrite.container"
 
-export default function CreateBoardPage(){
+export default function CreateBoardPage(props){
 
     return(
-        <BoardWritePresenterPage />
+        <BoardWriteContainerPage isEdit={props.isEdit} />
     )
 }

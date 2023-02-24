@@ -1,11 +1,12 @@
 import BoardWritePresenterPage from "./BoardWrite.presenter"
-import { CREATE_BOARD } from "./BoardWrite.queries"
+import { CREATE_BOARD, EDIT_BOARD } from "./BoardWrite.queries"
 import { useMutation } from "@apollo/client"
 import { useState } from "react"
 import { useRouter } from "next/router"
 
-export default function BoardWriteContainerPage(){
+export default function BoardWriteContainerPage(props){
     const [createBoard] = useMutation(CREATE_BOARD)
+    const [updateBoard] = useMutation(EDIT_BOARD)
 
     const [writer, setWriter] = useState("")
     const [password, setPassword] = useState("")
@@ -89,17 +90,38 @@ export default function BoardWriteContainerPage(){
         
         try{
             if(writer && password && title && contents){
-                const result = await createBoard({
-                    variables: {
-                        writer: writer,
-                        password: password,
-                        title: title,
-                        contents: contents
-                    }
-                })
-                console.log(result)
-                alert("정상적으로 등록되었습니다.")
-                router.push(`/boards/detail/${result.data.createBoard._id}`)
+                console.log(router.query.id)
+                console.log(title, contents)
+                if(props.isEdit){
+                    console.log("gooooooooooooooooooooood")
+                    const result = await updateBoard({
+                        variables: {
+                            boardId: router.query.id,
+                            password: password,
+                            updateBoardInput: {
+                                title: title,
+                                contents: contents
+                            }
+                        }
+                    })
+                    console.log(result)
+                    alert("정상적으로 수정되었습니다.")
+                    router.push(`/boards/detail/${result.data.updateBoard._id}`)
+                }else{
+                    const result = await createBoard({
+                        variables: {
+                            writer: writer,
+                            password: password,
+                            title: title,
+                            contents: contents
+                        }
+                    })
+                    console.log(result)
+                    alert("정상적으로 등록되었습니다.")
+                    router.push(`/boards/detail/${result.data.createBoard._id}`)
+                }
+                
+                
             }
         }catch{
 
@@ -120,6 +142,7 @@ export default function BoardWriteContainerPage(){
         onContentsChanged={onContentsChanged}
         onSubmit={onSubmit}
         chkRegist={chkRegist}
+        isEdit={props.isEdit}
         />
     )
 }

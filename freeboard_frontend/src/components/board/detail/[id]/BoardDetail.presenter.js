@@ -29,7 +29,7 @@ export default function BoardDetailPresenterPage(props){
             </S.CardWrapper>
             <S.ButtonWrapper>
                 <S.Button onClick={props.onClickBoardList}>목록으로</S.Button>
-                <S.Button>수정하기</S.Button>
+                <S.Button onClick={props.onClickBoardEdit}>수정하기</S.Button>
                 <S.Button onClick={props.onClickBoardDelete}>삭제하기</S.Button>
             </S.ButtonWrapper>
         </S.Wrapper>
