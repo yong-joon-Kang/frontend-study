@@ -8,7 +8,7 @@ export default function BoardWritePresenterPage(props){
             <S.WriterWrap>
                 <S.LeftWrap>
                     <S.Label>작성자</S.Label>
-                    <S.WriterInput type="text" onChange={props.onWriterChanged} placeholder="이름을 적어주세요."/>
+                    <S.WriterInput type="text" onChange={props.onWriterChanged} value={props.fetchBoardDataList?.fetchBoard.writer} placeholder="이름을 적어주세요."/>
                     <S.ErrorText>{props.writerErr}</S.ErrorText>
                 </S.LeftWrap>
                 <S.RightWrap>
@@ -19,12 +19,12 @@ export default function BoardWritePresenterPage(props){
             </S.WriterWrap>
             <S.SubWrap>
                 <S.Label>제목</S.Label>
-                <S.TitleInput type="text" onChange={props.onTitleChanged} placeholder="제목을 적어주세요." />
+                <S.TitleInput type="text" onChange={props.onTitleChanged} defaultValue={props.fetchBoardDataList?.fetchBoard.title} placeholder="제목을 적어주세요." />
                 <S.ErrorText>{props.titleErr}</S.ErrorText>
             </S.SubWrap>
             <S.SubWrap>
                 <S.Label>내용</S.Label>
-                <S.ContentsInput type="text" onChange={props.onContentsChanged} placeholder="내용을 적어주세요." />
+                <S.ContentsInput type="text" onChange={props.onContentsChanged} defaultValue={props.fetchBoardDataList?.fetchBoard.contents}  placeholder="내용을 적어주세요." />
                 <S.ErrorText>{props.contentsErr}</S.ErrorText>
             </S.SubWrap>
             <S.SubWrap>
@@ -57,8 +57,8 @@ export default function BoardWritePresenterPage(props){
             </S.SubWrap>
             <S.SubmitWrap>
                 <S.SubmitBtn
-                    onClick={props.onSubmit}
-                    chkRegist={props.chkRegist}>
+                    onClick={props.isEdit ? props.onSubmitUpdate : props.onSubmit}
+                    isActive={props.isActive}>
                     {props.isEdit ? "수정하기" : "등록하기"}
                 </S.SubmitBtn>
             </S.SubmitWrap>

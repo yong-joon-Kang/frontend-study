@@ -3,6 +3,9 @@ import BoardWriteContainerPage from "../../../src/components/board/write/BoardWr
 export default function CreateBoardPage(props){
 
     return(
-        <BoardWriteContainerPage isEdit={props.isEdit} />
+        <BoardWriteContainerPage
+            isEdit={props.isEdit}
+            fetchBoardDataList={props.fetchBoardDataList}
+        />
     )
 }

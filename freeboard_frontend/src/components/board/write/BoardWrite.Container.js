@@ -18,7 +18,7 @@ export default function BoardWriteContainerPage(props){
     const [titleErr, setTitleErr] = useState("")
     const [contentsErr, setContentsErr] = useState("")
 
-    const [chkRegist, setChkRegist] = useState(Boolean)
+    const [isActive, setIsActive] = useState(Boolean)
 
     const router = useRouter();
 
@@ -26,9 +26,9 @@ export default function BoardWriteContainerPage(props){
         setWriter(event.target.value)
 
         if(event.target.value && password && title && contents){
-            setChkRegist(true)
+            setIsActive(true)
         }else {
-            setChkRegist(false)
+            setIsActive(false)
         }
     }
 
@@ -36,9 +36,9 @@ export default function BoardWriteContainerPage(props){
         setPassword(event.target.value)
 
         if(writer && event.target.value && title && contents){
-            setChkRegist(true)
+            setIsActive(true)
         }else {
-            setChkRegist(false)
+            setIsActive(false)
         }
     }
 
@@ -46,9 +46,9 @@ export default function BoardWriteContainerPage(props){
         setTitle(event.target.value)
 
         if(writer && password && event.target.value && contents){
-            setChkRegist(true)
+            setIsActive(true)
         }else {
-            setChkRegist(false)
+            setIsActive(false)
         }
     }
 
@@ -56,78 +56,81 @@ export default function BoardWriteContainerPage(props){
         setContents(event.target.value)
 
         if(writer && password && title && event.target.value){
-            setChkRegist(true)
+            setIsActive(true)
         }else {
-            setChkRegist(false)
+            setIsActive(false)
         }
     }
     
     const onSubmit = async () => {
-        
-        if(writer === ""){
+
+        if(!writer){
             setWriterErr("작성자는 필수입력 입니다.")
         }else{
             setWriterErr("")
         }
 
-        if(password === ""){
+        if(!password){
             setPasswordErr("비밀번호는 필수입력 입니다.")
         }else{
             setPasswordErr("")
         }
 
-        if(title === ""){
+        if(!title){
             setTitleErr("제목은 필수입력 입니다.")
         }else{
             setTitleErr("")
         }
 
-        if(contents === ""){
+        if(!contents){
             setContentsErr("내용은 필수입력 입니다.")
         }else{
             setContentsErr("")
         }
-        
+
         try{
             if(writer && password && title && contents){
-                console.log(router.query.id)
-                console.log(title, contents)
-                if(props.isEdit){
-                    console.log("gooooooooooooooooooooood")
-                    const result = await updateBoard({
-                        variables: {
-                            boardId: router.query.id,
-                            password: password,
-                            updateBoardInput: {
-                                title: title,
-                                contents: contents
-                            }
-                        }
-                    })
-                    console.log(result)
-                    alert("정상적으로 수정되었습니다.")
-                    router.push(`/boards/detail/${result.data.updateBoard._id}`)
-                }else{
-                    const result = await createBoard({
-                        variables: {
-                            writer: writer,
-                            password: password,
-                            title: title,
-                            contents: contents
-                        }
-                    })
-                    console.log(result)
-                    alert("정상적으로 등록되었습니다.")
-                    router.push(`/boards/detail/${result.data.createBoard._id}`)
-                }
-                
-                
+                const result = await createBoard({
+                    variables: {
+                        writer: writer,
+                        password: password,
+                        title: title,
+                        contents: contents
+                    }
+                })
+                console.log(result)
+                alert("정상적으로 등록되었습니다.")
+                router.push(`/boards/detail/${result.data.createBoard._id}`)
             }
-        }catch{
 
+        }catch(error){
+            console.log(error.message)
         }
-        
 
+    }
+
+    const onSubmitUpdate = async () => {
+        try{
+            const updateVariables = {
+                boardId: router.query.id,
+                password: password,
+                updateBoardInput: {}
+            }
+            if(title) updateVariables.updateBoardInput.title = title
+            if(contents) updateVariables.updateBoardInput.contents = contents
+    
+            console.log(updateVariables)
+    
+            const result = await updateBoard({
+                variables: updateVariables
+            })
+            console.log(result)
+            alert("정상적으로 수정되었습니다.")
+            router.push(`/boards/detail/${result.data.updateBoard._id}`)
+        }catch(error){
+            console.log(error.message)
+            alert(error.message)
+        }
     }
 
     return(
@@ -141,8 +144,10 @@ export default function BoardWriteContainerPage(props){
         onTitleChanged={onTitleChanged}
         onContentsChanged={onContentsChanged}
         onSubmit={onSubmit}
-        chkRegist={chkRegist}
+        onSubmitUpdate={onSubmitUpdate}
+        isActive={isActive}
         isEdit={props.isEdit}
+        fetchBoardDataList={props.fetchBoardDataList}
         />
     )
 }

@@ -1,20 +1,21 @@
 import BoardDetailPresenterPage from "./BoardDetail.presenter"
 import { FETCH_BOARD, DELETE_BOARD } from "./BoardDetail.queries"
 import { useQuery, useMutation } from "@apollo/client"
-import Router from "next/router"
+import { useRouter } from "next/router"
 
 export default function BoardDetailContainerPage(props){
+    const router = useRouter()
 
     const {data} = useQuery(FETCH_BOARD, {
         variables: {
-            boardId: props.router.query.id
+            boardId: router.query.id
         }
     })
     
     //console.log(data&&data)
 
     const onClickBoardList = () => {
-        Router.push("/boards/list")
+        router.push("/boards/list")
     }
     
     const [deleteBoard] = useMutation(DELETE_BOARD)
@@ -28,14 +29,13 @@ export default function BoardDetailContainerPage(props){
     
             alert("게시글이 정상적으로 삭제되었습니다.")
     
-            Router.push("/boards/list")
+            router.push("/boards/list")
         }
         
     }
 
     const onClickBoardEdit = () => {
-        console.log('testes')
-        Router.push(`/boards/detail/${props.router.query.id}/edit`)
+        router.push(`/boards/detail/${props.router.query.id}/edit`)
     }
 
     return(

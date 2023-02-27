@@ -119,7 +119,7 @@ display: flex;
 
 export const SubmitBtn = styled.button`
 background: ${props => {
-    if(props.chkRegist === true){
+    if(props.isActive === true){
         return "#FFD600";
     }else{
         return "#BDBDBD";
