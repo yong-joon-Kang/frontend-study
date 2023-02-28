@@ -2,6 +2,7 @@ import BoardDetailPresenterPage from "./BoardDetail.presenter"
 import { FETCH_BOARD, DELETE_BOARD } from "./BoardDetail.queries"
 import { useQuery, useMutation } from "@apollo/client"
 import { useRouter } from "next/router"
+import BoardCommentsPage from "@/pages/boards/detail/[id]/comments"
 
 export default function BoardDetailContainerPage(props){
     const router = useRouter()
@@ -39,11 +40,14 @@ export default function BoardDetailContainerPage(props){
     }
 
     return(
+        <>
         <BoardDetailPresenterPage
             data={data}
             onClickBoardList={onClickBoardList}
             onClickBoardDelete={onClickBoardDelete}
             onClickBoardEdit={onClickBoardEdit}
         />
+        <BoardCommentsPage />
+        </>
     )
 }

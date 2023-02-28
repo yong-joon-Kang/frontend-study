@@ -6,9 +6,10 @@ export default function BoardListPresenterPage(props){
         <S.Wrapper>
             <S.ListWrapper>
                 <S.ListHeader>
-                    <S.SearchBox>
+                    <S.SearchWrap>
+                        <S.SearchImg src="/search.png" />
                         <S.SearchInput type="text" placeholder="제목을 검색해주세요." />
-                    </S.SearchBox>
+                    </S.SearchWrap>
                     <S.DateInput type="text" placeholder="YYYY.MM.DD ~ YYYY.MM.DD" />
                     <S.SearchBtn>검색하기</S.SearchBtn>
                 </S.ListHeader>
@@ -36,7 +37,10 @@ export default function BoardListPresenterPage(props){
                 </S.List>
                 <S.ListFooter>
                     <S.PageNumber></S.PageNumber>
-                    <S.BoardWriteBtn onClick={props.onClickBoardWrite}>게시물 등록하기</S.BoardWriteBtn>
+                    <S.BoardWriteBtn onClick={props.onClickBoardWrite}>
+                        <S.WriteImg src="/pencil.png" />
+                        게시물 등록하기
+                    </S.BoardWriteBtn>
                 </S.ListFooter>
             </S.ListWrapper>
         </S.Wrapper>

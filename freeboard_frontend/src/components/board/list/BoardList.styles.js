@@ -13,21 +13,28 @@ width: 100%;
 display: flex;
 justify-content: space-between;
 margin-bottom: 10px;
+align-items: center;
 `
 
-export const SearchBox = styled.div`
-width: 650px;
-height: 40px;
-border-radius: 10px;
-background: #dbdbdb;
+export const SearchWrap = styled.div`
+position: relative;
 `
 
 export const SearchInput = styled.input`
-background: none;
-width: 90%;
-height: 100%;
+background: #dbdbdb;
+border-radius: 10px;
+width: 650px;
+height: 40px;
 border: none;
 outline: none;
+padding-left: 40px;
+`
+
+export const SearchImg = styled.img`
+height: 20px;
+position: absolute;
+top: 10px;
+left: 10px;
 `
 
 export const DateInput = styled.input`
@@ -98,6 +105,11 @@ export const PageNumber = styled.div`
 
 `
 
+export const WriteImg = styled.img`
+height: 15px;
+margin-right: 5px;
+`
+
 export const BoardWriteBtn = styled.button`
 border: 1px solid #ccc;
 border-radius: 10px;
@@ -106,4 +118,5 @@ font-weight: bold;
 padding: 10px;
 background: #fff;
 cursor: pointer;
+margin-top: 20px;
 `
