@@ -1,5 +1,5 @@
 import CreateBoardPage from "@/pages/boards/new";
-import { FETCH_BOARD } from "@/src/components/board/detail/[id]/BoardDetail.queries";
+import { FETCH_BOARD } from "@/src/components/board/detail/BoardDetail.queries";
 import { useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 export default function EditBoardPage(){

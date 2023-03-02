@@ -2,9 +2,8 @@ import BoardDetailPresenterPage from "./BoardDetail.presenter"
 import { FETCH_BOARD, DELETE_BOARD } from "./BoardDetail.queries"
 import { useQuery, useMutation } from "@apollo/client"
 import { useRouter } from "next/router"
-import BoardCommentsPage from "@/pages/boards/detail/[id]/comments"
 
-export default function BoardDetailContainerPage(props){
+export default function BoardDetailContainerPage(){
     const router = useRouter()
 
     const {data} = useQuery(FETCH_BOARD, {
@@ -24,7 +23,7 @@ export default function BoardDetailContainerPage(props){
         if(window.confirm("정말로 삭제하시겠습니까?")){
             await deleteBoard({
                 variables: {
-                    boardId: props.router.query.id
+                    boardId: router.query.id
                 }
             })
     
@@ -36,7 +35,7 @@ export default function BoardDetailContainerPage(props){
     }
 
     const onClickBoardEdit = () => {
-        router.push(`/boards/detail/${props.router.query.id}/edit`)
+        router.push(`/boards/detail/${router.query.id}/edit`)
     }
 
     return(
@@ -47,7 +46,6 @@ export default function BoardDetailContainerPage(props){
             onClickBoardDelete={onClickBoardDelete}
             onClickBoardEdit={onClickBoardEdit}
         />
-        <BoardCommentsPage />
         </>
     )
 }

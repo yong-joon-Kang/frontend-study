@@ -1,5 +1,5 @@
 import * as S from "./BoardDetail.styles"
-import { getDate } from "../../../../commons/libraries/utils"
+import { getDate } from "../../../commons/libraries/utils"
 
 export default function BoardDetailPresenterPage(props){
 
