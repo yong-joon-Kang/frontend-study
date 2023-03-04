@@ -15,13 +15,16 @@ export default function BoardCommentListPresenterPage(props){
                             <S.Date>{getDate(list.updatedAt)}</S.Date>
                         </S.MiddleWrap>
                         <S.RightWrap>
-                            <S.UpdateBtn 
-                                onClick={props.onClickUpdate} 
-                                src="/pencil-gray.png">
+                            <S.UpdateBtn
+                                onClick={props.onClickUpdate}
+                                src="/pencil-gray.png"
+                            >
                             </S.UpdateBtn>
-                            <S.DeleteBtn 
+                            <S.DeleteBtn
+                                id={list._id}
                                 onClick={props.onClickDelete}
-                                src="/cancel.png">
+                                src="/cancel.png"
+                            >
                             </S.DeleteBtn>
                         </S.RightWrap>
                     </S.CommentHeader>

@@ -3,7 +3,6 @@ import styled from "@emotion/styled";
 export const Wrapper = styled.div`
 width: 1200px;
 margin: 50px;
-margin-bottom: 50px;
 border-top: 1px solid #BDBDBD;
 padding-top: 30px;
 `
@@ -60,7 +59,7 @@ padding-left: 10px;
 
 
 export const CurrLength = styled.span`
-${props => 
+${props =>
     {if(props.length > 100){
         return "color: red; font-weight: bold";
     }else if(props.length > 70){
@@ -80,7 +79,7 @@ export const MaxLength = styled.span`
 export const WriteBtn = styled.button`
 float: right;
 width: 100px;
-height: 30px;
+height: 32px;
 background: #000;
 color: #fff;
 `

@@ -1,6 +1,7 @@
 import BoardCommentWritePresenterPage from "./BoardCommentWrite.presenter";
 import { useMutation } from "@apollo/client";
-import { FETCH_BOARD_COMMENTS, CREATE_BOARD_COMMENT } from "./BoardCommentWrite.queries"
+import { CREATE_BOARD_COMMENT } from "./BoardCommentWrite.queries"
+import { FETCH_BOARD_COMMENTS } from "../list/BoardCommentList.queries";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
