@@ -1,23 +1,10 @@
 import { ChangeEvent } from "react";
 import * as S from "./BoardWrite.styles";
+import { IBoardWritePresenterPageProps } from "./BoardWrite.types";
 
-interface IProps {
-  writerErr: string;
-  passwordErr: string;
-  titleErr: string;
-  contentsErr: string;
-  isActive: boolean;
-  isEdit: boolean;
-  fetchBoardDataList: any;
-  onWriterChanged: (event: ChangeEvent<HTMLInputElement>) => void;
-  onPasswordChanged: (event: ChangeEvent<HTMLInputElement>) => void;
-  onTitleChanged: (event: ChangeEvent<HTMLInputElement>) => void;
-  onContentsChanged: (event: ChangeEvent<HTMLTextAreaElement>) => void;
-  onSubmit: () => void;
-  onSubmitUpdate: () => void;
-}
-
-export default function BoardWritePresenterPage(props: IProps) {
+export default function BoardWritePresenterPage(
+  props: IBoardWritePresenterPageProps
+) {
   return (
     <S.Wrapper>
       <S.HeaderTitle>

@@ -1,14 +1,10 @@
 import { getDate } from "../../../commons/libraries/utils";
 import * as S from "./BoardCommentList.styles";
+import { IBoardCommentListPresenterPageProps } from "./BoardCommentList.types";
 
-interface IProps {
-  data: any;
-  onClickUpdate: () => void;
-  onClickDelete: (event: any) => void;
-  isEdit: boolean;
-}
-
-export default function BoardCommentListPresenterPage(props: IProps) {
+export default function BoardCommentListPresenterPage(
+  props: IBoardCommentListPresenterPageProps
+) {
   return (
     <S.Wrapper>
       <S.CommentListWrap>

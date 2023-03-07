@@ -1,10 +1,5 @@
+import { IThProps, ITrProps } from "./BoardList.types";
 import styled from "@emotion/styled";
-
-interface IProps {
-  pointer?: string;
-  hvBgColor?: string;
-  width?: string;
-}
 
 export const Wrapper = styled.div``;
 
@@ -72,7 +67,7 @@ export const Table = styled.table`
 
 export const Tr = styled.tr`
   border-top: 1px solid #ccc;
-  cursor: ${(props: IProps) => {
+  cursor: ${(props: ITrProps) => {
     if (props.pointer) {
       return props.pointer;
     } else {
@@ -80,7 +75,7 @@ export const Tr = styled.tr`
     }
   }};
   &:hover {
-    background: ${(props: IProps) => {
+    background: ${(props: ITrProps) => {
       if (props.hvBgColor) {
         return props.hvBgColor;
       } else {
@@ -93,7 +88,7 @@ export const Tr = styled.tr`
 export const Th = styled.th`
   padding: 5px;
   text-align: center;
-  width: ${(props: IProps) => props.width};
+  width: ${(props: IThProps) => props.width};
 `;
 
 export const Td = styled.td`

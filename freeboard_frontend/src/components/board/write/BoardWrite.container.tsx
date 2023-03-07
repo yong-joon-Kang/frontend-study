@@ -3,13 +3,14 @@ import { CREATE_BOARD, EDIT_BOARD } from "./BoardWrite.queries";
 import { useMutation } from "@apollo/client";
 import { ChangeEvent, useState } from "react";
 import { useRouter } from "next/router";
+import {
+  IBoardWriteContainerPageProps,
+  IUpdateVariables,
+} from "./BoardWrite.types";
 
-interface IProps {
-  isEdit: boolean;
-  fetchBoardDataList: any;
-}
-
-export default function BoardWriteContainerPage(props: IProps) {
+export default function BoardWriteContainerPage(
+  props: IBoardWriteContainerPageProps
+) {
   const [createBoard] = useMutation(CREATE_BOARD);
   const [updateBoard] = useMutation(EDIT_BOARD);
 
@@ -113,15 +114,6 @@ export default function BoardWriteContainerPage(props: IProps) {
 
   const onSubmitUpdate = async () => {
     try {
-      interface IUpdateVariables {
-        boardId: string | undefined | string[];
-        password: string;
-        updateBoardInput: {
-          title?: string;
-          contents?: string;
-        };
-      }
-
       const updateVariables: IUpdateVariables = {
         boardId: router.query.id,
         password: password,

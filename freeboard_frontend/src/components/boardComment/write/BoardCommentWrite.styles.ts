@@ -1,8 +1,5 @@
+import { ICurrLengthProps } from "./BoardCommentWrite.types";
 import styled from "@emotion/styled";
-
-interface IProps {
-  length: string;
-}
 
 export const Wrapper = styled.div`
   width: 1200px;
@@ -57,7 +54,7 @@ export const ContentsLength = styled.span`
 `;
 
 export const CurrLength = styled.span`
-  ${(props: IProps) => {
+  ${(props: ICurrLengthProps) => {
     if (Number(props.length) > 100) {
       return "color: red; font-weight: bold";
     } else if (Number(props.length) > 70) {

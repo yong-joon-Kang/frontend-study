@@ -1,13 +1,10 @@
 import * as S from "./BoardList.styles";
 import { getDate } from "../../../commons/libraries/utils";
+import { IBoardListPresenterPageProps } from "./BoardList.types";
 
-interface IProps {
-  data: any;
-  onClickBoardDetail: (arg0: string) => void;
-  onClickBoardWrite: () => void;
-}
-
-export default function BoardListPresenterPage(props: IProps) {
+export default function BoardListPresenterPage(
+  props: IBoardListPresenterPageProps
+) {
   return (
     <S.Wrapper>
       <S.ListWrapper>

@@ -1,15 +1,10 @@
 import * as S from "./BoardDetail.styles";
 import { getDate } from "../../../commons/libraries/utils";
-import { MouseEventHandler } from "react";
+import { IBoardDetailPresenterPageProps } from "./BoardDetail.types";
 
-interface IProps {
-  data: any;
-  onClickBoardList: () => void;
-  onClickBoardDelete: () => void;
-  onClickBoardEdit: () => void;
-}
-
-export default function BoardDetailPresenterPage(props: IProps) {
+export default function BoardDetailPresenterPage(
+  props: IBoardDetailPresenterPageProps
+) {
   return (
     <S.Wrapper>
       <S.CardWrapper>
