@@ -7,12 +7,14 @@ import {
   IBoardWriteContainerPageProps,
   IUpdateVariables,
 } from "./BoardWrite.types";
+import { IMutation } from "../../../commons/types/generated/types";
 
 export default function BoardWriteContainerPage(
   props: IBoardWriteContainerPageProps
 ) {
-  const [createBoard] = useMutation(CREATE_BOARD);
-  const [updateBoard] = useMutation(EDIT_BOARD);
+  const [createBoard] =
+    useMutation<Pick<IMutation, "createBoard">>(CREATE_BOARD);
+  const [updateBoard] = useMutation<Pick<IMutation, "updateBoard">>(EDIT_BOARD);
 
   const [writer, setWriter] = useState("");
   const [password, setPassword] = useState("");
@@ -105,7 +107,7 @@ export default function BoardWriteContainerPage(
         });
         console.log(result);
         alert("정상적으로 등록되었습니다.");
-        router.push(`/boards/detail/${result.data.createBoard._id}`);
+        router.push(`/boards/detail/${result?.data?.createBoard._id}`);
       }
     } catch (error: any) {
       console.log(error.message);
@@ -129,7 +131,7 @@ export default function BoardWriteContainerPage(
       });
       console.log(result);
       alert("정상적으로 수정되었습니다.");
-      router.push(`/boards/detail/${result.data.updateBoard._id}`);
+      router.push(`/boards/detail/${result?.data?.updateBoard._id}`);
     } catch (error: any) {
       console.log(error.message);
       alert(error.message);

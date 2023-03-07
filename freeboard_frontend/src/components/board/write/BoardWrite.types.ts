@@ -1,8 +1,9 @@
+import { IQuery } from "./../../../commons/types/generated/types";
 import { ChangeEvent } from "react";
 
 export interface IBoardWriteContainerPageProps {
   isEdit: boolean;
-  fetchBoardDataList: any;
+  fetchBoardDataList: Pick<IQuery, "fetchBoard">;
 }
 
 export interface IUpdateVariables {
@@ -21,7 +22,7 @@ export interface IBoardWritePresenterPageProps {
   contentsErr: string;
   isActive: boolean;
   isEdit: boolean;
-  fetchBoardDataList: any;
+  fetchBoardDataList: Pick<IQuery, "fetchBoard">;
   onWriterChanged: (event: ChangeEvent<HTMLInputElement>) => void;
   onPasswordChanged: (event: ChangeEvent<HTMLInputElement>) => void;
   onTitleChanged: (event: ChangeEvent<HTMLInputElement>) => void;

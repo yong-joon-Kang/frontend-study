@@ -6,24 +6,30 @@ import {
 } from "./BoardCommentList.queries";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { IMutation, IQuery } from "../../../commons/types/generated/types";
+import { IEvent } from "./BoardCommentList.types";
 
 export default function BoardCommentListContainerPage() {
   const [isEdit, setIsEdit] = useState(false);
-  const [deletaBoardComment] = useMutation(DELETE_BOARD_COMMENT);
+  const [deletaBoardComment] =
+    useMutation<Pick<IMutation, "deleteBoardComment">>(DELETE_BOARD_COMMENT);
 
   const router = useRouter();
-  const { data } = useQuery(FETCH_BOARD_COMMENTS, {
-    variables: {
-      page: 1,
-      boardId: router.query.id,
-    },
-  });
+  const { data } = useQuery<Pick<IQuery, "fetchBoardComments">>(
+    FETCH_BOARD_COMMENTS,
+    {
+      variables: {
+        page: 1,
+        boardId: router.query.id,
+      },
+    }
+  );
 
   const onClickUpdate = () => {
     setIsEdit(true);
   };
 
-  const onClickDelete = async (event: any) => {
+  const onClickDelete = async (event: IEvent) => {
     const myPassword = prompt("비밀번호를 입력하세요");
     try {
       await deletaBoardComment({

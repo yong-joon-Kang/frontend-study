@@ -1,5 +1,7 @@
+import { IQuery } from "../../../commons/types/generated/types";
+
 export interface IBoardDetailPresenterPageProps {
-  data: any;
+  data?: Pick<IQuery, "fetchBoard">;
   onClickBoardList: () => void;
   onClickBoardDelete: () => void;
   onClickBoardEdit: () => void;

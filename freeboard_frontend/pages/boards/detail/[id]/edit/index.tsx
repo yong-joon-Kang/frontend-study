@@ -1,11 +1,12 @@
 import { useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
+import { IQuery } from "../../../../../src/commons/types/generated/types";
 import { FETCH_BOARD } from "../../../../../src/components/board/detail/BoardDetail.queries";
 import CreateBoardPage from "../../../new";
 export default function EditBoardPage() {
   const router = useRouter();
 
-  const { data } = useQuery(FETCH_BOARD, {
+  const { data } = useQuery<Pick<IQuery, "fetchBoard">>(FETCH_BOARD, {
     variables: {
       boardId: router.query.id,
     },

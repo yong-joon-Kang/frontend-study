@@ -4,6 +4,7 @@ import { CREATE_BOARD_COMMENT } from "./BoardCommentWrite.queries";
 import { FETCH_BOARD_COMMENTS } from "../list/BoardCommentList.queries";
 import { useRouter } from "next/router";
 import { ChangeEvent, useState } from "react";
+import { IMutation } from "../../../commons/types/generated/types";
 
 export default function BoardCommentWriteContainerPage() {
   const [contents, setContents] = useState("");
@@ -14,7 +15,8 @@ export default function BoardCommentWriteContainerPage() {
 
   const router = useRouter();
 
-  const [createBoardComment] = useMutation(CREATE_BOARD_COMMENT);
+  const [createBoardComment] =
+    useMutation<Pick<IMutation, "createBoardComment">>(CREATE_BOARD_COMMENT);
   const onClickCmtWrite = async () => {
     try {
       if (!writer) {

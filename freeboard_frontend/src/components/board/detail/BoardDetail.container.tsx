@@ -2,11 +2,12 @@ import BoardDetailPresenterPage from "./BoardDetail.presenter";
 import { FETCH_BOARD, DELETE_BOARD } from "./BoardDetail.queries";
 import { useQuery, useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
+import { IMutation, IQuery } from "../../../commons/types/generated/types";
 
 export default function BoardDetailContainerPage() {
   const router = useRouter();
 
-  const { data } = useQuery(FETCH_BOARD, {
+  const { data } = useQuery<Pick<IQuery, "fetchBoard">>(FETCH_BOARD, {
     variables: {
       boardId: router.query.id,
     },
@@ -18,7 +19,9 @@ export default function BoardDetailContainerPage() {
     router.push("/boards/list");
   };
 
-  const [deleteBoard] = useMutation(DELETE_BOARD);
+  const [deleteBoard] =
+    useMutation<Pick<IMutation, "deleteBoard">>(DELETE_BOARD);
+
   const onClickBoardDelete = async () => {
     if (window.confirm("정말로 삭제하시겠습니까?")) {
       await deleteBoard({
