@@ -7,14 +7,23 @@ import {
   IBoardWriteContainerPageProps,
   IUpdateVariables,
 } from "./BoardWrite.types";
-import { IMutation } from "../../../commons/types/generated/types";
+import {
+  IMutation,
+  IMutationCreateBoardArgs,
+  IMutationUpdateBoardArgs,
+} from "../../../commons/types/generated/types";
 
 export default function BoardWriteContainerPage(
   props: IBoardWriteContainerPageProps
 ) {
-  const [createBoard] =
-    useMutation<Pick<IMutation, "createBoard">>(CREATE_BOARD);
-  const [updateBoard] = useMutation<Pick<IMutation, "updateBoard">>(EDIT_BOARD);
+  const [createBoard] = useMutation<
+    Pick<IMutation, "createBoard">,
+    IMutationCreateBoardArgs
+  >(CREATE_BOARD);
+  const [updateBoard] = useMutation<
+    Pick<IMutation, "updateBoard">,
+    IMutationUpdateBoardArgs
+  >(EDIT_BOARD);
 
   const [writer, setWriter] = useState("");
   const [password, setPassword] = useState("");
@@ -99,25 +108,27 @@ export default function BoardWriteContainerPage(
       if (writer && password && title && contents) {
         const result = await createBoard({
           variables: {
-            writer: writer,
-            password: password,
-            title: title,
-            contents: contents,
+            createBoardInput: {
+              writer: writer,
+              password: password,
+              title: title,
+              contents: contents,
+            },
           },
         });
         console.log(result);
         alert("정상적으로 등록되었습니다.");
         router.push(`/boards/detail/${result?.data?.createBoard._id}`);
       }
-    } catch (error: any) {
-      console.log(error.message);
+    } catch (error) {
+      if (error instanceof Error) console.log(error.message);
     }
   };
 
   const onSubmitUpdate = async () => {
     try {
       const updateVariables: IUpdateVariables = {
-        boardId: router.query.id,
+        boardId: String(router.query.id),
         password: password,
         updateBoardInput: {},
       };
@@ -132,9 +143,8 @@ export default function BoardWriteContainerPage(
       console.log(result);
       alert("정상적으로 수정되었습니다.");
       router.push(`/boards/detail/${result?.data?.updateBoard._id}`);
-    } catch (error: any) {
-      console.log(error.message);
-      alert(error.message);
+    } catch (error) {
+      if (error instanceof Error) alert(error.message);
     }
   };
 

@@ -3,11 +3,11 @@ import { ChangeEvent } from "react";
 
 export interface IBoardWriteContainerPageProps {
   isEdit: boolean;
-  fetchBoardDataList: Pick<IQuery, "fetchBoard">;
+  fetchBoardDataList?: Pick<IQuery, "fetchBoard">;
 }
 
 export interface IUpdateVariables {
-  boardId: string | undefined | string[];
+  boardId: string;
   password: string;
   updateBoardInput: {
     title?: string;
@@ -22,7 +22,7 @@ export interface IBoardWritePresenterPageProps {
   contentsErr: string;
   isActive: boolean;
   isEdit: boolean;
-  fetchBoardDataList: Pick<IQuery, "fetchBoard">;
+  fetchBoardDataList?: Pick<IQuery, "fetchBoard">;
   onWriterChanged: (event: ChangeEvent<HTMLInputElement>) => void;
   onPasswordChanged: (event: ChangeEvent<HTMLInputElement>) => void;
   onTitleChanged: (event: ChangeEvent<HTMLInputElement>) => void;

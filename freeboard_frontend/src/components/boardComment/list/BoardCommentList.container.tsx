@@ -6,7 +6,11 @@ import {
 } from "./BoardCommentList.queries";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { IMutation, IQuery } from "../../../commons/types/generated/types";
+import {
+  IMutation,
+  IQuery,
+  IQueryFetchBoardCommentsArgs,
+} from "../../../commons/types/generated/types";
 import { IEvent } from "./BoardCommentList.types";
 
 export default function BoardCommentListContainerPage() {
@@ -15,15 +19,15 @@ export default function BoardCommentListContainerPage() {
     useMutation<Pick<IMutation, "deleteBoardComment">>(DELETE_BOARD_COMMENT);
 
   const router = useRouter();
-  const { data } = useQuery<Pick<IQuery, "fetchBoardComments">>(
-    FETCH_BOARD_COMMENTS,
-    {
-      variables: {
-        page: 1,
-        boardId: router.query.id,
-      },
-    }
-  );
+  const { data } = useQuery<
+    Pick<IQuery, "fetchBoardComments">,
+    IQueryFetchBoardCommentsArgs
+  >(FETCH_BOARD_COMMENTS, {
+    variables: {
+      page: 1,
+      boardId: String(router.query.id),
+    },
+  });
 
   const onClickUpdate = () => {
     setIsEdit(true);
@@ -47,9 +51,11 @@ export default function BoardCommentListContainerPage() {
           },
         ],
       });
-    } catch (error: any) {
-      if (myPassword != null) {
-        alert(error.message);
+    } catch (error) {
+      if (error instanceof Error) {
+        if (myPassword != null) {
+          alert(error.message);
+        }
       }
     }
   };

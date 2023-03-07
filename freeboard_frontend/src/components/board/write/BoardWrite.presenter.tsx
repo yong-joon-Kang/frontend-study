@@ -16,7 +16,7 @@ export default function BoardWritePresenterPage(
           <S.WriterInput
             type="text"
             onChange={props.onWriterChanged}
-            value={props.fetchBoardDataList?.fetchBoard.writer}
+            value={String(props.fetchBoardDataList?.fetchBoard.writer)}
             placeholder="이름을 적어주세요."
           />
           <S.ErrorText>{props.writerErr}</S.ErrorText>

@@ -4,7 +4,10 @@ import { CREATE_BOARD_COMMENT } from "./BoardCommentWrite.queries";
 import { FETCH_BOARD_COMMENTS } from "../list/BoardCommentList.queries";
 import { useRouter } from "next/router";
 import { ChangeEvent, useState } from "react";
-import { IMutation } from "../../../commons/types/generated/types";
+import {
+  IMutation,
+  IMutationCreateBoardCommentArgs,
+} from "../../../commons/types/generated/types";
 
 export default function BoardCommentWriteContainerPage() {
   const [contents, setContents] = useState("");
@@ -15,8 +18,10 @@ export default function BoardCommentWriteContainerPage() {
 
   const router = useRouter();
 
-  const [createBoardComment] =
-    useMutation<Pick<IMutation, "createBoardComment">>(CREATE_BOARD_COMMENT);
+  const [createBoardComment] = useMutation<
+    Pick<IMutation, "createBoardComment">,
+    IMutationCreateBoardCommentArgs
+  >(CREATE_BOARD_COMMENT);
   const onClickCmtWrite = async () => {
     try {
       if (!writer) {
@@ -41,7 +46,7 @@ export default function BoardCommentWriteContainerPage() {
 
       const result = await createBoardComment({
         variables: {
-          boardId: router.query.id,
+          boardId: String(router.query.id),
           createBoardCommentInput: {
             writer: writer,
             password: password,
@@ -66,9 +71,7 @@ export default function BoardCommentWriteContainerPage() {
       setPw("");
 
       console.log(result);
-    } catch (error: any) {
-      console.log(error.message);
-    }
+    } catch (error) {}
   };
 
   const onChangeTextArea = (event: ChangeEvent<HTMLTextAreaElement>) => {
