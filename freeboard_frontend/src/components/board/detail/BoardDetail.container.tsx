@@ -42,7 +42,7 @@ export default function BoardDetailContainerPage() {
   };
 
   const onClickBoardEdit = () => {
-    router.push(`/boards/detail/${router.query.id}/edit`);
+    router.push(`/boards/detail/${String(router.query.id)}/edit`);
   };
 
   return (

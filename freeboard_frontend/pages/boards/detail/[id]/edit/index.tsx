@@ -18,8 +18,5 @@ export default function EditBoardPage() {
     }
   );
 
-  //console.log('editPage=============')
-  //console.log(data)
-
   return <CreateBoardPage isEdit={true} fetchBoardDataList={data} />;
 }

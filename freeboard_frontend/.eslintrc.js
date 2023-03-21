@@ -6,7 +6,7 @@ module.exports = {
   extends: ["plugin:react/recommended", "standard-with-typescript", "prettier"],
   overrides: [],
   parserOptions: {
-    project: "./freeboard_frontend/tsconfig.json",
+    project: "**/tsconfig.json",
     ecmaVersion: "latest",
     sourceType: "module",
   },
@@ -19,7 +19,6 @@ module.exports = {
     "@typescript-eslint/triple-slash-reference": "off",
     "@typescript-eslint/consistent-type-imports": "off",
     "@typescript-eslint/no-floating-promises": "off",
-    "@typescript-eslint/restrict-template-expressions": "off",
     "object-shorthand": "off",
   },
 };
