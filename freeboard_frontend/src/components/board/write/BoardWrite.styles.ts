@@ -118,7 +118,7 @@ export const SubmitWrap = styled.div`
 
 export const SubmitBtn = styled.button`
   background: ${(props: ISubmitBtnProps) => {
-    if (props.isActive === true) {
+    if (props.isActive) {
       return "#FFD600";
     } else {
       return "#BDBDBD";

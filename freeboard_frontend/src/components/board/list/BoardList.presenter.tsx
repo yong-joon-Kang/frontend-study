@@ -29,8 +29,9 @@ export default function BoardListPresenterPage(
             <tbody>
               {props.data?.fetchBoards.map((list: any, index: number) => (
                 <S.Tr
+                  id={list._id}
                   key={list._id}
-                  onClick={() => props.onClickBoardDetail(list._id)}
+                  onClick={props.onClickBoardDetail}
                 >
                   <S.Td>{index + 1}</S.Td>
                   <S.Td>{list.title}</S.Td>

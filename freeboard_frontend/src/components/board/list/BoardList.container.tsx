@@ -2,6 +2,8 @@ import BoardListPresenterPage from "./BoardList.presenter";
 import { FETCH_BOARDS } from "./BoardList.queries";
 import { useQuery } from "@apollo/client";
 import router from "next/router";
+import { MouseEvent } from "react";
+
 import {
   IQuery,
   IQueryFetchBoardsArgs,
@@ -16,8 +18,8 @@ export default function BoardListContainerPage() {
     router.push("/boards/new");
   };
 
-  const onClickBoardDetail = (id: string) => {
-    router.push(`/boards/detail/${id}`);
+  const onClickBoardDetail = (event: MouseEvent<HTMLDivElement>) => {
+    router.push(`/boards/detail/${event.currentTarget.id}`);
   };
 
   return (

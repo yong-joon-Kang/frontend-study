@@ -1,4 +1,3 @@
-import { ChangeEvent } from "react";
 import * as S from "./BoardWrite.styles";
 import { IBoardWritePresenterPageProps } from "./BoardWrite.types";
 
@@ -16,8 +15,9 @@ export default function BoardWritePresenterPage(
           <S.WriterInput
             type="text"
             onChange={props.onWriterChanged}
-            value={String(props.fetchBoardDataList?.fetchBoard.writer)}
+            defaultValue={props.fetchBoardDataList?.fetchBoard.writer ?? ""}
             placeholder="이름을 적어주세요."
+            readOnly={props.isEdit}
           />
           <S.ErrorText>{props.writerErr}</S.ErrorText>
         </S.LeftWrap>

@@ -20,8 +20,6 @@ export default function BoardDetailContainerPage() {
     }
   );
 
-  //console.log(data&&data)
-
   const onClickBoardList = () => {
     router.push("/boards/list");
   };

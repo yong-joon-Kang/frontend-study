@@ -1,17 +1,18 @@
 import BoardCommentListPresenterPage from "./BoardCommentList.presenter";
 import { useMutation, useQuery } from "@apollo/client";
+import { MouseEvent, useState } from "react";
+
 import {
   FETCH_BOARD_COMMENTS,
   DELETE_BOARD_COMMENT,
 } from "./BoardCommentList.queries";
 import { useRouter } from "next/router";
-import { useState } from "react";
+
 import {
   IMutation,
   IQuery,
   IQueryFetchBoardCommentsArgs,
 } from "../../../commons/types/generated/types";
-import { IEvent } from "./BoardCommentList.types";
 
 export default function BoardCommentListContainerPage() {
   const [isEdit, setIsEdit] = useState(false);
@@ -33,13 +34,13 @@ export default function BoardCommentListContainerPage() {
     setIsEdit(true);
   };
 
-  const onClickDelete = async (event: IEvent) => {
+  const onClickDelete = async (event: MouseEvent<HTMLImageElement>) => {
     const myPassword = prompt("비밀번호를 입력하세요");
     try {
       await deletaBoardComment({
         variables: {
           password: myPassword,
-          boardCommentId: event.target.id,
+          boardCommentId: event.currentTarget.id,
         },
         refetchQueries: [
           {
