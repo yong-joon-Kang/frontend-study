@@ -8,6 +8,7 @@ import {
   IMutation,
   IMutationCreateBoardCommentArgs,
 } from "../../../commons/types/generated/types";
+import { message } from "antd";
 
 export default function BoardCommentWriteContainerPage() {
   const [contents, setContents] = useState("");
@@ -15,6 +16,8 @@ export default function BoardCommentWriteContainerPage() {
   const [writer, setWriter] = useState("");
   const [password, setPw] = useState("");
   const [isEdit, setIsEdit] = useState(false);
+  const [rateCnt, setRateCnt] = useState(5);
+  const [messageApi, contextHolder] = message.useMessage(); // 비밀번호 에러 alert
 
   const router = useRouter();
 
@@ -25,22 +28,34 @@ export default function BoardCommentWriteContainerPage() {
   const onClickCmtWrite = async () => {
     try {
       if (!writer) {
-        alert("작성자를 입력해주세요");
+        messageApi.open({
+          type: "error",
+          content: "작성자를 입력해주세요",
+        });
         return false;
       }
 
       if (!password) {
-        alert("비밀번호를 입력해주세요");
+        messageApi.open({
+          type: "error",
+          content: "비밀번호를 입력해주세요",
+        });
         return false;
       }
 
       if (!contents) {
-        alert("내용을 입력해주세요");
+        messageApi.open({
+          type: "error",
+          content: "내용을 입력해주세요",
+        });
         return false;
       }
 
       if (Number(contentsLength) > 100) {
-        alert("100글자 이상 입력할 수 없습니다.");
+        messageApi.open({
+          type: "error",
+          content: "100글자 이상 입력할 수 없습니다.",
+        });
         return false;
       }
 
@@ -51,7 +66,7 @@ export default function BoardCommentWriteContainerPage() {
             writer: writer,
             password: password,
             contents: contents,
-            rating: 5,
+            rating: rateCnt,
           },
         },
         refetchQueries: [
@@ -94,18 +109,22 @@ export default function BoardCommentWriteContainerPage() {
   const onClickDelete = () => {};
 
   return (
-    <BoardCommentWritePresenterPage
-      onClickCmtWrite={onClickCmtWrite}
-      onChangeTextArea={onChangeTextArea}
-      onChangeWriter={onChangeWriter}
-      onChangePw={onChangePw}
-      onClickUpdate={onClickUpdate}
-      onClickDelete={onClickDelete}
-      contents={contents}
-      contentsLength={contentsLength}
-      writer={writer}
-      password={password}
-      isEdit={isEdit}
-    />
+    <>
+      {contextHolder}
+      <BoardCommentWritePresenterPage
+        onClickCmtWrite={onClickCmtWrite}
+        onChangeTextArea={onChangeTextArea}
+        onChangeWriter={onChangeWriter}
+        onChangePw={onChangePw}
+        onClickUpdate={onClickUpdate}
+        onClickDelete={onClickDelete}
+        contents={contents}
+        contentsLength={contentsLength}
+        writer={writer}
+        password={password}
+        isEdit={isEdit}
+        setRateCnt={setRateCnt}
+      />
+    </>
   );
 }

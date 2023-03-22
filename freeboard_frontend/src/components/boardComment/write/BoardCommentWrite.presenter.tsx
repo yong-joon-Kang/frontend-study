@@ -11,6 +11,7 @@ export default function BoardCommentPresenterPage(
           <S.CommentImg src="/comments.png" />
           <span>댓글</span>
         </S.Header>
+        <S.StarRate onChange={props.setRateCnt} defaultValue={5} />
         <S.WriterInput
           onChange={props.onChangeWriter}
           value={props.writer}

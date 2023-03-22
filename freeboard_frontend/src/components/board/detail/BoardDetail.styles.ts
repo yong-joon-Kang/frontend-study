@@ -1,4 +1,6 @@
+import { LikeOutlined, DislikeOutlined } from "@ant-design/icons";
 import styled from "@emotion/styled";
+import { LikeType } from "./BoardDetail.types";
 
 export const Wrapper = styled.div`
   width: 1200px;
@@ -6,11 +8,12 @@ export const Wrapper = styled.div`
 `;
 
 export const CardWrapper = styled.div`
-  height: 847px;
+  min-height: 847px;
   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
   padding: 50px;
   display: flex;
   flex-direction: column;
+  align-items: center;
 `;
 
 export const Header = styled.div`
@@ -56,10 +59,36 @@ export const HeadRight = styled.div`
 
 export const Contents = styled.div`
   width: 100%;
-  padding: 30px;
+  height: 700px;
+  padding: 30px 0 0 30px;
 `;
 
-export const Footer = styled.div``;
+export const Footer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+
+export const LikeWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 30px;
+  color: ${(props: LikeType) => (props.isLikeIcon ? "#ffd600;" : "#828282")};
+  cursor: pointer;
+`;
+
+export const LikeIcon = styled(LikeOutlined)`
+  font-size: 25px;
+`;
+
+export const LikeCnt = styled.span`
+  font-size: 16px;
+`;
+
+export const DislikeIcon = styled(DislikeOutlined)`
+  font-size: 25px;
+`;
 
 export const ButtonWrapper = styled.div`
   display: flex;

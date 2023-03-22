@@ -1,6 +1,6 @@
 import BoardCommentListPresenterPage from "./BoardCommentList.presenter";
 import { useMutation, useQuery } from "@apollo/client";
-import { MouseEvent, useState } from "react";
+import { ChangeEvent, MouseEvent, useState } from "react";
 
 import {
   FETCH_BOARD_COMMENTS,
@@ -13,6 +13,8 @@ import {
   IQuery,
   IQueryFetchBoardCommentsArgs,
 } from "../../../commons/types/generated/types";
+import ConfirmModalPresenter from "../../../commons/modals/confirmModal.presenter";
+import { message } from "antd";
 
 export default function BoardCommentListContainerPage() {
   const [isEdit, setIsEdit] = useState(false);
@@ -34,13 +36,33 @@ export default function BoardCommentListContainerPage() {
     setIsEdit(true);
   };
 
-  const onClickDelete = async (event: MouseEvent<HTMLImageElement>) => {
-    const myPassword = prompt("비밀번호를 입력하세요");
+  // =================START:: board Comment 삭제 시
+  const [ismodalToggle, setModalToggle] = useState(false);
+  const [commentId, setCommentId] = useState("");
+  const [password, setPassword] = useState("");
+  const [messageApi, contextHolder] = message.useMessage(); // 비밀번호 에러 alert
+
+  const onChangePassword = (event: ChangeEvent<HTMLInputElement>) => {
+    setPassword(event.target.value);
+  };
+
+  const onToggleModal = (event: MouseEvent<HTMLImageElement>) => {
+    setCommentId(event.currentTarget.id);
+    setModalToggle(!ismodalToggle);
+    if (!ismodalToggle) setPassword("");
+  };
+
+  const handleOk = () => {
+    setModalToggle(!ismodalToggle);
+    onClickDelete(commentId);
+  };
+
+  const onClickDelete = async (commentId: string) => {
     try {
       await deletaBoardComment({
         variables: {
-          password: myPassword,
-          boardCommentId: event.currentTarget.id,
+          password: password,
+          boardCommentId: commentId,
         },
         refetchQueries: [
           {
@@ -54,19 +76,35 @@ export default function BoardCommentListContainerPage() {
       });
     } catch (error) {
       if (error instanceof Error) {
-        if (myPassword != null) {
-          alert(error.message);
+        if (password != null) {
+          messageApi.open({
+            type: "error",
+            content: "비밀번호가 일치하지 않습니다.",
+          });
         }
       }
     }
   };
 
+  // =================END:: board Comment 삭제 시
+
   return (
-    <BoardCommentListPresenterPage
-      data={data}
-      onClickUpdate={onClickUpdate}
-      onClickDelete={onClickDelete}
-      isEdit={isEdit}
-    />
+    <>
+      {contextHolder}
+      <ConfirmModalPresenter
+        onToggleModal={onToggleModal}
+        handleOk={handleOk}
+        ismodalToggle={ismodalToggle}
+        btnFnc="boardCommentDelete"
+        onChangePassword={onChangePassword}
+        password={password}
+      />
+      <BoardCommentListPresenterPage
+        data={data}
+        onClickUpdate={onClickUpdate}
+        isEdit={isEdit}
+        onToggleModal={onToggleModal}
+      />
+    </>
   );
 }

@@ -9,11 +9,14 @@ export default function BoardCommentListPresenterPage(
     <S.Wrapper>
       <S.CommentListWrap>
         {props.data?.fetchBoardComments.map((list: any, index: number) => (
-          <S.CommentList key={index}>
+          <S.CommentList key={list.id}>
             <S.CommentHeader>
               <S.ProfileImg src="/profileDef.png" />
               <S.MiddleWrap>
-                <S.Writer>{list.writer}</S.Writer>
+                <S.Writer>
+                  {list.writer}
+                  <S.StarRate disabled value={list.rating} />
+                </S.Writer>
                 <S.Contents>{list.contents}</S.Contents>
                 <S.Date>{getDate(list.updatedAt)}</S.Date>
               </S.MiddleWrap>
@@ -24,7 +27,7 @@ export default function BoardCommentListPresenterPage(
                 ></S.UpdateBtn>
                 <S.DeleteBtn
                   id={list._id}
-                  onClick={props.onClickDelete}
+                  onClick={props.onToggleModal}
                   src="/cancel.png"
                 ></S.DeleteBtn>
               </S.RightWrap>

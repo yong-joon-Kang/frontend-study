@@ -1,4 +1,4 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent, Dispatch, SetStateAction } from "react";
 
 export interface IBoardCommentPresenterPageProps {
   onClickCmtWrite: () => void;
@@ -12,6 +12,7 @@ export interface IBoardCommentPresenterPageProps {
   writer: string;
   password: string;
   isEdit: boolean;
+  setRateCnt: Dispatch<SetStateAction<number>>;
 }
 
 export interface ICurrLengthProps {

@@ -27,12 +27,21 @@ export default function BoardDetailPresenterPage(
           <S.Title>{props.data?.fetchBoard.title}</S.Title>
           {props.data?.fetchBoard.contents}
         </S.Contents>
-        <S.Footer></S.Footer>
+        <S.Footer>
+          <S.LikeWrap isLikeIcon={true} onClick={props.onClickCountLike}>
+            <S.LikeIcon />
+            <S.LikeCnt>{props.data?.fetchBoard.likeCount}</S.LikeCnt>
+          </S.LikeWrap>
+          <S.LikeWrap isLikeIcon={false} onClick={props.onClickCountDislike}>
+            <S.DislikeIcon />
+            <S.LikeCnt>{props.data?.fetchBoard.dislikeCount}</S.LikeCnt>
+          </S.LikeWrap>
+        </S.Footer>
       </S.CardWrapper>
       <S.ButtonWrapper>
         <S.Button onClick={props.onClickBoardList}>목록으로</S.Button>
         <S.Button onClick={props.onClickBoardEdit}>수정하기</S.Button>
-        <S.Button onClick={props.onClickBoardDelete}>삭제하기</S.Button>
+        <S.Button onClick={props.onToggleModal}>삭제하기</S.Button>
       </S.ButtonWrapper>
     </S.Wrapper>
   );

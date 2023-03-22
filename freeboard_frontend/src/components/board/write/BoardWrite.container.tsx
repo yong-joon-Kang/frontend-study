@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
+/* eslint-disable @typescript-eslint/restrict-plus-operands */
 import BoardWritePresenterPage from "./BoardWrite.presenter";
 import { CREATE_BOARD, EDIT_BOARD } from "./BoardWrite.queries";
 import { useMutation } from "@apollo/client";
@@ -12,6 +14,8 @@ import {
   IMutationCreateBoardArgs,
   IMutationUpdateBoardArgs,
 } from "../../../commons/types/generated/types";
+import { useDaumPostcodePopup } from "react-daum-postcode";
+import { message } from "antd";
 
 export default function BoardWriteContainerPage(
   props: IBoardWriteContainerPageProps
@@ -29,6 +33,8 @@ export default function BoardWriteContainerPage(
   const [password, setPassword] = useState("");
   const [title, setTitle] = useState("");
   const [contents, setContents] = useState("");
+  const [postCode, setPostCode] = useState("");
+  const [zoneCode, setZoneCode] = useState("");
 
   const [writerErr, setWriterErr] = useState("");
   const [passwordErr, setPasswordErr] = useState("");
@@ -36,6 +42,8 @@ export default function BoardWriteContainerPage(
   const [contentsErr, setContentsErr] = useState("");
 
   const [isActive, setIsActive] = useState(Boolean);
+
+  const [messageApi, contextHolder] = message.useMessage(); // 비밀번호 에러 alert
 
   const router = useRouter();
 
@@ -116,9 +124,11 @@ export default function BoardWriteContainerPage(
             },
           },
         });
-        console.log(result);
-        alert("정상적으로 등록되었습니다.");
-        router.push(`/boards/detail/${String(result?.data?.createBoard._id)}`);
+        // console.log(result);
+        router.push({
+          pathname: `/boards/detail/${String(result?.data?.createBoard._id)}`,
+          query: { crud: "create" },
+        });
       }
     } catch (error) {
       if (error instanceof Error) console.log(error.message);
@@ -141,28 +151,71 @@ export default function BoardWriteContainerPage(
         variables: updateVariables,
       });
       console.log(result);
-      alert("정상적으로 수정되었습니다.");
-      router.push(`/boards/detail/${result?.data?.updateBoard._id}`);
+      // alert("정상적으로 수정되었습니다.");
+
+      router.push(`/boards/detail/${String(result?.data?.updateBoard._id)}`);
     } catch (error) {
-      if (error instanceof Error) alert(error.message);
+      if (error instanceof Error) {
+        messageApi.open({
+          type: "error",
+          content: "비밀번호가 일치하지 않습니다.",
+        });
+      }
     }
   };
 
+  // ==========================START:: 우편번호 검색 팝업 기능
+
+  const open = useDaumPostcodePopup();
+
+  const handleComplete = (data: any) => {
+    let fullAddress = data.address;
+    let extraAddress = "";
+
+    if (data.addressType === "R") {
+      if (data.bname !== "") {
+        extraAddress += data.bname;
+      }
+      if (data.buildingName !== "") {
+        extraAddress +=
+          extraAddress !== "" ? `, ${data.buildingName}` : data.buildingName;
+      }
+      fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
+    }
+
+    console.log(fullAddress); // e.g. '서울 성동구 왕십리로2길 20 (성수동1가)'
+
+    setPostCode(fullAddress);
+    setZoneCode(data.zonecode);
+  };
+
+  const onClickPostCode = () => {
+    open({ onComplete: handleComplete });
+  };
+
+  // ==========================END:: 우편번호 검색 팝업 기능
+
   return (
-    <BoardWritePresenterPage
-      writerErr={writerErr}
-      passwordErr={passwordErr}
-      titleErr={titleErr}
-      contentsErr={contentsErr}
-      isActive={isActive}
-      isEdit={props.isEdit}
-      fetchBoardDataList={props.fetchBoardDataList}
-      onWriterChanged={onWriterChanged}
-      onPasswordChanged={onPasswordChanged}
-      onTitleChanged={onTitleChanged}
-      onContentsChanged={onContentsChanged}
-      onSubmit={onSubmit}
-      onSubmitUpdate={onSubmitUpdate}
-    />
+    <>
+      {contextHolder}
+      <BoardWritePresenterPage
+        writerErr={writerErr}
+        passwordErr={passwordErr}
+        titleErr={titleErr}
+        contentsErr={contentsErr}
+        isActive={isActive}
+        isEdit={props.isEdit}
+        fetchBoardDataList={props.fetchBoardDataList}
+        onWriterChanged={onWriterChanged}
+        onPasswordChanged={onPasswordChanged}
+        onTitleChanged={onTitleChanged}
+        onContentsChanged={onContentsChanged}
+        onSubmit={onSubmit}
+        onSubmitUpdate={onSubmitUpdate}
+        onClickPostCode={onClickPostCode}
+        postCode={postCode}
+        zoneCode={zoneCode}
+      />
+    </>
   );
 }

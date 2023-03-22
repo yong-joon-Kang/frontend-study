@@ -22,6 +22,8 @@ export interface IBoardWritePresenterPageProps {
   contentsErr: string;
   isActive: boolean;
   isEdit: boolean;
+  postCode: string;
+  zoneCode: string;
   fetchBoardDataList?: Pick<IQuery, "fetchBoard">;
   onWriterChanged: (event: ChangeEvent<HTMLInputElement>) => void;
   onPasswordChanged: (event: ChangeEvent<HTMLInputElement>) => void;
@@ -29,6 +31,7 @@ export interface IBoardWritePresenterPageProps {
   onContentsChanged: (event: ChangeEvent<HTMLTextAreaElement>) => void;
   onSubmit: () => void;
   onSubmitUpdate: () => void;
+  onClickPostCode: () => void;
 }
 
 export interface ISubmitBtnProps {

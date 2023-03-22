@@ -1,5 +1,6 @@
 import { ICurrLengthProps } from "./BoardCommentWrite.types";
 import styled from "@emotion/styled";
+import { Rate } from "antd";
 
 export const Wrapper = styled.div`
   width: 1200px;
@@ -13,6 +14,11 @@ export const CommentWriteWrap = styled.div``;
 export const Header = styled.div`
   display: flex;
   align-items: center;
+  margin-bottom: 20px;
+`;
+
+export const StarRate = styled(Rate)`
+  display: block;
   margin-bottom: 20px;
 `;
 

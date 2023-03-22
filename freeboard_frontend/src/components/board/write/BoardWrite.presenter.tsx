@@ -52,9 +52,15 @@ export default function BoardWritePresenterPage(
       </S.SubWrap>
       <S.SubWrap>
         <S.Label>주소</S.Label>
-        <S.AddrNumInput type="text" placeholder="07592" />
-        <S.AddrNumBtn>우편번호 검색</S.AddrNumBtn>
-        <S.TitleInput type="text" />
+        <S.AddrNumInput
+          type="text"
+          placeholder="07592"
+          defaultValue={props.zoneCode}
+        />
+        <S.AddrNumBtn onClick={props.onClickPostCode}>
+          우편번호 검색
+        </S.AddrNumBtn>
+        <S.TitleInput type="text" defaultValue={props.postCode} />
         <S.TitleInput type="text" />
       </S.SubWrap>
       <S.SubWrap>
