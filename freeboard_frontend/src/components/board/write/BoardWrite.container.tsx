@@ -7,7 +7,7 @@ import { ChangeEvent, useState } from "react";
 import { useRouter } from "next/router";
 import {
   IBoardWriteContainerPageProps,
-  IUpdateVariables,
+  IUpdateBoardInput,
 } from "./BoardWrite.types";
 import {
   IMutation,
@@ -33,8 +33,9 @@ export default function BoardWriteContainerPage(
   const [password, setPassword] = useState("");
   const [title, setTitle] = useState("");
   const [contents, setContents] = useState("");
-  const [postCode, setPostCode] = useState("");
-  const [zoneCode, setZoneCode] = useState("");
+  const [zipcode, setZipCode] = useState("");
+  const [address, setAddress] = useState("");
+  const [detailAddress, setDetailAddress] = useState("");
 
   const [writerErr, setWriterErr] = useState("");
   const [passwordErr, setPasswordErr] = useState("");
@@ -121,12 +122,17 @@ export default function BoardWriteContainerPage(
               password: password,
               title: title,
               contents: contents,
+              boardAddress: {
+                zipcode: zipcode,
+                address: address,
+                addressDetail: detailAddress,
+              },
             },
           },
         });
         // console.log(result);
         router.push({
-          pathname: `/boards/detail/${String(result?.data?.createBoard._id)}`,
+          pathname: `/boards/detail/${result?.data?.createBoard._id}`,
           query: { crud: "create" },
         });
       }
@@ -137,23 +143,30 @@ export default function BoardWriteContainerPage(
 
   const onSubmitUpdate = async () => {
     try {
-      const updateVariables: IUpdateVariables = {
-        boardId: String(router.query.id),
-        password: password,
-        updateBoardInput: {},
-      };
-      if (title) updateVariables.updateBoardInput.title = title;
-      if (contents) updateVariables.updateBoardInput.contents = contents;
+      const updateBoardInput: IUpdateBoardInput = {};
+      if (title) updateBoardInput.title = title;
+      if (contents) updateBoardInput.contents = contents;
+      if (zipcode || address || detailAddress) {
+        updateBoardInput.boardAddress = {};
+        if (zipcode) updateBoardInput.boardAddress.zipcode = zipcode;
+        if (address) updateBoardInput.boardAddress.address = address;
+        if (detailAddress)
+          updateBoardInput.boardAddress.addressDetail = detailAddress;
+      }
 
-      console.log(updateVariables);
+      console.log(updateBoardInput);
 
       const result = await updateBoard({
-        variables: updateVariables,
+        variables: {
+          boardId: String(router.query.id),
+          password: password,
+          updateBoardInput: updateBoardInput,
+        },
       });
       console.log(result);
       // alert("정상적으로 수정되었습니다.");
 
-      router.push(`/boards/detail/${String(result?.data?.updateBoard._id)}`);
+      router.push(`/boards/detail/${result?.data?.updateBoard._id}`);
     } catch (error) {
       if (error instanceof Error) {
         messageApi.open({
@@ -185,8 +198,8 @@ export default function BoardWriteContainerPage(
 
     console.log(fullAddress); // e.g. '서울 성동구 왕십리로2길 20 (성수동1가)'
 
-    setPostCode(fullAddress);
-    setZoneCode(data.zonecode);
+    setAddress(fullAddress);
+    setZipCode(data.zonecode);
   };
 
   const onClickPostCode = () => {
@@ -195,6 +208,9 @@ export default function BoardWriteContainerPage(
 
   // ==========================END:: 우편번호 검색 팝업 기능
 
+  const onChangeDetailAddress = (event: ChangeEvent<HTMLInputElement>) => {
+    setDetailAddress(event.target.value);
+  };
   return (
     <>
       {contextHolder}
@@ -213,8 +229,9 @@ export default function BoardWriteContainerPage(
         onSubmit={onSubmit}
         onSubmitUpdate={onSubmitUpdate}
         onClickPostCode={onClickPostCode}
-        postCode={postCode}
-        zoneCode={zoneCode}
+        zipcode={zipcode}
+        address={address}
+        onChangeDetailAddress={onChangeDetailAddress}
       />
     </>
   );

@@ -4,6 +4,7 @@ import { IBoardWritePresenterPageProps } from "./BoardWrite.types";
 export default function BoardWritePresenterPage(
   props: IBoardWritePresenterPageProps
 ) {
+  const fetchBoard = props.fetchBoardDataList?.fetchBoard;
   return (
     <S.Wrapper>
       <S.HeaderTitle>
@@ -15,7 +16,7 @@ export default function BoardWritePresenterPage(
           <S.WriterInput
             type="text"
             onChange={props.onWriterChanged}
-            defaultValue={props.fetchBoardDataList?.fetchBoard.writer ?? ""}
+            defaultValue={fetchBoard?.writer ?? ""}
             placeholder="이름을 적어주세요."
             readOnly={props.isEdit}
           />
@@ -36,7 +37,7 @@ export default function BoardWritePresenterPage(
         <S.TitleInput
           type="text"
           onChange={props.onTitleChanged}
-          defaultValue={props.fetchBoardDataList?.fetchBoard.title}
+          defaultValue={fetchBoard?.title}
           placeholder="제목을 적어주세요."
         />
         <S.ErrorText>{props.titleErr}</S.ErrorText>
@@ -45,7 +46,7 @@ export default function BoardWritePresenterPage(
         <S.Label>내용</S.Label>
         <S.ContentsInput
           onChange={props.onContentsChanged}
-          defaultValue={props.fetchBoardDataList?.fetchBoard.contents}
+          defaultValue={fetchBoard?.contents}
           placeholder="내용을 적어주세요."
         />
         <S.ErrorText>{props.contentsErr}</S.ErrorText>
@@ -55,13 +56,26 @@ export default function BoardWritePresenterPage(
         <S.AddrNumInput
           type="text"
           placeholder="07592"
-          defaultValue={props.zoneCode}
+          readOnly
+          defaultValue={
+            (props.zipcode || fetchBoard?.boardAddress?.zipcode) ?? ""
+          }
         />
         <S.AddrNumBtn onClick={props.onClickPostCode}>
           우편번호 검색
         </S.AddrNumBtn>
-        <S.TitleInput type="text" defaultValue={props.postCode} />
-        <S.TitleInput type="text" />
+        <S.TitleInput
+          type="text"
+          readOnly
+          defaultValue={
+            (props.address || fetchBoard?.boardAddress?.address) ?? ""
+          }
+        />
+        <S.TitleInput
+          type="text"
+          defaultValue={fetchBoard?.boardAddress?.addressDetail ?? ""}
+          onChange={props.onChangeDetailAddress}
+        />
       </S.SubWrap>
       <S.SubWrap>
         <S.Label>유튜브</S.Label>

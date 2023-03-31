@@ -6,12 +6,13 @@ export interface IBoardWriteContainerPageProps {
   fetchBoardDataList?: Pick<IQuery, "fetchBoard">;
 }
 
-export interface IUpdateVariables {
-  boardId: string;
-  password: string;
-  updateBoardInput: {
-    title?: string;
-    contents?: string;
+export interface IUpdateBoardInput {
+  title?: string;
+  contents?: string;
+  boardAddress?: {
+    zipcode?: string;
+    address?: string;
+    addressDetail?: string;
   };
 }
 
@@ -22,13 +23,14 @@ export interface IBoardWritePresenterPageProps {
   contentsErr: string;
   isActive: boolean;
   isEdit: boolean;
-  postCode: string;
-  zoneCode: string;
+  address: string;
+  zipcode: string;
   fetchBoardDataList?: Pick<IQuery, "fetchBoard">;
   onWriterChanged: (event: ChangeEvent<HTMLInputElement>) => void;
   onPasswordChanged: (event: ChangeEvent<HTMLInputElement>) => void;
   onTitleChanged: (event: ChangeEvent<HTMLInputElement>) => void;
   onContentsChanged: (event: ChangeEvent<HTMLTextAreaElement>) => void;
+  onChangeDetailAddress: (event: ChangeEvent<HTMLInputElement>) => void;
   onSubmit: () => void;
   onSubmitUpdate: () => void;
   onClickPostCode: () => void;

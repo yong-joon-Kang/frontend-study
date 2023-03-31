@@ -10,6 +10,11 @@ export const FETCH_BOARD = gql`
       updatedAt
       likeCount
       dislikeCount
+      boardAddress {
+        zipcode
+        address
+        addressDetail
+      }
     }
   }
 `;
