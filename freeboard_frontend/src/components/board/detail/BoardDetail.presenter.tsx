@@ -1,10 +1,11 @@
 import * as S from "./BoardDetail.styles";
 import { getDate } from "../../../commons/libraries/utils";
 import { IBoardDetailPresenterPageProps } from "./BoardDetail.types";
-
+import { Tooltip } from "antd";
 export default function BoardDetailPresenterPage(
   props: IBoardDetailPresenterPageProps
 ) {
+  const fetchBoard = props.data?.fetchBoard;
   return (
     <S.Wrapper>
       <S.CardWrapper>
@@ -12,29 +13,33 @@ export default function BoardDetailPresenterPage(
           <S.HeadLeft>
             <S.ProfileImg src="/profileDef.png"></S.ProfileImg>
             <S.ProfileDetailWrap>
-              <S.ProfileName>{props.data?.fetchBoard.writer}</S.ProfileName>
-              <S.ProfileDate>
-                {getDate(props.data?.fetchBoard.updatedAt)}
-              </S.ProfileDate>
+              <S.ProfileName>{fetchBoard?.writer}</S.ProfileName>
+              <S.ProfileDate>{getDate(fetchBoard?.updatedAt)}</S.ProfileDate>
             </S.ProfileDetailWrap>
           </S.HeadLeft>
           <S.HeadRight>
             <S.LinkImg src="/link.png"></S.LinkImg>
-            <S.LocationImg src="/location.png"></S.LocationImg>
+            <Tooltip
+              title={`${fetchBoard?.boardAddress?.address ?? ""} ${
+                fetchBoard?.boardAddress?.addressDetail ?? ""
+              }`}
+            >
+              <S.LocationImg src="/location.png"></S.LocationImg>
+            </Tooltip>
           </S.HeadRight>
         </S.Header>
         <S.Contents>
-          <S.Title>{props.data?.fetchBoard.title}</S.Title>
-          {props.data?.fetchBoard.contents}
+          <S.Title>{fetchBoard?.title}</S.Title>
+          {fetchBoard?.contents}
         </S.Contents>
         <S.Footer>
           <S.LikeWrap isLikeIcon={true} onClick={props.onClickCountLike}>
             <S.LikeIcon />
-            <S.LikeCnt>{props.data?.fetchBoard.likeCount}</S.LikeCnt>
+            <S.LikeCnt>{fetchBoard?.likeCount}</S.LikeCnt>
           </S.LikeWrap>
           <S.LikeWrap isLikeIcon={false} onClick={props.onClickCountDislike}>
             <S.DislikeIcon />
-            <S.LikeCnt>{props.data?.fetchBoard.dislikeCount}</S.LikeCnt>
+            <S.LikeCnt>{fetchBoard?.dislikeCount}</S.LikeCnt>
           </S.LikeWrap>
         </S.Footer>
       </S.CardWrapper>
