@@ -5,16 +5,26 @@ export interface IBoardCommentPresenterPageProps {
   onChangeTextArea: (event: ChangeEvent<HTMLTextAreaElement>) => void;
   onChangeWriter: (event: ChangeEvent<HTMLInputElement>) => void;
   onChangePw: (event: ChangeEvent<HTMLInputElement>) => void;
-  onClickUpdate: () => void;
-  onClickDelete: () => void;
   contents: string;
   contentsLength: string;
   writer: string;
   password: string;
   isEdit: boolean;
   setRateCnt: Dispatch<SetStateAction<number>>;
+  id: string;
+  editWriter: string | undefined | null;
+  editContents: string;
+  editRating: number;
 }
 
 export interface ICurrLengthProps {
   length: string;
+}
+
+export interface IEditComment {
+  isEdit: boolean;
+  id: string;
+  writer: string | undefined | null;
+  contents: string;
+  rating: number;
 }

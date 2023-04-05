@@ -9,13 +9,15 @@ import {
   IMutationCreateBoardCommentArgs,
 } from "../../../commons/types/generated/types";
 import { message } from "antd";
+import { IEditComment } from "./BoardCommentWrite.types";
 
-export default function BoardCommentWriteContainerPage() {
+export default function BoardCommentWriteContainerPage(
+  editCmtProps: IEditComment
+) {
   const [contents, setContents] = useState("");
   const [contentsLength, setContentsLength] = useState("");
   const [writer, setWriter] = useState("");
   const [password, setPw] = useState("");
-  const [isEdit, setIsEdit] = useState(false);
   const [rateCnt, setRateCnt] = useState(5);
   const [messageApi, contextHolder] = message.useMessage(); // 비밀번호 에러 alert
 
@@ -102,12 +104,6 @@ export default function BoardCommentWriteContainerPage() {
     setPw(event.target.value);
   };
 
-  const onClickUpdate = () => {
-    setIsEdit(true);
-  };
-
-  const onClickDelete = () => {};
-
   return (
     <>
       {contextHolder}
@@ -116,14 +112,16 @@ export default function BoardCommentWriteContainerPage() {
         onChangeTextArea={onChangeTextArea}
         onChangeWriter={onChangeWriter}
         onChangePw={onChangePw}
-        onClickUpdate={onClickUpdate}
-        onClickDelete={onClickDelete}
         contents={contents}
         contentsLength={contentsLength}
         writer={writer}
         password={password}
-        isEdit={isEdit}
         setRateCnt={setRateCnt}
+        id={editCmtProps.id}
+        isEdit={editCmtProps.isEdit}
+        editWriter={editCmtProps.writer}
+        editContents={editCmtProps.contents}
+        editRating={editCmtProps.rating}
       />
     </>
   );
