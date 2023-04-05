@@ -10,7 +10,7 @@ import {
   IQueryFetchBoardsArgs,
   IQueryFetchBoardsCountArgs,
 } from "../../../commons/types/generated/types";
-import Pagination from "../../pagination/Pagination";
+import Pagination from "../../pagination/Pagination.container";
 
 export default function BoardListContainerPage() {
   const { data, refetch } = useQuery<
