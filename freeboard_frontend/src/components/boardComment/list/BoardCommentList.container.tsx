@@ -17,12 +17,13 @@ import ConfirmModalPresenter from "../../../commons/modals/confirmModal.presente
 import { message } from "antd";
 
 export default function BoardCommentListContainerPage() {
-  const [isEdit, setIsEdit] = useState(false);
+  const [hasMore, setHasMore] = useState(true);
+  const [isEditArr, setIsEditArr] = useState(Array(10).fill(false));
   const [deletaBoardComment] =
     useMutation<Pick<IMutation, "deleteBoardComment">>(DELETE_BOARD_COMMENT);
 
   const router = useRouter();
-  const { data } = useQuery<
+  const { data, fetchMore } = useQuery<
     Pick<IQuery, "fetchBoardComments">,
     IQueryFetchBoardCommentsArgs
   >(FETCH_BOARD_COMMENTS, {
@@ -32,10 +33,11 @@ export default function BoardCommentListContainerPage() {
     },
   });
 
-  const onClickUpdate = () => {
-    setIsEdit(true);
+  const onClickUpdate = (event: MouseEvent<HTMLSpanElement>) => {
+    const isEdit = [...isEditArr];
+    isEdit[Number(event.currentTarget.id)] = true;
+    setIsEditArr(isEdit);
   };
-
   // =================START:: board Comment 삭제 시
   const [ismodalToggle, setModalToggle] = useState(false);
   const [commentId, setCommentId] = useState("");
@@ -88,6 +90,30 @@ export default function BoardCommentListContainerPage() {
 
   // =================END:: board Comment 삭제 시
 
+  const onLoadMore = () => {
+    fetchMore({
+      variables: {
+        page: Math.ceil(Number(data?.fetchBoardComments.length) / 10) + 1,
+      },
+      updateQuery: (prev, { fetchMoreResult }) => {
+        console.log(fetchMoreResult.fetchBoardComments);
+        if (fetchMoreResult.fetchBoardComments.length === 0) {
+          setHasMore(false);
+          return {
+            fetchBoardComments: [...prev.fetchBoardComments],
+          };
+        }
+
+        return {
+          fetchBoardComments: [
+            ...prev.fetchBoardComments,
+            ...fetchMoreResult.fetchBoardComments,
+          ],
+        };
+      },
+    });
+  };
+
   return (
     <>
       {contextHolder}
@@ -102,8 +128,10 @@ export default function BoardCommentListContainerPage() {
       <BoardCommentListPresenterPage
         data={data}
         onClickUpdate={onClickUpdate}
-        isEdit={isEdit}
+        isEditArr={isEditArr}
         onToggleModal={onToggleModal}
+        onLoadMore={onLoadMore}
+        hasMore={hasMore}
       />
     </>
   );
