@@ -25,13 +25,16 @@ const LayoutWrap = styled.div`
 `;
 
 const MiddleWrap = styled.div`
-  height: 100%;
   display: flex;
   flex-direction: row;
 `;
 
 const Content = styled.div`
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 const Layout = (props: IPropsLayout) => {
