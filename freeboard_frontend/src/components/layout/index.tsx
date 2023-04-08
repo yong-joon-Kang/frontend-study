@@ -12,6 +12,7 @@ interface IPropsLayout {
 
 const hiddenBannerPath = [
   "/",
+  "/OpenApi",
   "/boards/new",
   "/boards/detail/[id]",
   "/boards/detail/[id]/edit",
@@ -29,7 +30,9 @@ const MiddleWrap = styled.div`
   flex-direction: row;
 `;
 
-const Content = styled.div``;
+const Content = styled.div`
+  width: 100%;
+`;
 
 const Layout = (props: IPropsLayout) => {
   const router = useRouter();
@@ -41,8 +44,13 @@ const Layout = (props: IPropsLayout) => {
     setIsToggleMenu(!isToggleMenu);
   };
 
-  const onClickNavMenu = () => {
+  const onClickBoardList = () => {
     router.push("/boards/list");
+    setIsToggleMenu(false);
+  };
+
+  const onClickOpenApi = () => {
+    router.push("/OpenApi");
     setIsToggleMenu(false);
   };
 
@@ -71,7 +79,8 @@ const Layout = (props: IPropsLayout) => {
       <MiddleWrap>
         <NavMenu
           isToggleMenu={isToggleMenu}
-          onClickNavMenu={onClickNavMenu}
+          onClickBoardList={onClickBoardList}
+          onClickOpenApi={onClickOpenApi}
           ref={divRef}
         ></NavMenu>
         <Content>

@@ -21,8 +21,8 @@ export default function BoardListPresenterPage(
             <thead>
               <S.Tr hvBgColor="none" pointer="auto">
                 <S.Th>번호</S.Th>
-                <S.Th width="70%">제목</S.Th>
-                <S.Th>작성자</S.Th>
+                <S.Th width="60%">제목</S.Th>
+                <S.Th width="20%">작성자</S.Th>
                 <S.Th>날짜</S.Th>
               </S.Tr>
             </thead>

@@ -1,6 +1,17 @@
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import styled from "@emotion/styled";
+
+const BannerWrap = styled.div`
+  width: 100%;
+  height: 500px;
+`;
+
+const Img = styled.img`
+  width: 100px;
+  height: 500px;
+`;
 
 const Banner = () => {
   const settings = {
@@ -9,30 +20,18 @@ const Banner = () => {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
+    arrows: false,
   };
   return (
-    <>
+    <BannerWrap>
       <Slider {...settings}>
-        <div>
-          <h3>1</h3>
-        </div>
-        <div>
-          <h3>2</h3>
-        </div>
-        <div>
-          <h3>3</h3>
-        </div>
-        <div>
-          <h3>4</h3>
-        </div>
-        <div>
-          <h3>5</h3>
-        </div>
-        <div>
-          <h3>6</h3>
-        </div>
+        {Array(3)
+          .fill("/bannerImage.jpg")
+          .map((el, index) => (
+            <Img key={index} src={el} />
+          ))}
       </Slider>
-    </>
+    </BannerWrap>
   );
 };
 

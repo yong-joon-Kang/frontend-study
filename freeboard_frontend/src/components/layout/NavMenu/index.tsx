@@ -6,7 +6,7 @@ const Wrap = styled.div`
   position: fixed;
   height: 100%;
   width: 300px;
-  left: ${(props: ILayoutProps) => (props.isToggleMenu ? "0" : "-300px")};
+  left: ${(props: ILayoutProps) => (props.isToggleMenu ? "0" : "-301px")};
   transition: all 0.3s ease-in-out;
   background-color: #fff;
   display: flex;
@@ -42,7 +42,8 @@ const Profile = styled.div`
 
 interface ILayoutProps {
   isToggleMenu: boolean;
-  onClickNavMenu?: () => void;
+  onClickBoardList?: () => void;
+  onClickOpenApi?: () => void;
 }
 
 // eslint-disable-next-line react/display-name
@@ -52,8 +53,8 @@ const NavMenu = forwardRef((props: ILayoutProps, ref: any) => {
       <Profile></Profile>
       <NavigateWrap>
         <Ul>
-          <Li>KYJ`s ...</Li>
-          <Li onClick={props.onClickNavMenu}>게시판</Li>
+          <Li onClick={props.onClickOpenApi}>Open Api</Li>
+          <Li onClick={props.onClickBoardList}>게시판</Li>
           <Li>게시판ddddddd</Li>
         </Ul>
       </NavigateWrap>

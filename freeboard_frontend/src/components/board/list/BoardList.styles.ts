@@ -1,10 +1,14 @@
 import { IThProps, ITrProps } from "./BoardList.types";
 import styled from "@emotion/styled";
 
-export const Wrapper = styled.div``;
+export const Wrapper = styled.div`
+  display: flex;
+  justify-content: center;
+`;
 
 export const ListWrapper = styled.div`
-  width: 1000px;
+  width: 1100px;
+  margin-top: 70px;
 `;
 
 export const ListHeader = styled.div`
@@ -63,6 +67,7 @@ export const Table = styled.table`
   border-bottom: 2px solid black;
   border-collapse: collapse;
   font-size: 14px;
+  table-layout: fixed;
 `;
 
 export const Tr = styled.tr`
@@ -96,7 +101,9 @@ export const Td = styled.td`
   text-align: center;
 `;
 
-export const ListFooter = styled.div``;
+export const ListFooter = styled.div`
+  text-align: right;
+`;
 
 export const PageNumber = styled.div``;
 

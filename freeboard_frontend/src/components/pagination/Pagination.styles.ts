@@ -3,6 +3,7 @@ import { IPageProps } from "./Pagination.types";
 
 export const PageWrap = styled.div`
   display: flex;
+  justify-content: center;
 `;
 
 export const PageNum = styled.span`
