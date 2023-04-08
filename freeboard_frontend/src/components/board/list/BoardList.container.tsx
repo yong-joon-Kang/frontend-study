@@ -4,6 +4,7 @@ import { FETCH_BOARDS, FETCH_BOARDS_COUNT } from "./BoardList.queries";
 import { useQuery } from "@apollo/client";
 import router from "next/router";
 import { MouseEvent } from "react";
+import { css } from "@emotion/react";
 
 import {
   IQuery,

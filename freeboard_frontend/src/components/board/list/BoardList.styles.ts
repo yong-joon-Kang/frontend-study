@@ -20,32 +20,39 @@ export const ListHeader = styled.div`
 `;
 
 export const SearchWrap = styled.div`
-  position: relative;
+  flex: 3;
+  margin-right: 50px;
+  display: flex;
+  background: #dbdbdb;
+  border-radius: 10px;
+  height: 40px;
+  border: none;
+  outline: none;
+  align-items: center;
+  padding: 0 20px;
 `;
 
 export const SearchInput = styled.input`
   background: #dbdbdb;
-  border-radius: 10px;
-  width: 650px;
-  height: 40px;
+  height: 30px;
   border: none;
   outline: none;
-  padding-left: 40px;
+  flex: 100;
 `;
 
 export const SearchImg = styled.img`
   height: 20px;
-  position: absolute;
-  top: 10px;
-  left: 10px;
+  margin: 0 10px 0 0;
+  flex: 1;
 `;
 
 export const DateInput = styled.input`
   border: 1px solid #bdbdbd;
-  width: 170px;
   height: 40px;
   outline: none;
   font-size: 12px;
+  flex: 1;
+  margin-right: 20px;
 `;
 
 export const SearchBtn = styled.button`
@@ -55,6 +62,8 @@ export const SearchBtn = styled.button`
   border-radius: 10px;
   background: #000;
   color: #fff;
+  margin-right: 20px;
+  flex: 0.5;
 `;
 
 export const List = styled.div`
@@ -101,11 +110,7 @@ export const Td = styled.td`
   text-align: center;
 `;
 
-export const ListFooter = styled.div`
-  text-align: right;
-`;
-
-export const PageNumber = styled.div``;
+export const ListFooter = styled.div``;
 
 export const WriteImg = styled.img`
   height: 15px;
@@ -120,5 +125,5 @@ export const BoardWriteBtn = styled.button`
   padding: 10px;
   background: #fff;
   cursor: pointer;
-  margin-top: 20px;
+  flex: 0.6;
 `;
