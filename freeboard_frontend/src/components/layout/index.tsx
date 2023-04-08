@@ -88,7 +88,7 @@ const Layout = (props: IPropsLayout) => {
         ></NavMenu>
         <Content>
           {!isHiddenBanner && <Banner />}
-          {props.children}contents
+          {props.children}
         </Content>
       </MiddleWrap>
       <Footer />
