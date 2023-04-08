@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 const HeaderWrap = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center; /* 추가 */
   box-shadow: 0 4px 4px -4px black;
   height: 40px;
   z-index: 2;
@@ -10,13 +11,10 @@ const HeaderWrap = styled.div`
 
 const SideWrap = styled.div`
   padding: 10px 50px;
-  cursor: ${(props: cssProps) => (props.isCursor ? "pointer" : "")};
+  text-align: ${(props: cssProps) =>
+    props.isMenu ? "left" : props.isLogin ? "right" : "center"};
+  flex: 1; /* 추가 */
 `;
-
-interface cssProps {
-  isPseudo?: boolean;
-  isCursor?: boolean;
-}
 
 const LabelWrap = styled.span`
   ${(props: cssProps) =>
@@ -41,14 +39,22 @@ interface ILayoutProps {
   onClickMenu: () => void;
 }
 
+interface cssProps {
+  isPseudo?: boolean;
+  isMenu?: boolean;
+  isLogin?: boolean;
+}
+
 function Header(props: ILayoutProps) {
   return (
     <HeaderWrap>
-      <SideWrap isCursor={true} onClick={props.onClickMenu}>
-        Menu
+      <SideWrap isMenu={true} onClick={props.onClickMenu}>
+        <Label>Menu</Label>
       </SideWrap>
-      <SideWrap isCursor={true}>Main</SideWrap>
       <SideWrap>
+        <Label>Main</Label>
+      </SideWrap>
+      <SideWrap isLogin={true}>
         <LabelWrap>
           <Label>로그인</Label>
         </LabelWrap>
