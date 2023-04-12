@@ -57,6 +57,11 @@ const Layout = (props: IPropsLayout) => {
     setIsToggleMenu(false);
   };
 
+  const onClickFireBase = () => {
+    router.push("/FireBase");
+    setIsToggleMenu(false);
+  };
+
   // 다른 컴포넌트 클릭 시 NavMenu 닫음
   useEffect(() => {
     // console.log("처음 실행");
@@ -84,6 +89,7 @@ const Layout = (props: IPropsLayout) => {
           isToggleMenu={isToggleMenu}
           onClickBoardList={onClickBoardList}
           onClickOpenApi={onClickOpenApi}
+          onClickFireBase={onClickFireBase}
           ref={divRef}
         ></NavMenu>
         <Content>
