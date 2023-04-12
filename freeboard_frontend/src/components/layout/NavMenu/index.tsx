@@ -44,6 +44,7 @@ interface ILayoutProps {
   isToggleMenu: boolean;
   onClickBoardList?: () => void;
   onClickOpenApi?: () => void;
+  onClickFireBase?: () => void;
 }
 
 // eslint-disable-next-line react/display-name
@@ -55,7 +56,7 @@ const NavMenu = forwardRef((props: ILayoutProps, ref: any) => {
         <Ul>
           <Li onClick={props.onClickOpenApi}>Open Api</Li>
           <Li onClick={props.onClickBoardList}>게시판</Li>
-          <Li>게시판ddddddd</Li>
+          <Li onClick={props.onClickFireBase}>FireBase</Li>
         </Ul>
       </NavigateWrap>
     </Wrap>
