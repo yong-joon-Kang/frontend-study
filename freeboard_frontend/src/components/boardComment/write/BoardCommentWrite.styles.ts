@@ -4,9 +4,9 @@ import { Rate } from "antd";
 
 export const Wrapper = styled.div`
   width: 1200px;
-  margin: 50px;
-  border-top: 1px solid #bdbdbd;
+  margin: 30px 0;
   padding-top: 30px;
+  position: relative;
 `;
 
 export const CommentWriteWrap = styled.div``;
@@ -79,4 +79,11 @@ export const WriteBtn = styled.button`
   height: 32px;
   background: #000;
   color: #fff;
+`;
+
+export const DeleteBtn = styled.img`
+  height: 20px;
+  cursor: pointer;
+  position: absolute;
+  right: 0;
 `;

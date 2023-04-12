@@ -22,6 +22,7 @@ export default function BoardCommentListPresenterPage(
         >
           {props.data?.fetchBoardComments.map((el, index: number) =>
             props.isEditArr[index] ? (
+              // 댓글 수정 컴포넌트
               <BoardCommentWriteContainerPage
                 key={el._id}
                 isEdit={true}
@@ -29,8 +30,12 @@ export default function BoardCommentListPresenterPage(
                 writer={el.writer}
                 contents={el.contents}
                 rating={el.rating}
+                index={index}
+                isEditArr={props.isEditArr}
+                setIsEditArr={props.setIsEditArr}
               />
             ) : (
+              // 댓글 리스트 중 하나의 댓글
               <BoardCommentOneRow
                 key={el._id}
                 el={el}

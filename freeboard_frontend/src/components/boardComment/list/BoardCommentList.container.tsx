@@ -132,6 +132,7 @@ export default function BoardCommentListContainerPage() {
         onToggleModal={onToggleModal}
         onLoadMore={onLoadMore}
         hasMore={hasMore}
+        setIsEditArr={setIsEditArr}
       />
     </>
   );

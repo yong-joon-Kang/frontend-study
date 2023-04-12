@@ -9,4 +9,5 @@ export interface IBoardCommentListPresenterPageProps {
   onToggleModal: (event: MouseEvent<HTMLImageElement>) => void;
   // onClickDelete: (event: MouseEvent<HTMLImageElement>) => void;
   isEditArr: boolean[];
+  setIsEditArr: any;
 }

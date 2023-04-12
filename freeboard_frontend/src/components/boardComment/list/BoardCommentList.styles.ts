@@ -4,6 +4,8 @@ import { Rate } from "antd";
 export const Wrapper = styled.div`
   width: 1200px;
   margin: 50px;
+  border-top: 1px solid #aaa;
+  padding-top: 30px;
 `;
 
 export const StarRate = styled(Rate)`

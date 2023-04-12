@@ -1,12 +1,17 @@
 import BoardCommentWritePresenterPage from "./BoardCommentWrite.presenter";
 import { useMutation } from "@apollo/client";
-import { CREATE_BOARD_COMMENT } from "./BoardCommentWrite.queries";
+import {
+  CREATE_BOARD_COMMENT,
+  UPDATE_BOARD_COMMENT,
+} from "./BoardCommentWrite.queries";
 import { FETCH_BOARD_COMMENTS } from "../list/BoardCommentList.queries";
 import { useRouter } from "next/router";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import {
   IMutation,
   IMutationCreateBoardCommentArgs,
+  IMutationUpdateBoardCommentArgs,
+  IUpdateBoardCommentInput,
 } from "../../../commons/types/generated/types";
 import { message } from "antd";
 import { IEditComment } from "./BoardCommentWrite.types";
@@ -27,6 +32,19 @@ export default function BoardCommentWriteContainerPage(
     Pick<IMutation, "createBoardComment">,
     IMutationCreateBoardCommentArgs
   >(CREATE_BOARD_COMMENT);
+
+  const [updateBoardComment] = useMutation<
+    Pick<IMutation, "updateBoardComment">,
+    IMutationUpdateBoardCommentArgs
+  >(UPDATE_BOARD_COMMENT);
+
+  useEffect(() => {
+    // console.log("useEffect 실행");
+    if (editCmtProps.writer) setWriter(editCmtProps.writer);
+    if (editCmtProps.rating) setRateCnt(editCmtProps.rating);
+    if (editCmtProps.contents) setContents(editCmtProps.contents);
+  }, []);
+
   const onClickCmtWrite = async () => {
     try {
       if (!writer) {
@@ -61,33 +79,57 @@ export default function BoardCommentWriteContainerPage(
         return false;
       }
 
-      const result = await createBoardComment({
-        variables: {
-          boardId: String(router.query.id),
-          createBoardCommentInput: {
-            writer: writer,
-            password: password,
-            contents: contents,
-            rating: rateCnt,
+      if (editCmtProps.isEdit) {
+        console.log("update");
+        const updateBoardCommentInput: IUpdateBoardCommentInput = {};
+        if (contents) updateBoardCommentInput.contents = contents;
+        if (rateCnt) updateBoardCommentInput.rating = rateCnt;
+        await updateBoardComment({
+          variables: {
+            boardCommentId: editCmtProps.id,
+            password,
+            updateBoardCommentInput,
           },
-        },
-        refetchQueries: [
-          {
-            query: FETCH_BOARD_COMMENTS,
-            variables: {
-              page: 1,
-              boardId: router.query.id,
+          refetchQueries: [
+            {
+              query: FETCH_BOARD_COMMENTS,
+              variables: {
+                page: 1,
+                boardId: router.query.id,
+              },
+            },
+          ],
+        });
+        const isEditArr = [...editCmtProps.isEditArr];
+        isEditArr[editCmtProps.index] = false;
+        editCmtProps.setIsEditArr(isEditArr);
+      } else {
+        await createBoardComment({
+          variables: {
+            boardId: String(router.query.id),
+            createBoardCommentInput: {
+              writer: writer,
+              password: password,
+              contents: contents,
+              rating: rateCnt,
             },
           },
-        ],
-      });
+          refetchQueries: [
+            {
+              query: FETCH_BOARD_COMMENTS,
+              variables: {
+                page: 1,
+                boardId: router.query.id,
+              },
+            },
+          ],
+        });
+      }
 
       setContents("");
       setContentsLength("0");
       setWriter("");
       setPw("");
-
-      console.log(result);
     } catch (error) {}
   };
 
@@ -122,6 +164,9 @@ export default function BoardCommentWriteContainerPage(
         editWriter={editCmtProps.writer}
         editContents={editCmtProps.contents}
         editRating={editCmtProps.rating}
+        isEditArr={editCmtProps.isEditArr}
+        setIsEditArr={editCmtProps.setIsEditArr}
+        index={editCmtProps.index}
       />
     </>
   );
