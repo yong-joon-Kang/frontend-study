@@ -6,7 +6,7 @@ const HeaderWrap = styled.div`
   align-items: center; /* 추가 */
   box-shadow: 0 4px 4px -4px black;
   height: 40px;
-  z-index: 2;
+  z-index: 1;
 `;
 
 const SideWrap = styled.div`
@@ -48,8 +48,8 @@ interface cssProps {
 function Header(props: ILayoutProps) {
   return (
     <HeaderWrap>
-      <SideWrap isMenu={true} onClick={props.onClickMenu}>
-        <Label>Menu</Label>
+      <SideWrap isMenu={true}>
+        <Label onClick={props.onClickMenu}>Menu</Label>
       </SideWrap>
       <SideWrap>
         <Label>Main</Label>

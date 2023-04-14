@@ -24,11 +24,6 @@ const LayoutWrap = styled.div`
   flex-direction: column;
 `;
 
-const MiddleWrap = styled.div`
-  display: flex;
-  flex-direction: row;
-`;
-
 const Content = styled.div`
   width: 100%;
   display: flex;
@@ -84,19 +79,17 @@ const Layout = (props: IPropsLayout) => {
     <LayoutWrap>
       <Header onClickMenu={onClickMenu} />
 
-      <MiddleWrap>
-        <NavMenu
-          isToggleMenu={isToggleMenu}
-          onClickBoardList={onClickBoardList}
-          onClickOpenApi={onClickOpenApi}
-          onClickFireBase={onClickFireBase}
-          ref={divRef}
-        ></NavMenu>
-        <Content>
-          {!isHiddenBanner && <Banner />}
-          {props.children}
-        </Content>
-      </MiddleWrap>
+      <NavMenu
+        isToggleMenu={isToggleMenu}
+        onClickBoardList={onClickBoardList}
+        onClickOpenApi={onClickOpenApi}
+        onClickFireBase={onClickFireBase}
+        ref={divRef}
+      ></NavMenu>
+      <Content>
+        {!isHiddenBanner && <Banner />}
+        {props.children}
+      </Content>
       <Footer />
     </LayoutWrap>
   );
