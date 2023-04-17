@@ -59,14 +59,16 @@ export const HeadRight = styled.div`
 
 export const Contents = styled.div`
   width: 100%;
-  height: 700px;
   padding: 30px 0 0 30px;
+  display: flex;
+  flex-direction: column;
 `;
 
 export const Footer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+  margin-top: 100px;
 `;
 
 export const LikeWrap = styled.div`
@@ -106,4 +108,8 @@ export const Button = styled.div`
   align-items: center;
   margin: 0 15px;
   cursor: pointer;
+`;
+
+export const UploadImg = styled.img`
+  width: 300px;
 `;
