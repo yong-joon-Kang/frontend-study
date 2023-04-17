@@ -18,7 +18,9 @@ export default function BoardDetailPresenterPage(
             </S.ProfileDetailWrap>
           </S.HeadLeft>
           <S.HeadRight>
-            <S.LinkImg src="/link.png"></S.LinkImg>
+            <Tooltip title={`${fetchBoard?.youtubeUrl ?? ""}`}>
+              <S.LinkImg src="/link.png"></S.LinkImg>
+            </Tooltip>
             <Tooltip
               title={`${fetchBoard?.boardAddress?.address ?? ""} ${
                 fetchBoard?.boardAddress?.addressDetail ?? ""
@@ -31,6 +33,12 @@ export default function BoardDetailPresenterPage(
         <S.Contents>
           <S.Title>{fetchBoard?.title}</S.Title>
           {fetchBoard?.contents}
+          {fetchBoard?.images?.map((el, index) => (
+            <S.UploadImg
+              key={index}
+              src={`https://storage.googleapis.com/${el}`}
+            ></S.UploadImg>
+          ))}
         </S.Contents>
         <S.Footer>
           <S.LikeWrap isLikeIcon={true} onClick={props.onClickCountLike}>
