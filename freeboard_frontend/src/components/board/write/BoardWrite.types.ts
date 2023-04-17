@@ -1,5 +1,5 @@
 import { IQuery } from "./../../../commons/types/generated/types";
-import { ChangeEvent } from "react";
+import { ChangeEvent, Dispatch, SetStateAction } from "react";
 
 export interface IBoardWriteContainerPageProps {
   isEdit: boolean;
@@ -7,6 +7,7 @@ export interface IBoardWriteContainerPageProps {
 }
 
 export interface IUpdateBoardInput {
+  youtubeUrl?: string;
   title?: string;
   contents?: string;
   boardAddress?: {
@@ -14,9 +15,12 @@ export interface IUpdateBoardInput {
     address?: string;
     addressDetail?: string;
   };
+  images?: string[];
 }
 
 export interface IBoardWritePresenterPageProps {
+  setFileUrls: Dispatch<SetStateAction<string[]>>;
+  fileUrls: string[];
   writerErr: string;
   passwordErr: string;
   titleErr: string;
@@ -31,6 +35,7 @@ export interface IBoardWritePresenterPageProps {
   onTitleChanged: (event: ChangeEvent<HTMLInputElement>) => void;
   onContentsChanged: (event: ChangeEvent<HTMLTextAreaElement>) => void;
   onChangeDetailAddress: (event: ChangeEvent<HTMLInputElement>) => void;
+  onChangeYoutubeUrl: (event: ChangeEvent<HTMLInputElement>) => void;
   onSubmit: () => void;
   onSubmitUpdate: () => void;
   onClickPostCode: () => void;

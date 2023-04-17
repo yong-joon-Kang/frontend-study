@@ -3,7 +3,7 @@
 import BoardWritePresenterPage from "./BoardWrite.presenter";
 import { CREATE_BOARD, EDIT_BOARD } from "./BoardWrite.queries";
 import { useMutation } from "@apollo/client";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import {
   IBoardWriteContainerPageProps,
@@ -36,6 +36,8 @@ export default function BoardWriteContainerPage(
   const [zipcode, setZipCode] = useState("");
   const [address, setAddress] = useState("");
   const [detailAddress, setDetailAddress] = useState("");
+  const [youtubeUrl, setYoutubeUrl] = useState("");
+  const [fileUrls, setFileUrls] = useState(["", "", ""]);
 
   const [writerErr, setWriterErr] = useState("");
   const [passwordErr, setPasswordErr] = useState("");
@@ -47,6 +49,13 @@ export default function BoardWriteContainerPage(
   const [messageApi, contextHolder] = message.useMessage(); // 비밀번호 에러 alert
 
   const router = useRouter();
+
+  useEffect(() => {
+    if (props?.fetchBoardDataList) {
+      const fileUrlArr = props?.fetchBoardDataList?.fetchBoard?.images;
+      if (fileUrlArr) setFileUrls(fileUrlArr);
+    }
+  }, [props]);
 
   const onWriterChanged = (event: ChangeEvent<HTMLInputElement>) => {
     setWriter(event.target.value);
@@ -88,6 +97,10 @@ export default function BoardWriteContainerPage(
     }
   };
 
+  const onChangeYoutubeUrl = (event: ChangeEvent<HTMLInputElement>) => {
+    setYoutubeUrl(event.target.value);
+  };
+
   const onSubmit = async () => {
     if (!writer) {
       setWriterErr("작성자는 필수입력 입니다.");
@@ -127,10 +140,11 @@ export default function BoardWriteContainerPage(
                 address: address,
                 addressDetail: detailAddress,
               },
+              images: fileUrls,
+              youtubeUrl: youtubeUrl,
             },
           },
         });
-        // console.log(result);
         router.push({
           pathname: `/boards/detail/${result?.data?.createBoard._id}`,
           query: { crud: "create" },
@@ -142,10 +156,34 @@ export default function BoardWriteContainerPage(
   };
 
   const onSubmitUpdate = async () => {
+    const currentFileUrls = JSON.stringify(fileUrls);
+    const defaultFileUrls = JSON.stringify(
+      props.fetchBoardDataList?.fetchBoard.images
+    );
+    const isChangedFileUrls = currentFileUrls !== defaultFileUrls;
+
+    if (
+      // 수정한게 하나도 없을 때
+      !title &&
+      !contents &&
+      !zipcode &&
+      !address &&
+      !detailAddress &&
+      !youtubeUrl &&
+      !isChangedFileUrls
+    ) {
+      messageApi.open({
+        type: "warning",
+        content: "수정한 것이 없습니다.",
+      });
+      return;
+    }
+
     try {
       const updateBoardInput: IUpdateBoardInput = {};
       if (title) updateBoardInput.title = title;
       if (contents) updateBoardInput.contents = contents;
+      if (youtubeUrl) updateBoardInput.youtubeUrl = youtubeUrl;
       if (zipcode || address || detailAddress) {
         updateBoardInput.boardAddress = {};
         if (zipcode) updateBoardInput.boardAddress.zipcode = zipcode;
@@ -153,8 +191,7 @@ export default function BoardWriteContainerPage(
         if (detailAddress)
           updateBoardInput.boardAddress.addressDetail = detailAddress;
       }
-
-      console.log(updateBoardInput);
+      if (fileUrls) updateBoardInput.images = fileUrls;
 
       const result = await updateBoard({
         variables: {
@@ -211,6 +248,7 @@ export default function BoardWriteContainerPage(
   const onChangeDetailAddress = (event: ChangeEvent<HTMLInputElement>) => {
     setDetailAddress(event.target.value);
   };
+
   return (
     <>
       {contextHolder}
@@ -232,6 +270,9 @@ export default function BoardWriteContainerPage(
         zipcode={zipcode}
         address={address}
         onChangeDetailAddress={onChangeDetailAddress}
+        setFileUrls={setFileUrls}
+        fileUrls={fileUrls}
+        onChangeYoutubeUrl={onChangeYoutubeUrl}
       />
     </>
   );

@@ -1,5 +1,7 @@
+import ImageUpload from "../../../commons/imageUpload/ImageUpload.container";
 import * as S from "./BoardWrite.styles";
 import { IBoardWritePresenterPageProps } from "./BoardWrite.types";
+import { v4 as uuidv4 } from "uuid";
 
 export default function BoardWritePresenterPage(
   props: IBoardWritePresenterPageProps
@@ -79,10 +81,21 @@ export default function BoardWritePresenterPage(
       </S.SubWrap>
       <S.SubWrap>
         <S.Label>유튜브</S.Label>
-        <S.TitleInput type="text" />
+        <S.TitleInput type="text" onChange={props.onChangeYoutubeUrl} />
       </S.SubWrap>
       <S.SubWrap>
         <S.Label>사진 첨부</S.Label>
+        <S.UploadWrap>
+          {props.fileUrls.map((_el, index) => (
+            <ImageUpload
+              key={uuidv4()}
+              fileUrls={props.fileUrls}
+              index={index}
+              setFileUrls={props.setFileUrls}
+            />
+          ))}
+        </S.UploadWrap>
+        {/* <input ref={props.fileRef1} onChange={props.onChangeFile} type="file" />
         <S.UploadBtn>
           <S.Plus>+</S.Plus>
           <S.UploadText>Upload</S.UploadText>
@@ -90,11 +103,7 @@ export default function BoardWritePresenterPage(
         <S.UploadBtn>
           <S.Plus>+</S.Plus>
           <S.UploadText>Upload</S.UploadText>
-        </S.UploadBtn>
-        <S.UploadBtn>
-          <S.Plus>+</S.Plus>
-          <S.UploadText>Upload</S.UploadText>
-        </S.UploadBtn>
+        </S.UploadBtn> */}
       </S.SubWrap>
       <S.SubWrap>
         <S.Label>메인 설정</S.Label>
