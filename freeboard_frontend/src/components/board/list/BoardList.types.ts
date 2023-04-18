@@ -1,10 +1,18 @@
 import { IQuery } from "../../../commons/types/generated/types";
-import { MouseEvent } from "react";
+import { ChangeEvent, MouseEvent } from "react";
 
 export interface IBoardListPresenterPageProps {
+  setEndDate: any;
+  setStartDate: any;
+  minDate: any;
+  maxDate: any;
   data?: Pick<IQuery, "fetchBoards">;
   onClickBoardDetail: (event: MouseEvent<HTMLDivElement>) => void;
   onClickBoardWrite: () => void;
+  onChangeSearchInput: (event: ChangeEvent<HTMLInputElement>) => void;
+  startDate: any;
+  endDate: any;
+  searchKeyword: string;
 }
 
 export interface ITrProps {
@@ -14,4 +22,8 @@ export interface ITrProps {
 
 export interface IThProps {
   width?: string;
+}
+
+export interface IKeywordProps {
+  keyword?: boolean;
 }

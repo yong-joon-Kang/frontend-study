@@ -1,20 +1,41 @@
 import * as S from "./BoardList.styles";
 import { getDate } from "../../../commons/libraries/utils";
 import { IBoardListPresenterPageProps } from "./BoardList.types";
+import { v4 } from "uuid";
+import "react-datepicker/dist/react-datepicker.css";
 
 export default function BoardListPresenterPage(
   props: IBoardListPresenterPageProps
 ) {
+  const uuid = v4();
   return (
     <S.Wrapper>
       <S.ListWrapper>
         <S.ListHeader>
           <S.SearchWrap>
             <S.SearchImg src="/search.png" />
-            <S.SearchInput type="text" placeholder="제목을 검색해주세요." />
+            <S.SearchInput
+              onChange={props.onChangeSearchInput}
+              type="text"
+              placeholder="제목을 검색해주세요."
+            />
           </S.SearchWrap>
-          <S.DateInput type="text" placeholder="YYYY.MM.DD ~ YYYY.MM.DD" />
-          <S.SearchBtn>검색하기</S.SearchBtn>
+          <S.DateWrap>
+            <S.DateInput
+              onChange={(date) => props.setStartDate(date)}
+              selected={props.startDate}
+              maxDate={props.maxDate}
+              dateFormat="yyyy-MM-dd"
+            />
+          </S.DateWrap>
+          <S.DateWrap>
+            <S.DateInput
+              onChange={(date) => props.setEndDate(date)}
+              selected={props.endDate}
+              minDate={props.minDate}
+              dateFormat="yyyy-MM-dd"
+            />
+          </S.DateWrap>
           <S.BoardWriteBtn onClick={props.onClickBoardWrite}>
             <S.WriteImg src="/pencil.png" />
             게시물 등록하기
@@ -38,7 +59,22 @@ export default function BoardListPresenterPage(
                   onClick={props.onClickBoardDetail}
                 >
                   <S.Td>{index + 1}</S.Td>
-                  <S.Td>{list.title}</S.Td>
+                  <S.Td>
+                    {list.title
+                      .replaceAll(
+                        props.searchKeyword,
+                        `${uuid}${props.searchKeyword}${uuid}`
+                      )
+                      .split(uuid)
+                      .map((el: string, index: number) => (
+                        <S.Title
+                          key={index}
+                          keyword={el === props.searchKeyword}
+                        >
+                          {el}
+                        </S.Title>
+                      ))}
+                  </S.Td>
                   <S.Td>{list.writer}</S.Td>
                   <S.Td>{getDate(list.createdAt)}</S.Td>
                 </S.Tr>

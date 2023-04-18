@@ -1,5 +1,6 @@
-import { IThProps, ITrProps } from "./BoardList.types";
+import { IThProps, ITrProps, IKeywordProps } from "./BoardList.types";
 import styled from "@emotion/styled";
+import DatePicker from "react-datepicker";
 
 export const Wrapper = styled.div`
   display: flex;
@@ -46,24 +47,20 @@ export const SearchImg = styled.img`
   flex: 1;
 `;
 
-export const DateInput = styled.input`
+export const DateInput = styled(DatePicker)`
   border: 1px solid #bdbdbd;
   height: 40px;
   outline: none;
   font-size: 12px;
   flex: 1;
   margin-right: 20px;
+  width: 100%;
+  text-align: center;
 `;
 
-export const SearchBtn = styled.button`
-  border: 1px solid black;
-  width: 80px;
-  height: 40px;
-  border-radius: 10px;
-  background: #000;
-  color: #fff;
-  margin-right: 20px;
+export const DateWrap = styled.div`
   flex: 0.5;
+  margin-right: 20px;
 `;
 
 export const List = styled.div`
@@ -125,5 +122,9 @@ export const BoardWriteBtn = styled.button`
   padding: 10px;
   background: #fff;
   cursor: pointer;
-  flex: 0.6;
+`;
+
+export const Title = styled.span`
+  background-color: ${(props: IKeywordProps) =>
+    props.keyword ? "#d6efff" : ""};
 `;
