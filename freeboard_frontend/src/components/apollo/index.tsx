@@ -9,6 +9,10 @@ import { createUploadLink } from "apollo-upload-client";
 interface IProps {
   children: JSX.Element;
 }
+// 페이지가 이동되면 app.tsx부터 다시 리렌더링 되기 때문에 캐시 초기화되어
+// 불필요한 api요청이 없도록 방지하기 위해 함수 밖에서 만들어줌 (globalState 캐시 유지)
+const GLOBAL_STATE = new InMemoryCache();
+
 const ApolloSettings = (props: IProps) => {
   const uploadLink = createUploadLink({
     uri: "http://backendonline.codebootcamp.co.kr/graphql",
@@ -16,7 +20,7 @@ const ApolloSettings = (props: IProps) => {
 
   const client = new ApolloClient({
     link: ApolloLink.from([uploadLink as unknown as ApolloLink]),
-    cache: new InMemoryCache(),
+    cache: GLOBAL_STATE,
   });
   return <ApolloProvider client={client}>{props.children}</ApolloProvider>;
 };
