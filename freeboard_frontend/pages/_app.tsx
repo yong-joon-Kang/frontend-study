@@ -3,6 +3,8 @@ import ApolloSettings from "../src/components/apollo";
 import Layout from "../src/components/layout";
 import "../styles/myGlobals.css";
 
+import { RecoilRoot } from "recoil";
+
 import { createStore, applyMiddleware, compose } from "redux";
 import { Provider } from "react-redux";
 import logger from "redux-logger";
@@ -20,12 +22,14 @@ const store = createStore(rootReducer, enhancer);
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <ApolloSettings>
-      <Provider store={store}>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
-      </Provider>
-    </ApolloSettings>
+    <RecoilRoot>
+      <ApolloSettings>
+        <Provider store={store}>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </Provider>
+      </ApolloSettings>
+    </RecoilRoot>
   );
 }
