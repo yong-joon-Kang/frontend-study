@@ -12,6 +12,9 @@ interface IPropsLayout {
 
 const hiddenBannerPath = [
   "/",
+  "/signIn",
+  "/signUp",
+  "/signUpSuccess",
   "/OpenApi",
   "/boards/new",
   "/boards/detail/[id]",
@@ -78,7 +81,6 @@ const Layout = (props: IPropsLayout) => {
   return (
     <LayoutWrap>
       <Header onClickMenu={onClickMenu} />
-
       <NavMenu
         isToggleMenu={isToggleMenu}
         onClickBoardList={onClickBoardList}
