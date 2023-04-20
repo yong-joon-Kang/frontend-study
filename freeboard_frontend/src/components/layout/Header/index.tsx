@@ -1,4 +1,10 @@
 import styled from "@emotion/styled";
+import { useRouter } from "next/router";
+import { gql, useMutation } from "@apollo/client";
+import { useEffect } from "react";
+
+import { useRecoilState } from "recoil";
+import { userNameState } from "../../../commons/libraries/recoil";
 
 const HeaderWrap = styled.div`
   display: flex;
@@ -45,7 +51,25 @@ interface cssProps {
   isLogin?: boolean;
 }
 
+// const LOG_OUT_USER = gql`
+//   mutation {
+//     logoutUser
+//   }
+// `;
+
 function Header(props: ILayoutProps) {
+  const router = useRouter();
+  const [userName] = useRecoilState(userNameState);
+
+  // const [logoutUser] = useMutation(LOG_OUT_USER);
+
+  const onClickLogOut = async () => {
+    // console.log("test");
+    // const result = await logoutUser();
+    // console.log(result.data.logoutUser);
+    // setAccessToken("");
+    // console.log(accessToken);
+  };
   return (
     <HeaderWrap>
       <SideWrap isMenu={true}>
@@ -56,10 +80,22 @@ function Header(props: ILayoutProps) {
       </SideWrap>
       <SideWrap isLogin={true}>
         <LabelWrap>
-          <Label>로그인</Label>
+          <Label
+            onClick={() => {
+              userName ? onClickLogOut() : router.push("/signIn");
+            }}
+          >
+            {userName ? "로그아웃" : "로그인"}
+          </Label>
         </LabelWrap>
         <LabelWrap isPseudo={true}>
-          <Label>회원가입</Label>
+          <Label
+            onClick={() => {
+              userName ? router.push("/") : router.push("/signUp");
+            }}
+          >
+            {userName ? userName + "님" : "회원가입"}
+          </Label>
         </LabelWrap>
       </SideWrap>
     </HeaderWrap>
