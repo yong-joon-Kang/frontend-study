@@ -8,6 +8,7 @@ import { useRecoilState } from "recoil";
 import { accessTokenState } from "../../commons/libraries/recoil";
 
 function SignInContainer() {
+  console.log("SignIn 실행");
   const router = useRouter();
   const [, setaccessToken] = useRecoilState(accessTokenState);
 
@@ -66,7 +67,6 @@ function SignInContainer() {
   };
 
   const onClickSignIn = async () => {
-    console.log("??");
     if (!isAbled) return;
     try {
       const result = await loginUser({
@@ -75,8 +75,9 @@ function SignInContainer() {
           password: info.password,
         },
       });
-      // console.log(result.data.loginUser.accessToken);
+      console.log(result.data.loginUser.accessToken);
       setaccessToken(result.data.loginUser.accessToken);
+      localStorage.setItem("accessToken", result.data.loginUser.accessToken);
       Modal.info({ content: "로그인에 성공하였습니다!" });
 
       router.push("/test");
