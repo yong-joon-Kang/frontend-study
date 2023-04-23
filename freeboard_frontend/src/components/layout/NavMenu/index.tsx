@@ -42,6 +42,7 @@ const Profile = styled.div`
 
 interface ILayoutProps {
   isToggleMenu: boolean;
+  onClickUsedItems?: () => void;
   onClickBoardList?: () => void;
   onClickOpenApi?: () => void;
   onClickFireBase?: () => void;
@@ -54,8 +55,9 @@ const NavMenu = forwardRef((props: ILayoutProps, ref: any) => {
       <Profile></Profile>
       <NavigateWrap>
         <Ul>
-          <Li onClick={props.onClickOpenApi}>Open Api</Li>
           <Li onClick={props.onClickBoardList}>게시판</Li>
+          <Li onClick={props.onClickUsedItems}>중고마켓</Li>
+          <Li onClick={props.onClickOpenApi}>Open Api</Li>
           <Li onClick={props.onClickFireBase}>FireBase</Li>
         </Ul>
       </NavigateWrap>

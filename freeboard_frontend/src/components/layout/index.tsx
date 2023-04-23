@@ -19,6 +19,7 @@ const hiddenBannerPath = [
   "/boards/new",
   "/boards/detail/[id]",
   "/boards/detail/[id]/edit",
+  "/usedItems/cart",
 ];
 
 const LayoutWrap = styled.div`
@@ -31,8 +32,8 @@ const Content = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  min-height: 1050px;
 `;
 
 const Layout = (props: IPropsLayout) => {
@@ -43,6 +44,11 @@ const Layout = (props: IPropsLayout) => {
   // console.log(divRef);
   const onClickMenu = () => {
     setIsToggleMenu(!isToggleMenu);
+  };
+
+  const onClickUsedItems = () => {
+    router.push("/usedItems/list");
+    setIsToggleMenu(false);
   };
 
   const onClickBoardList = () => {
@@ -83,6 +89,7 @@ const Layout = (props: IPropsLayout) => {
       <Header onClickMenu={onClickMenu} />
       <NavMenu
         isToggleMenu={isToggleMenu}
+        onClickUsedItems={onClickUsedItems}
         onClickBoardList={onClickBoardList}
         onClickOpenApi={onClickOpenApi}
         onClickFireBase={onClickFireBase}
