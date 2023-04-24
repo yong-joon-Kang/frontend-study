@@ -1,6 +1,6 @@
 import ImageUpload from "../../../commons/imageUpload/ImageUpload.container";
-import * as S from "./BoardWrite.styles";
-import { IBoardWritePresenterPageProps } from "./BoardWrite.types";
+import * as S from "./UsedItemsWrite.styles";
+import { IBoardWritePresenterPageProps } from "./UsedItemsWrite.types";
 import { v4 as uuidv4 } from "uuid";
 
 export default function BoardWritePresenterPage(

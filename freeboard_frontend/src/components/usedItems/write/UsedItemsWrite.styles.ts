@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { ISubmitBtnProps } from "./BoardWrite.types";
+import { ISubmitBtnProps } from "./UsedItemsWrite.types";
 
 export const Wrapper = styled.div`
   width: 1200px;

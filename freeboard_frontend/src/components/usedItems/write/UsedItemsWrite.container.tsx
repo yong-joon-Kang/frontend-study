@@ -1,14 +1,14 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable @typescript-eslint/restrict-plus-operands */
-import BoardWritePresenterPage from "./BoardWrite.presenter";
-import { CREATE_BOARD, EDIT_BOARD } from "./BoardWrite.queries";
+import BoardWritePresenterPage from "./UsedItemsWrite.presenter";
+import { CREATE_BOARD, EDIT_BOARD } from "./UsedItemsWrite.queries";
 import { useMutation } from "@apollo/client";
 import { ChangeEvent, useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import {
   IBoardWriteContainerPageProps,
   IUpdateBoardInput,
-} from "./BoardWrite.types";
+} from "./UsedItemsWrite.types";
 import {
   IMutation,
   IMutationCreateBoardArgs,
@@ -16,10 +16,9 @@ import {
 } from "../../../commons/types/generated/types";
 import { useDaumPostcodePopup } from "react-daum-postcode";
 import { message } from "antd";
+import { WithAuth } from "../../commons/withAuth/WithAuth";
 
-export default function BoardWriteContainerPage(
-  props: IBoardWriteContainerPageProps
-) {
+function UsedItemsWriteContainerPage(props: IBoardWriteContainerPageProps) {
   const [createBoard] = useMutation<
     Pick<IMutation, "createBoard">,
     IMutationCreateBoardArgs
@@ -277,3 +276,5 @@ export default function BoardWriteContainerPage(
     </>
   );
 }
+
+export default WithAuth(UsedItemsWriteContainerPage);
