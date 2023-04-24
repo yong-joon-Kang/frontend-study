@@ -1,5 +1,5 @@
 import { IQuery } from "../../../src/commons/types/generated/types";
-import BoardWriteContainerPage from "../../../src/components/board/write/BoardWrite.container";
+import UsedItemsWriteContainerPage from "../../../src/components/usedItems/write/UsedItemsWrite.container";
 
 interface IProps {
   isEdit: boolean;
@@ -8,7 +8,7 @@ interface IProps {
 
 export default function CreateBoardPage(props: IProps) {
   return (
-    <BoardWriteContainerPage
+    <UsedItemsWriteContainerPage
       isEdit={props.isEdit}
       fetchBoardDataList={props.fetchBoardDataList}
     />
