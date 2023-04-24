@@ -1,3 +1,5 @@
+import { ProfileImg } from "./../detail/UsedItemsDetail.styles";
+import { RecoilRoot } from "recoil";
 import { IKeywordProps } from "./UsedItemsList.types";
 import styled from "@emotion/styled";
 import DatePicker from "react-datepicker";
@@ -8,7 +10,7 @@ export const Wrapper = styled.div`
 `;
 
 export const ListWrapper = styled.div`
-  width: 1100px;
+  width: 1000px;
   margin-top: 70px;
 `;
 
@@ -65,6 +67,23 @@ export const DateWrap = styled.div`
 
 export const List = styled.div`
   width: 100%;
+  height: 700px;
+  overflow-y: scroll;
+
+  ::-webkit-scrollbar {
+    width: 6px; /* 스크롤바의 너비를 10px로 설정 */
+    height: 30px;
+  }
+
+  /* 스크롤바의 배경색을 설정 */
+  ::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+  }
+
+  /* 스크롤바의 색상을 설정 */
+  ::-webkit-scrollbar-thumb {
+    background-color: #ffd600;
+  }
 `;
 
 export const ListFooter = styled.div``;
@@ -74,7 +93,7 @@ export const WriteImg = styled.img`
   margin-right: 5px;
 `;
 
-export const BoardWriteBtn = styled.button`
+export const WriteBtn = styled.button`
   border: 1px solid #ccc;
   border-radius: 10px;
   font-size: 12px;
