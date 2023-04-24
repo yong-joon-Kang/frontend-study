@@ -29,7 +29,7 @@ export default function UsedItemsDetailContainerPage() {
   });
 
   const onClickUsedItemsList = () => {
-    router.push("/boards/list");
+    router.push("/usedItems/list");
   };
 
   const [deleteUsedItems] =
@@ -79,28 +79,6 @@ export default function UsedItemsDetailContainerPage() {
     // 3. 장바구니에 담기
     cartStorage.push(cart);
     localStorage.setItem("cart", JSON.stringify(cartStorage));
-    // const cartStorage = localStorage.getItem("cart");
-    // if (!cartStorage) localStorage.setItem("cart", "[]");
-
-    // const currCartStorage = JSON.parse(localStorage.getItem("cart"));
-
-    // const id = data?.fetchUseditem._id ?? "";
-    // const name = data?.fetchUseditem.name ?? "";
-    // const price = data?.fetchUseditem.price ?? "";
-    // const image = data?.fetchUseditem.images?.[0] ?? "";
-
-    // const cartStorage = localStorage.getItem("cart");
-    // if (cartStorage) {
-    //   const cartVal = JSON.parse(cartStorage);
-    //   const currVal = JSON.parse(
-    //     `{"id": "${id}", "name": "${name}", "price": "${price}", "image": "${image}"}`
-    //   );
-    //   cartVal.push(currVal);
-    //   localStorage.setItem("cart", JSON.stringify(cartVal));
-    // } else {
-    //   const result = `[{"id": "${id}", "name": "${name}", "price": "${price}", "image": "${image}"}]`;
-    //   localStorage.setItem("cart", result);
-    // }
   };
 
   const onClickUsedItemsEdit = () => {
