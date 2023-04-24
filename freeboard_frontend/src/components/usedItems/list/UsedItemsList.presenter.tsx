@@ -3,7 +3,7 @@ import { getDate } from "../../../commons/libraries/utils";
 import { IBoardListPresenterPageProps } from "./UsedItemsList.types";
 import { v4 } from "uuid";
 import "react-datepicker/dist/react-datepicker.css";
-import OneRowContainer from "./oneRow/oneRow.container";
+import OneRowContainer from "./oneRow/OneRow.container";
 
 export default function BoardListPresenterPage(
   props: IBoardListPresenterPageProps
@@ -37,65 +37,22 @@ export default function BoardListPresenterPage(
               dateFormat="yyyy-MM-dd"
             />
           </S.DateWrap>
-          <S.BoardWriteBtn onClick={props.onClickBoardWrite}>
+          <S.WriteBtn onClick={props.onClickWrite}>
             <S.WriteImg src="/pencil.png" />
             게시물 등록하기
-          </S.BoardWriteBtn>
+          </S.WriteBtn>
         </S.ListHeader>
         <S.List>
           {props.data?.fetchUseditems.map((list: any, index: number) => (
             <div
               key={uuid}
               onClick={() => {
-                props.onClickOneRow(list._id);
+                props.onClickOneRow(list);
               }}
             >
               <OneRowContainer list={list} />
             </div>
           ))}
-          {/* <S.Table>
-            <thead>
-              <S.Tr hvBgColor="none" pointer="auto">
-                <S.Th>번호</S.Th>
-                <S.Th width="60%">제목</S.Th>
-                <S.Th width="20%">작성자</S.Th>
-                <S.Th>날짜</S.Th>
-              </S.Tr>
-            </thead>
-            <tbody>
-              {props.data?.fetchUseditems.map((list: any, index: number) => (
-                <S.Tr
-                  id={list._id}
-                  key={list._id}
-                  onClick={props.onClickBoardDetail}
-                >
-                  <S.Td>
-                    <img
-                      src={`https://storage.googleapis.com/${list.images}`}
-                    />
-                  </S.Td>
-                  <S.Td>
-                    {list.name
-                      .replaceAll(
-                        props.searchKeyword,
-                        `${uuid}${props.searchKeyword}${uuid}`
-                      )
-                      .split(uuid)
-                      .map((el: string, index: number) => (
-                        <S.Title
-                          key={index}
-                          keyword={el === props.searchKeyword}
-                        >
-                          {el}
-                        </S.Title>
-                      ))}
-                  </S.Td>
-                  <S.Td>{list.writer}</S.Td>
-                  <S.Td>{getDate(list.createdAt)}</S.Td>
-                </S.Tr>
-              ))}
-            </tbody>
-          </S.Table> */}
         </S.List>
       </S.ListWrapper>
     </S.Wrapper>

@@ -11,6 +11,7 @@ export const FETCH_USED_ITEMS = gql`
       images
       seller {
         name
+        picture
       }
       pickedCount
     }

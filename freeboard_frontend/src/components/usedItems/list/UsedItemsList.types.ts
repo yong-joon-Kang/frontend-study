@@ -1,5 +1,5 @@
 import { IQuery } from "../../../commons/types/generated/types";
-import { ChangeEvent, MouseEvent } from "react";
+import { ChangeEvent } from "react";
 
 export interface IBoardListPresenterPageProps {
   setEndDate: any;
@@ -7,8 +7,8 @@ export interface IBoardListPresenterPageProps {
   minDate: any;
   maxDate: any;
   data?: Pick<IQuery, "fetchUseditems">;
-  onClickOneRow: (event: MouseEvent<HTMLDivElement>) => void;
-  onClickBoardWrite: () => void;
+  onClickOneRow: (arg0: any) => void;
+  onClickWrite: () => void;
   onChangeSearchInput: (event: ChangeEvent<HTMLInputElement>) => void;
   startDate: any;
   endDate: any;
