@@ -1,18 +1,10 @@
 import styled from "@emotion/styled";
-import { forwardRef } from "react";
 
 const Wrap = styled.div`
-  border: 1px solid;
-  position: fixed;
-  height: 100%;
-  width: 300px;
-  left: ${(props: ILayoutProps) => (props.isToggleMenu ? "0" : "-301px")};
-  transition: all 0.3s ease-in-out;
   background-color: #fff;
   display: flex;
   flex-direction: column;
   align-items: center;
-  z-index: 2;
 `;
 
 const NavigateWrap = styled.div`
@@ -41,28 +33,48 @@ const Profile = styled.div`
 `;
 
 interface ILayoutProps {
-  isToggleMenu: boolean;
-  onClickUsedItems?: () => void;
-  onClickBoardList?: () => void;
-  onClickOpenApi?: () => void;
-  onClickFireBase?: () => void;
+  onClickNavMenu: (arg0: string) => void;
 }
 
 // eslint-disable-next-line react/display-name
-const NavMenu = forwardRef((props: ILayoutProps, ref: any) => {
+const NavMenu = (props: ILayoutProps) => {
   return (
-    <Wrap isToggleMenu={props.isToggleMenu} ref={ref}>
+    <Wrap>
       <Profile></Profile>
       <NavigateWrap>
         <Ul>
-          <Li onClick={props.onClickBoardList}>게시판</Li>
-          <Li onClick={props.onClickUsedItems}>중고마켓</Li>
-          <Li onClick={props.onClickOpenApi}>Open Api</Li>
-          <Li onClick={props.onClickFireBase}>FireBase</Li>
+          <Li
+            onClick={() => {
+              props.onClickNavMenu("boardList");
+            }}
+          >
+            게시판
+          </Li>
+          <Li
+            onClick={() => {
+              props.onClickNavMenu("usedItems");
+            }}
+          >
+            중고마켓
+          </Li>
+          <Li
+            onClick={() => {
+              props.onClickNavMenu("OpenApi");
+            }}
+          >
+            Open Api
+          </Li>
+          <Li
+            onClick={() => {
+              props.onClickNavMenu("FireBase");
+            }}
+          >
+            FireBase
+          </Li>
         </Ul>
       </NavigateWrap>
     </Wrap>
   );
-});
+};
 
 export default NavMenu;
