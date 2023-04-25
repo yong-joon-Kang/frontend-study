@@ -75,12 +75,12 @@ function SignInContainer() {
           password: info.password,
         },
       });
-      console.log(result.data.loginUser.accessToken);
+      console.log(result.data.loginUser);
       setaccessToken(result.data.loginUser.accessToken);
       localStorage.setItem("accessToken", result.data.loginUser.accessToken);
       Modal.info({ content: "로그인에 성공하였습니다!" });
 
-      router.push("/test");
+      router.push("/");
     } catch (error) {
       if (error instanceof Error)
         Modal.error({
