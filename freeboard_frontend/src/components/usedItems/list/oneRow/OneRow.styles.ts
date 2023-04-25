@@ -4,9 +4,13 @@ import { HeartFilled } from "@ant-design/icons";
 
 export const Wrap = styled.div`
   display: flex;
-  border: 1px solid;
   justify-content: space-between;
-  padding: 10px 0;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+  cursor: pointer;
+  :hover {
+    background-color: #eee;
+  }
 `;
 
 export const Part = styled.div`
@@ -14,27 +18,39 @@ export const Part = styled.div`
     props.isImgPart ? "100px" : "auto"};
   display: flex;
   flex-direction: column;
-  flex: ${(props: StyleToPresenterProps) => (props.isMiddle ? 1 : 0.1)};
+  flex: ${(props: StyleToPresenterProps) => (props.isMiddle ? 1 : 0.2)};
   padding-left: ${(props: StyleToPresenterProps) =>
     props.isMiddle ? "10px" : ""};
   ${(props: StyleToPresenterProps) =>
     props.isRight ? "text-align: center; justify-content: center;" : ""};
+  width: 150px;
+  height: 150px;
+  padding: 10px;
+  justify-content: center;
 `;
 
 export const Img = styled.img`
   width: 100%;
+  height: 100%;
+  object-fit: contain;
 `;
 
 export const PartTitle = styled.div`
-  width: 100%;
+  width: 700px;
   font-size: 20px;
   margin-bottom: 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 
 export const PartContents = styled.div`
-  width: 100%;
+  width: 700px;
   font-size: 14px;
   margin-bottom: 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 
 export const PartTags = styled.div`
