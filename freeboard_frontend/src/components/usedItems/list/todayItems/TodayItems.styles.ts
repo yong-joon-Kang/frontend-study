@@ -5,12 +5,30 @@ export const Wrap = styled.div`
   position: absolute;
   right: -240px;
   top: 123px;
-  border: 1px solid;
+  border: 1px solid #aaa;
   width: 160px;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 30px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: 550px;
+
+  ::-webkit-scrollbar {
+    width: 6px; /* 스크롤바의 너비를 10px로 설정 */
+    height: 30px;
+  }
+
+  /* 스크롤바의 배경색을 설정 */
+  ::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+  }
+
+  /* 스크롤바의 색상을 설정 */
+  ::-webkit-scrollbar-thumb {
+    background-color: #ffd600;
+  }
 `;
 
 export const Title = styled.div`
@@ -26,6 +44,7 @@ export const ItemWrap = styled.div`
   width: 100%;
   margin: 10px 0;
   padding: 10px;
+  cursor: pointer;
 `;
 
 export const Img = styled.img`

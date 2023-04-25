@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import * as S from "./TodayItems.styles";
+import { useRouter } from "next/router";
 
 function index() {
+  const router = useRouter();
   const [todayItems, setTodayItems] = useState([]);
   useEffect(() => {
     const storage = localStorage.getItem("todayItems");
@@ -11,12 +13,21 @@ function index() {
       );
   }, []);
 
+  const onClickItem = (id: string) => {
+    console.log(id);
+    router.push(`/usedItems/detail/${id}`);
+  };
+
   return (
     <S.Wrap>
       <S.Title>오늘 본 상품</S.Title>
       {todayItems.map((el: any) => (
         <>
-          <S.ItemWrap>
+          <S.ItemWrap
+            onClick={() => {
+              onClickItem(el._id);
+            }}
+          >
             <S.LikeWrap>
               <S.LikeIcon />
               {el.pickedCount}
