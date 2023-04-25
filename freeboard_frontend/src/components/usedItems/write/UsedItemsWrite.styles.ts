@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
-import { ISubmitBtnProps } from "./UsedItemsWrite.types";
+import { ICssprops, ISubmitBtnProps } from "./UsedItemsWrite.types";
 
 export const Wrapper = styled.div`
-  width: 1200px;
+  width: 60%;
   margin: 50px;
   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
   padding: 50px;
@@ -20,8 +20,6 @@ export const HeaderTitle = styled.div`
 `;
 
 export const WriterWrap = styled.div`
-  display: flex;
-  justify-content: space-between;
   margin-top: 50px;
 `;
 
@@ -46,27 +44,28 @@ export const Label = styled.div`
   margin-bottom: 10px;
 `;
 
-export const WriterInput = styled.input`
-  width: 560px;
-  height: 52px;
+export const InputWrap = styled.div`
+  padding: 10px;
+  width: 100%;
+  height: ${(props: ICssprops) => (props.isContent ? "250px" : "42px")};
   border: 1px solid #bdbdbd;
-  padding-left: 15px;
+  display: flex;
 `;
 
-export const TitleInput = styled.input`
-  width: 1182px;
-  height: 52px;
-  border: 1px solid #bdbdbd;
-  padding-left: 15px;
-  margin-bottom: 10px;
+export const Input = styled.input`
+  outline: none;
+  flex: 1;
+  font-size: 18px;
+  border: none;
 `;
 
 export const ContentsInput = styled.textarea`
-  width: 1170px;
-  height: 380px;
-  border: 1px solid #bdbdbd;
+  width: 100%;
+  height: 100%;
+  font-size: 18px;
+  border: none;
+  outline: none;
   resize: none;
-  padding: 15px;
 `;
 
 export const AddrNumInput = styled.input`
