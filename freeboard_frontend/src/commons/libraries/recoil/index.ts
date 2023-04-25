@@ -5,6 +5,11 @@ export const accessTokenState = atom({
   default: "",
 });
 
+export const logOutState = atom({
+  key: "logOutState",
+  default: false,
+});
+
 export const userNameState = atom({
   key: "userNameState",
   default: "",

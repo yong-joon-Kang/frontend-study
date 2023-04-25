@@ -7,7 +7,11 @@ import {
 import { createUploadLink } from "apollo-upload-client";
 
 import { useRecoilState } from "recoil";
-import { accessTokenState } from "../../commons/libraries/recoil";
+import {
+  accessTokenState,
+  logOutState,
+  userNameState,
+} from "../../commons/libraries/recoil";
 import { useEffect } from "react";
 
 interface IProps {
@@ -20,11 +24,26 @@ const GLOBAL_STATE = new InMemoryCache();
 
 const ApolloSettings = (props: IProps) => {
   const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
+  const [, setUserName] = useRecoilState(userNameState);
+  const [isLogOut] = useRecoilState(logOutState);
+
   useEffect(() => {
-    console.log("실행useEffect");
     const result = localStorage.getItem("accessToken");
-    if (result) setAccessToken(result);
-  }, []);
+    if (result) {
+      setAccessToken(result);
+      setUserName("");
+    }
+  }, [accessToken]);
+
+  // 로그아웃을 눌렀을 때
+  useEffect(() => {
+    if (!accessToken && isLogOut) {
+      localStorage.setItem("accessToken", "");
+      localStorage.setItem("userName", "");
+      client.clearStore(); // 캐시된 서버 데이터(로그인 정보 등) 초기화
+      location.reload();
+    }
+  }, [isLogOut]);
 
   const uploadLink = createUploadLink({
     uri: "http://backendonline.codebootcamp.co.kr/graphql",

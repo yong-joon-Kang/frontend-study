@@ -1,10 +1,15 @@
 import styled from "@emotion/styled";
 import { useRouter } from "next/router";
-import { gql, useMutation } from "@apollo/client";
-import { useEffect } from "react";
+import { useState } from "react";
 
 import { useRecoilState } from "recoil";
-import { userNameState } from "../../../commons/libraries/recoil";
+import {
+  accessTokenState,
+  logOutState,
+  userNameState,
+} from "../../../commons/libraries/recoil";
+import { Drawer, Modal } from "antd";
+import NavMenu from "../NavMenu";
 
 const HeaderWrap = styled.div`
   display: flex;
@@ -41,39 +46,59 @@ const Label = styled.span`
   cursor: pointer;
 `;
 
-interface ILayoutProps {
-  onClickMenu: () => void;
-}
-
 interface cssProps {
   isPseudo?: boolean;
   isMenu?: boolean;
   isLogin?: boolean;
 }
 
-// const LOG_OUT_USER = gql`
-//   mutation {
-//     logoutUser
-//   }
-// `;
+function Header() {
+  const [open, setOpen] = useState(false);
 
-function Header(props: ILayoutProps) {
   const router = useRouter();
   const [userName] = useRecoilState(userNameState);
+  const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
+  const [, setLogOutState] = useRecoilState(logOutState);
 
-  // const [logoutUser] = useMutation(LOG_OUT_USER);
+  const onClickOk = () => {
+    setAccessToken("");
+    setLogOutState(true);
+  };
 
   const onClickLogOut = async () => {
-    // console.log("test");
-    // const result = await logoutUser();
-    // console.log(result.data.logoutUser);
-    // setAccessToken("");
-    // console.log(accessToken);
+    Modal.confirm({
+      onOk: onClickOk,
+      content: "로그아웃 하시겠습니까?",
+    });
   };
+
+  const showDrawer = () => {
+    setOpen(true);
+  };
+
+  const onClose = () => {
+    setOpen(false);
+  };
+
+  const onClickNavMenu = (menuName: string) => {
+    if (menuName === "boardList") {
+      router.push("/boards/list");
+    } else if (menuName === "usedItems") {
+      router.push("/usedItems/list");
+    } else if (menuName === "OpenApi") {
+      router.push("/OpenApi");
+    } else if (menuName === "FireBase") {
+      router.push("/FireBase");
+    }
+  };
+
   return (
     <HeaderWrap>
       <SideWrap isMenu={true}>
-        <Label onClick={props.onClickMenu}>Menu</Label>
+        <Label onClick={showDrawer}>Menu</Label>
+        <Drawer placement="left" onClose={onClose} open={open}>
+          <NavMenu onClickNavMenu={onClickNavMenu} />
+        </Drawer>
       </SideWrap>
       <SideWrap>
         <Label>Main</Label>
@@ -82,19 +107,19 @@ function Header(props: ILayoutProps) {
         <LabelWrap>
           <Label
             onClick={() => {
-              userName ? onClickLogOut() : router.push("/signIn");
+              accessToken ? onClickLogOut() : router.push("/signIn");
             }}
           >
-            {userName ? "로그아웃" : "로그인"}
+            {accessToken ? "로그아웃" : "로그인"}
           </Label>
         </LabelWrap>
         <LabelWrap isPseudo={true}>
           <Label
             onClick={() => {
-              userName ? router.push("/") : router.push("/signUp");
+              accessToken ? router.push("/") : router.push("/signUp");
             }}
           >
-            {userName ? userName + "님" : "회원가입"}
+            {accessToken ? `${userName}님` : "회원가입"}
           </Label>
         </LabelWrap>
       </SideWrap>
