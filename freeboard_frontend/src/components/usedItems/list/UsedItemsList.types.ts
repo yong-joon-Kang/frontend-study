@@ -2,6 +2,8 @@ import { IQuery } from "../../../commons/types/generated/types";
 import { ChangeEvent } from "react";
 
 export interface IBoardListPresenterPageProps {
+  hasMore: boolean | undefined;
+  onLoadMore: () => void;
   setEndDate: any;
   setStartDate: any;
   minDate: any;

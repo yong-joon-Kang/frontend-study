@@ -1,14 +1,13 @@
 import * as S from "./UsedItemsList.styles";
 import { getDate } from "../../../commons/libraries/utils";
 import { IBoardListPresenterPageProps } from "./UsedItemsList.types";
-import { v4 } from "uuid";
 import "react-datepicker/dist/react-datepicker.css";
 import OneRowContainer from "./oneRow/OneRow.container";
+import InfiniteScroll from "react-infinite-scroller";
 
 export default function BoardListPresenterPage(
   props: IBoardListPresenterPageProps
 ) {
-  const uuid = v4();
   return (
     <S.Wrapper>
       <S.ListWrapper>
@@ -43,16 +42,30 @@ export default function BoardListPresenterPage(
           </S.WriteBtn>
         </S.ListHeader>
         <S.List>
-          {props.data?.fetchUseditems.map((list: any, index: number) => (
-            <div
-              key={uuid}
-              onClick={() => {
-                props.onClickOneRow(list);
-              }}
-            >
-              <OneRowContainer list={list} />
-            </div>
-          ))}
+          <InfiniteScroll
+            pageStart={0}
+            loadMore={props.onLoadMore}
+            hasMore={props.hasMore}
+            loader={
+              <div className="loader" key={0}>
+                Loading ...
+              </div>
+            }
+            useWindow={false}
+          >
+            {(props.data?.fetchUseditems ?? []).map(
+              (list: any, index: number) => (
+                <div
+                  key={index}
+                  onClick={() => {
+                    props.onClickOneRow(list);
+                  }}
+                >
+                  <OneRowContainer list={list} />
+                </div>
+              )
+            )}
+          </InfiniteScroll>
         </S.List>
       </S.ListWrapper>
     </S.Wrapper>

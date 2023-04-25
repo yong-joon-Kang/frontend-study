@@ -11,6 +11,7 @@ export const Wrapper = styled.div`
 
 export const ListWrapper = styled.div`
   width: 1000px;
+  height: 800px;
   margin-top: 70px;
 `;
 
@@ -69,6 +70,8 @@ export const List = styled.div`
   width: 100%;
   height: 700px;
   overflow-y: scroll;
+  border-top: 1px solid #aaa;
+  border-bottom: 1px solid #aaa;
 
   ::-webkit-scrollbar {
     width: 6px; /* 스크롤바의 너비를 10px로 설정 */

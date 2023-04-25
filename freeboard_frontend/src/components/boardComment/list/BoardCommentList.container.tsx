@@ -90,7 +90,9 @@ export default function BoardCommentListContainerPage() {
 
   // =================END:: board Comment 삭제 시
 
+  // 스크롤하여 더 많은 댓글을 보기 원할 때 발생되는 이벤트
   const onLoadMore = () => {
+    console.log(data?.fetchBoardComments.length);
     fetchMore({
       variables: {
         page: Math.ceil(Number(data?.fetchBoardComments.length) / 10) + 1,

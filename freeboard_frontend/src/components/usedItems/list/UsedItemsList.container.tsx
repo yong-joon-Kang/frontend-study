@@ -5,7 +5,6 @@ import { FETCH_USED_ITEMS } from "./UsedItemsList.queries";
 import { useQuery } from "@apollo/client";
 import router from "next/router";
 import { ChangeEvent, MouseEvent, useEffect, useState } from "react";
-import { ContainerWrap } from "./UsedItemsList.styles";
 import _ from "lodash";
 
 import {
@@ -28,8 +27,9 @@ export default function BoardListContainerPage() {
   const [endDate, setEndDate] = useState(new Date());
   const minDate = startDate;
   const maxDate = endDate;
+  const [hasMore, setHasMore] = useState(true);
 
-  const { data, refetch } = useQuery<
+  const { data, fetchMore } = useQuery<
     Pick<IQuery, "fetchUseditems">,
     IQueryFetchUseditemsArgs
   >(FETCH_USED_ITEMS, {
@@ -55,13 +55,39 @@ export default function BoardListContainerPage() {
     setSearchKeyword(event.target.value);
   };
 
-  const debouncing = _.debounce((searchKeyword) => {
-    refetch({ page: 1, search: searchKeyword });
-  }, 300);
+  // const debouncing = _.debounce((searchKeyword) => {
+  //   refetch({ page: 1, search: searchKeyword });
+  // }, 300);
 
-  useEffect(() => {
-    debouncing(searchKeyword);
-  }, [searchKeyword]);
+  // 스크롤하여 더 많은 리스트 보기 원할 때 발생되는 이벤트
+  const onLoadMore = () => {
+    if (data?.fetchUseditems)
+      fetchMore({
+        variables: {
+          page: Math.ceil(Number(data?.fetchUseditems.length) / 10 ?? 0) + 1,
+        },
+        updateQuery: (prev, { fetchMoreResult }) => {
+          console.log(fetchMoreResult.fetchUseditems);
+          if (fetchMoreResult.fetchUseditems.length === 0) {
+            setHasMore(false);
+            return {
+              fetchUseditems: [...prev.fetchUseditems],
+            };
+          }
+
+          return {
+            fetchUseditems: [
+              ...prev.fetchUseditems,
+              ...fetchMoreResult.fetchUseditems,
+            ],
+          };
+        },
+      });
+  };
+
+  // useEffect(() => {
+  //   debouncing(searchKeyword);
+  // }, [searchKeyword]);
 
   useEffect(() => {
     setTodayItems(JSON.parse(localStorage.getItem("todayItems") ?? "[]"));
@@ -81,6 +107,8 @@ export default function BoardListContainerPage() {
         setEndDate={setEndDate}
         minDate={minDate}
         maxDate={maxDate}
+        onLoadMore={onLoadMore}
+        hasMore={hasMore}
       />
       {todayItems.length > 0 && <TodayItems />}
     </ListWrap>
