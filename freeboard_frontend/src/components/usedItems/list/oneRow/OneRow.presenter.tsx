@@ -1,5 +1,6 @@
 import * as S from "./OneRow.styles";
 import { IContainerProps } from "./OneRow.types";
+import { getComma } from "../../../../commons/libraries/utils";
 function OneRowPresenter(props: IContainerProps) {
   return (
     <S.Wrap>
@@ -27,7 +28,7 @@ function OneRowPresenter(props: IContainerProps) {
         </S.PartBottom>
       </S.Part>
       <S.Part isRight={true}>
-        <S.Price>{props.list.price}원</S.Price>
+        <S.Price>{getComma(props.list.price)}원</S.Price>
       </S.Part>
     </S.Wrap>
   );

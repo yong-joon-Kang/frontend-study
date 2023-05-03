@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import * as S from "./TodayItems.styles";
 import { useRouter } from "next/router";
+import { getComma } from "../../../../commons/libraries/utils";
 
 function index() {
   const router = useRouter();
@@ -40,7 +41,7 @@ function index() {
             </S.ImgWrap>
             <S.PartTitle>{el.name}</S.PartTitle>
             <S.PartContents>{el.contents}</S.PartContents>
-            <S.Price>{el.price}원</S.Price>
+            <S.Price>{getComma(el.price)}원</S.Price>
             <S.PartTags>{el.tags}</S.PartTags>
           </S.ItemWrap>
         </>

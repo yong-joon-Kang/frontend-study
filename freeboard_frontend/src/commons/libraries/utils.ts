@@ -5,3 +5,7 @@ export const getDate = (value: Date) => {
   const dd = String(date.getDate()).padStart(2, "0");
   return `${yyyy}-${mm}-${dd}`;
 };
+
+export const getComma = (value: string) => {
+  return [value].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+};
