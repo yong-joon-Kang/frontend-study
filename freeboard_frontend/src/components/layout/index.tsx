@@ -31,7 +31,6 @@ const Content = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-height: 1050px;
 `;
 
 const Layout = (props: IPropsLayout) => {
