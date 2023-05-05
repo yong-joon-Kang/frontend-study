@@ -101,7 +101,13 @@ function Header() {
         </Drawer>
       </SideWrap>
       <SideWrap>
-        <Label>Main</Label>
+        <Label
+          onClick={() => {
+            router.push("/");
+          }}
+        >
+          Main
+        </Label>
       </SideWrap>
       <SideWrap isLogin={true}>
         <LabelWrap>

@@ -16,7 +16,7 @@ function Home() {
     localStorage.setItem("userName", data?.fetchUserLoggedIn.name ?? "");
   }, []);
 
-  return <div>Home</div>;
+  return <div></div>;
 }
 
 export default Home;
