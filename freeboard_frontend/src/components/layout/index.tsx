@@ -9,7 +9,6 @@ interface IPropsLayout {
 }
 
 const hiddenBannerPath = [
-  "/",
   "/signIn",
   "/signUp",
   "/signUpSuccess",
@@ -21,7 +20,7 @@ const hiddenBannerPath = [
 ];
 
 const LayoutWrap = styled.div`
-  height: 100vh;
+  height: auto;
   display: flex;
   flex-direction: column;
 `;
@@ -31,6 +30,7 @@ const Content = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  min-height: 1000px;
 `;
 
 const Layout = (props: IPropsLayout) => {
