@@ -45,7 +45,10 @@ export default function BoardListContainerPage() {
   const onClickOneRow = (list: any) => {
     const Storage = JSON.parse(localStorage.getItem("todayItems") ?? "[]");
     const result = Storage.filter((el: any) => el._id === list._id);
-    if (result.length > 0) router.push(`/usedItems/detail/${list._id}`);
+    if (result.length > 0) {
+      router.push(`/usedItems/detail/${list._id}`);
+      return;
+    }
     Storage.push(list);
     localStorage.setItem("todayItems", JSON.stringify(Storage));
     router.push(`/usedItems/detail/${list._id}`);
