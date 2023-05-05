@@ -45,6 +45,7 @@ export const Label = styled.div`
 `;
 
 export const InputWrap = styled.div`
+  margin-bottom: 10px;
   padding: 10px;
   width: 100%;
   height: ${(props: ICssprops) => (props.isContent ? "250px" : "42px")};

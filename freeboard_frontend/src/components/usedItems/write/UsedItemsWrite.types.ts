@@ -19,11 +19,15 @@ export interface IUpdateBoardInput {
 }
 
 export interface IUsedItemsPresenterPageProps {
+  control: any;
+  errors: any;
+  isActive: boolean;
+  onSubmit: (arg0: any) => void;
   register: any;
   handleSubmit: any;
-  onClickSubmit: (arg0: any) => void;
   fileUrls: string[];
   setFileUrls: any;
+  onClickUsedItemsList: () => void;
   // setFileUrls: Dispatch<SetStateAction<string[]>>;
   // fileUrls: string[];
   // writerErr: string;
@@ -31,7 +35,7 @@ export interface IUsedItemsPresenterPageProps {
   // titleErr: string;
   // contentsErr: string;
   // isActive: boolean;
-  // isEdit: boolean;
+  isEdit: boolean;
   // address: string;
   // zipcode: string;
   // fetchBoardDataList?: Pick<IQuery, "fetchBoard">;
@@ -41,7 +45,6 @@ export interface IUsedItemsPresenterPageProps {
   // onContentsChanged: (event: ChangeEvent<HTMLTextAreaElement>) => void;
   // onChangeDetailAddress: (event: ChangeEvent<HTMLInputElement>) => void;
   // onChangeYoutubeUrl: (event: ChangeEvent<HTMLInputElement>) => void;
-  // onSubmit: () => void;
   // onSubmitUpdate: () => void;
   // onClickPostCode: () => void;
 }
