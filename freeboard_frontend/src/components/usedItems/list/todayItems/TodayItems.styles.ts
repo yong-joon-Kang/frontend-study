@@ -40,7 +40,7 @@ export const ItemWrap = styled.div`
   display: flex;
   flex-direction: column;
   border: 1px solid #ccc;
-  height: 200px;
+  height: 220px;
   width: 100%;
   margin: 10px 0;
   padding: 10px;
@@ -48,7 +48,8 @@ export const ItemWrap = styled.div`
 `;
 
 export const Img = styled.img`
-  width: 100px;
+  height: 100px;
+  object-fit: cover;
 `;
 
 export const PartTitle = styled.div`

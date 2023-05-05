@@ -18,7 +18,7 @@ export const Part = styled.div`
     props.isImgPart ? "100px" : "auto"};
   display: flex;
   flex-direction: column;
-  flex: ${(props: StyleToPresenterProps) => (props.isMiddle ? 1 : 0.2)};
+  flex: ${(props: StyleToPresenterProps) => (props.isMiddle ? 1 : 0.25)};
   padding-left: ${(props: StyleToPresenterProps) =>
     props.isMiddle ? "10px" : ""};
   ${(props: StyleToPresenterProps) =>
@@ -36,7 +36,6 @@ export const Img = styled.img`
 `;
 
 export const PartTitle = styled.div`
-  width: 700px;
   font-size: 20px;
   margin-bottom: 5px;
   overflow: hidden;
@@ -45,7 +44,6 @@ export const PartTitle = styled.div`
 `;
 
 export const PartContents = styled.div`
-  width: 700px;
   font-size: 14px;
   margin-bottom: 5px;
   overflow: hidden;
