@@ -10,11 +10,10 @@ function Home() {
   const { data } =
     useQuery<Pick<IQuery, "fetchUserLoggedIn">>(FETCH_USER_LOGGED_IN);
   if (data) setUserName(data?.fetchUserLoggedIn.name);
-
+  console.log(data?.fetchUserLoggedIn.name);
   useEffect(() => {
-    setUserName(data?.fetchUserLoggedIn.name ?? "");
     localStorage.setItem("userName", data?.fetchUserLoggedIn.name ?? "");
-  }, []);
+  }, [data?.fetchUserLoggedIn.name]);
 
   return <div></div>;
 }

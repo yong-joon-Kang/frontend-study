@@ -33,7 +33,15 @@ const ApolloSettings = (props: IProps) => {
       setAccessToken(result);
       setUserName("");
     }
-  }, [accessToken]);
+  }, []);
+
+  // 새로고침 할 때
+  useEffect(() => {
+    const accessToken = localStorage.getItem("accessToken");
+    const userName = localStorage.getItem("userName");
+    setAccessToken(accessToken ?? "");
+    setUserName(userName ?? "");
+  }, []);
 
   // 로그아웃을 눌렀을 때
   useEffect(() => {
