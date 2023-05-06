@@ -12,7 +12,7 @@ export const Input = styled.input`
 
 interface IProps {
   text?: string;
-  onClick: () => void;
+  onClick?: () => void;
   isActive?: boolean;
 }
 
