@@ -1,8 +1,6 @@
 import { Modal } from "antd";
 
 const ConfirmModalPresenter = (props: any) => {
-  console.log("===================");
-  console.log(props.password);
   return (
     <>
       <Modal
