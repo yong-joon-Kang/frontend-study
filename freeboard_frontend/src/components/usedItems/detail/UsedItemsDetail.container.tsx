@@ -11,12 +11,15 @@ import {
   IMutation,
   IQuery,
   IQueryFetchUseditemArgs,
+  IUseditem,
 } from "../../../commons/types/generated/types";
 import ConfirmModalPresenter from "../../../commons/modals/confirmModal.presenter";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Modal } from "antd";
+import { IUsedItemsDetailPresenterPageProps } from "./UsedItemsDetail.types";
 
 export default function UsedItemsDetailContainerPage() {
+  const [userName, setUserName] = useState("");
   const router = useRouter();
 
   const { data } = useQuery<
@@ -58,14 +61,18 @@ export default function UsedItemsDetailContainerPage() {
     });
   };
 
-  interface ICart {
-    _id: string;
-    name: string;
-    price: string;
-    images: string[];
-  }
+  // interface ICart {
+  //   _id: string;
+  //   name: string;
+  //   remarks: string;
+  //   contents: string;
+  //   price: string;
+  //   tags: string[];
+  //   images: string[];
+  //   buyer:
+  // }
 
-  const onClickInCart = (cart: ICart) => () => {
+  const onClickInCart = (cart: IUseditem) => {
     // 1. 기존 장바구니 가져오기
     const cartStorage = JSON.parse(localStorage.getItem("cart") ?? "[]");
 
@@ -82,7 +89,7 @@ export default function UsedItemsDetailContainerPage() {
   };
 
   const onClickUsedItemsEdit = () => {
-    router.push(`/boards/detail/${String(router.query.id)}/edit`);
+    router.push(`/usedItems/detail/${String(router.query.id)}/edit`);
   };
 
   const [likeUsedItems] = useMutation(LIKE_BOARD);
@@ -120,6 +127,10 @@ export default function UsedItemsDetailContainerPage() {
     });
   };
 
+  useEffect(() => {
+    setUserName(localStorage.getItem("userName") ?? "");
+  }, []);
+
   return (
     <>
       <ConfirmModalPresenter
@@ -130,6 +141,7 @@ export default function UsedItemsDetailContainerPage() {
       />
       <UsedItemsDetailPresenterPage
         data={data}
+        userName={userName}
         onClickInCart={onClickInCart}
         onClickUsedItemsList={onClickUsedItemsList}
         onToggleModal={onToggleModal}

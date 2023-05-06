@@ -3,6 +3,7 @@ import { getDate } from "../../../commons/libraries/utils";
 import { IUsedItemsDetailPresenterPageProps } from "./UsedItemsDetail.types";
 import { Tooltip } from "antd";
 import { useRouter } from "next/router";
+import DefaultButton from "../../commons/button/DefaultButton";
 export default function UseditemDetailPresenterPage(
   props: IUsedItemsDetailPresenterPageProps
 ) {
@@ -54,19 +55,26 @@ export default function UseditemDetailPresenterPage(
         </S.Footer>
       </S.CardWrapper>
       <S.ButtonWrapper>
-        <S.Button onClick={props.onClickUsedItemsList}>목록으로</S.Button>
-        <S.Button onClick={props.onClickInCart(props.data?.fetchUseditem)}>
-          장바구니 담기
-        </S.Button>
-        <S.Button
-          onClick={() => {
-            router.push("/usedItems/cart");
-          }}
-        >
-          장바구니
-        </S.Button>
-        {/* <S.Button onClick={props.onClickUsedItemsEdit}>수정하기</S.Button>
-        <S.Button onClick={props.onToggleModal}>삭제하기</S.Button> */}
+        <DefaultButton onClick={props.onClickUsedItemsList} text="목록으로" />
+        {/* 권한에 따른 수정버튼 표출 */}
+        {props.userName === fetchUseditem?.seller?.name ? (
+          <DefaultButton onClick={props.onClickUsedItemsEdit} text="수정하기" />
+        ) : (
+          <>
+            <DefaultButton
+              onClick={() => {
+                props.onClickInCart(fetchUseditem ?? "");
+              }}
+              text="장바구니 담기"
+            />
+            <DefaultButton
+              onClick={() => {
+                router.push("/usedItems/cart");
+              }}
+              text="장바구니"
+            />
+          </>
+        )}
       </S.ButtonWrapper>
     </S.Wrapper>
   );
