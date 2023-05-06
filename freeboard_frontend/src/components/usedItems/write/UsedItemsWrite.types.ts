@@ -1,4 +1,4 @@
-import { IQuery } from "../../../commons/types/generated/types";
+import { IQuery, IUseditem } from "../../../commons/types/generated/types";
 import { ChangeEvent, Dispatch, SetStateAction } from "react";
 
 export interface indexPageProps {
@@ -19,6 +19,7 @@ export interface IUpdateBoardInput {
 }
 
 export interface IUsedItemsPresenterPageProps {
+  data: Pick<IQuery, "fetchUseditem"> | undefined;
   control: any;
   errors: any;
   isActive: boolean;

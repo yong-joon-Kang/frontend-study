@@ -6,11 +6,13 @@ import { v4 as uuidv4 } from "uuid";
 import NumberFormat from "../../commons/validation/NumberFormat";
 import ContentsFormat from "../../commons/validation/ContentsFormat";
 import DefaultFormat from "../../commons/validation/DefaultFormat";
+import RegisterPatternFormat from "../../commons/validation/RegisterPatternFormat";
 
 export default function BoardWritePresenterPage(
   props: IUsedItemsPresenterPageProps
 ) {
-  // const fetchBoard = props.fetchBoardDataList?.fetchBoard;
+  // console.log(props.data);
+  const usedItem = props.data?.fetchUseditem;
   return (
     <S.Wrapper>
       <form onSubmit={props.handleSubmit(props.onSubmit)}>
@@ -26,6 +28,7 @@ export default function BoardWritePresenterPage(
               required={true}
               maxLength={30}
               placeholder="상품명을 입력해주세요."
+              value={usedItem?.name ?? ""}
             />
           </S.InputWrap>
           {props.errors.name?.type === "required" && (
@@ -44,6 +47,7 @@ export default function BoardWritePresenterPage(
               required={true}
               maxLength={100}
               placeholder="한줄요약을 입력해주세요."
+              value={usedItem?.remarks ?? ""}
             />
           </S.InputWrap>
           {props.errors.remarks?.type === "required" && (
@@ -62,6 +66,7 @@ export default function BoardWritePresenterPage(
               required={true}
               maxLength={1000}
               placeholder="상품설명을 입력해주세요."
+              value={usedItem?.contents ?? ""}
             />
           </S.InputWrap>
           {props.errors.contents?.type === "required" && (
@@ -81,6 +86,7 @@ export default function BoardWritePresenterPage(
               thousandSeparator={true}
               maxLength={11}
               placeholder="판매가격을 입력해주세요."
+              value={String(usedItem?.price) ?? ""}
             />
           </S.InputWrap>
           {props.errors.price?.type === "required" && (
@@ -93,10 +99,19 @@ export default function BoardWritePresenterPage(
         <S.SubWrap>
           <S.Label>태그입력</S.Label>
           <S.InputWrap>
-            <S.Input type="text" placeholder="#태그 #태그 #태그" />
+            <RegisterPatternFormat
+              register={props.register}
+              maxLength={30}
+              placeholder="#태그1 #태그2 #태그3"
+              defaultValue={usedItem?.tags?.map((tag) => "#" + tag).join("")}
+              pattern={/^.*#.*$/}
+            />
           </S.InputWrap>
+          {props.errors.tags?.type === "pattern" && (
+            <S.ErrorText>태그는 시작할 때 #을 입력해주세요.</S.ErrorText>
+          )}
         </S.SubWrap>
-        <S.SubWrap>
+        {/* <S.SubWrap>
           <S.Label>주소</S.Label>
           <S.AddrNumInput type="text" placeholder="07592" readOnly />
           <S.AddrNumBtn onClick={props.onClickPostCode}>
@@ -108,7 +123,7 @@ export default function BoardWritePresenterPage(
         <S.SubWrap>
           <S.Label>유튜브</S.Label>
           <S.Input type="text" onChange={props.onChangeYoutubeUrl} />
-        </S.SubWrap>
+        </S.SubWrap> */}
         <S.SubWrap>
           <S.Label>사진 첨부</S.Label>
           <S.UploadWrap>
@@ -140,7 +155,6 @@ export default function BoardWritePresenterPage(
           <DefaultButton text="목록으로" onClick={props.onClickUsedItemsList} />
           <DefaultButton
             text={props.isEdit ? "수정하기" : "등록하기"}
-            onClick={props.isEdit ? props.onSubmitUpdate : props.onSubmit}
             isActive={props.isActive}
           />
         </S.SubmitWrap>

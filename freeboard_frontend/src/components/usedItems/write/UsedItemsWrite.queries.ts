@@ -9,16 +9,14 @@ export const CREATE_USED_ITEM = gql`
   }
 `;
 
-export const EDIT_BOARD = gql`
-  mutation updateBoard(
-    $boardId: ID!
-    $password: String
-    $updateBoardInput: UpdateBoardInput!
+export const UPDATE_USED_ITEM = gql`
+  mutation updateUseditem(
+    $useditemId: ID!
+    $updateUseditemInput: UpdateUseditemInput!
   ) {
-    updateBoard(
-      boardId: $boardId
-      password: $password
-      updateBoardInput: $updateBoardInput
+    updateUseditem(
+      useditemId: $useditemId
+      updateUseditemInput: $updateUseditemInput
     ) {
       _id
     }
