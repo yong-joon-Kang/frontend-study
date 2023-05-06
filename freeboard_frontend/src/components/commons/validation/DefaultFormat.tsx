@@ -17,7 +17,11 @@ function DefaultFormat(props: ValidationProps) {
         name={props.name}
         rules={{ required: props.required, maxLength: props.maxLength }}
         render={({ field }) => (
-          <Input {...field} placeholder={props.placeholder}></Input>
+          <Input
+            {...field}
+            defaultValue={props.value}
+            placeholder={props.placeholder}
+          ></Input>
         )}
       />
     </>

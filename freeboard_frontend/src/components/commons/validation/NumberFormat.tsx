@@ -28,6 +28,7 @@ function NumberFormat(props: ValidationProps) {
               fontSize: "18px",
               border: "none",
             }}
+            defaultValue={props.value}
           />
         )}
       />

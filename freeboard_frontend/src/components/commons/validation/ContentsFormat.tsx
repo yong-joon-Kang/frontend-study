@@ -22,6 +22,7 @@ function ContentsFormat(props: ValidationProps) {
           <ContentsInput
             {...field}
             placeholder={props.placeholder}
+            defaultValue={props.value}
           ></ContentsInput>
         )}
       />
