@@ -43,6 +43,10 @@ export const PartTitle = styled.div`
   white-space: nowrap;
 `;
 
+export const SearchKeyword = styled.span`
+  background-color: #d6efff;
+`;
+
 export const PartContents = styled.div`
   font-size: 14px;
   margin-bottom: 5px;

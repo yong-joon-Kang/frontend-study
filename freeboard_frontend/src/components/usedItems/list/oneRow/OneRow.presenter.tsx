@@ -7,12 +7,22 @@ function OneRowPresenter(props: IContainerProps) {
     <S.Wrap>
       <S.Part isImgPart={true}>
         <S.Img
-          src={`https://storage.googleapis.com/${props.list.images[0]}`}
-          alt={props.list.images}
+          src={`https://storage.googleapis.com/${props.list.images?.[0]}`}
+          alt={props.list.images[0]}
         />
       </S.Part>
       <S.Part isMiddle={true}>
-        <S.PartTitle>{props.list.name}</S.PartTitle>
+        <S.PartTitle>
+          {props.list.name
+            .split("")
+            .map((el: string, index: number) =>
+              props.searchKeyword.includes(el) ? (
+                <S.SearchKeyword key={index}>{el}</S.SearchKeyword>
+              ) : (
+                <span key={index}>{el}</span>
+              )
+            )}
+        </S.PartTitle>
         <S.PartContents>{props.list.contents}</S.PartContents>
         <S.PartTags>{props.list.tags}</S.PartTags>
         <S.PartBottom>
