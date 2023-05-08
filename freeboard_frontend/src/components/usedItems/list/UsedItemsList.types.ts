@@ -2,6 +2,9 @@ import { IQuery } from "../../../commons/types/generated/types";
 import { ChangeEvent } from "react";
 
 export interface IBoardListPresenterPageProps {
+  options: any;
+  setSelectedOption: any;
+  selectedOption: any;
   hasMore: boolean | undefined;
   onLoadMore: () => void;
   setEndDate: any;
@@ -15,6 +18,7 @@ export interface IBoardListPresenterPageProps {
   startDate: any;
   endDate: any;
   searchKeyword: string;
+  todayItems: any;
 }
 
 export interface ITrProps {

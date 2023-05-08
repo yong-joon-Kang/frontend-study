@@ -1,5 +1,3 @@
-import { ProfileImg } from "./../detail/UsedItemsDetail.styles";
-import { RecoilRoot } from "recoil";
 import { IKeywordProps } from "./UsedItemsList.types";
 import styled from "@emotion/styled";
 import DatePicker from "react-datepicker";
@@ -13,6 +11,7 @@ export const ListWrapper = styled.div`
   width: 1000px;
   height: 800px;
   margin-top: 70px;
+  position: relative;
 `;
 
 export const ListHeader = styled.div`
@@ -24,11 +23,10 @@ export const ListHeader = styled.div`
 `;
 
 export const SearchWrap = styled.div`
-  flex: 3;
-  margin-right: 50px;
+  flex: 2;
+  margin: 0 50px;
   display: flex;
-  background: #dbdbdb;
-  border-radius: 10px;
+  background: #f2f2f2;
   height: 40px;
   border: none;
   outline: none;
@@ -37,7 +35,7 @@ export const SearchWrap = styled.div`
 `;
 
 export const SearchInput = styled.input`
-  background: #dbdbdb;
+  background: #f2f2f2;
   height: 30px;
   border: none;
   outline: none;
@@ -45,7 +43,7 @@ export const SearchInput = styled.input`
 `;
 
 export const SearchImg = styled.img`
-  height: 20px;
+  height: 15px;
   margin: 0 10px 0 0;
   flex: 1;
 `;

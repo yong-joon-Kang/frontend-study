@@ -4,15 +4,15 @@ import BoardListPresenterPage from "./UsedItemsList.presenter";
 import { FETCH_USED_ITEMS } from "./UsedItemsList.queries";
 import { useQuery } from "@apollo/client";
 import router from "next/router";
-import { ChangeEvent, MouseEvent, useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import _ from "lodash";
 
 import {
   IQuery,
   IQueryFetchUseditemsArgs,
 } from "../../../commons/types/generated/types";
-import TodayItems from "./todayItems";
 import styled from "@emotion/styled";
+import BestItems from "./bestItems/BestItems";
 
 const ListWrap = styled.div`
   position: relative;
@@ -29,7 +29,7 @@ export default function BoardListContainerPage() {
   const maxDate = endDate;
   const [hasMore, setHasMore] = useState(true);
 
-  const { data, fetchMore } = useQuery<
+  const { data, refetch, fetchMore } = useQuery<
     Pick<IQuery, "fetchUseditems">,
     IQueryFetchUseditemsArgs
   >(FETCH_USED_ITEMS, {
@@ -55,12 +55,13 @@ export default function BoardListContainerPage() {
   };
 
   const onChangeSearchInput = (event: ChangeEvent<HTMLInputElement>) => {
-    setSearchKeyword(event.target.value);
+    getDebounce(event.target.value);
   };
 
-  // const debouncing = _.debounce((searchKeyword) => {
-  //   refetch({ page: 1, search: searchKeyword });
-  // }, 300);
+  const getDebounce = _.debounce((searchKeyword) => {
+    setSearchKeyword(searchKeyword);
+    refetch({ page: 1, search: searchKeyword });
+  }, 300);
 
   // 스크롤하여 더 많은 리스트 보기 원할 때 발생되는 이벤트
   const onLoadMore = () => {
@@ -88,16 +89,30 @@ export default function BoardListContainerPage() {
       });
   };
 
-  // useEffect(() => {
-  //   debouncing(searchKeyword);
-  // }, [searchKeyword]);
+  const options = [
+    { value: false, label: "판매중상품" },
+    { value: true, label: "판매된상품" },
+  ];
+
+  const [selectedOption, setSelectedOption] = useState({
+    value: false,
+    label: "판매중상품",
+  });
+
+  useEffect(() => {
+    refetch({
+      page: 1,
+      search: searchKeyword,
+      isSoldout: selectedOption.value,
+    });
+  }, [selectedOption]);
 
   useEffect(() => {
     setTodayItems(JSON.parse(localStorage.getItem("todayItems") ?? "[]"));
-    console.log("List");
   }, []);
   return (
     <ListWrap>
+      <BestItems />
       <BoardListPresenterPage
         data={data}
         onClickWrite={onClickWrite}
@@ -112,8 +127,11 @@ export default function BoardListContainerPage() {
         maxDate={maxDate}
         onLoadMore={onLoadMore}
         hasMore={hasMore}
+        todayItems={todayItems}
+        options={options}
+        selectedOption={selectedOption}
+        setSelectedOption={setSelectedOption}
       />
-      {todayItems.length > 0 && <TodayItems />}
     </ListWrap>
   );
 }

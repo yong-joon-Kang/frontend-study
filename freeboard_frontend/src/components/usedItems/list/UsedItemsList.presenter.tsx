@@ -1,9 +1,10 @@
 import * as S from "./UsedItemsList.styles";
-import { getDate } from "../../../commons/libraries/utils";
 import { IBoardListPresenterPageProps } from "./UsedItemsList.types";
 import "react-datepicker/dist/react-datepicker.css";
 import OneRowContainer from "./oneRow/OneRow.container";
 import InfiniteScroll from "react-infinite-scroller";
+import TodayItems from "./todayItems";
+import Select from "react-select";
 
 export default function BoardListPresenterPage(
   props: IBoardListPresenterPageProps
@@ -12,30 +13,21 @@ export default function BoardListPresenterPage(
     <S.Wrapper>
       <S.ListWrapper>
         <S.ListHeader>
+          {/* <span>판매중상품</span> &nbsp;
+          <span>판매된상품</span> */}
+          <Select
+            defaultValue={props.selectedOption}
+            onChange={props.setSelectedOption}
+            options={props.options}
+          />
           <S.SearchWrap>
             <S.SearchImg src="/search.png" />
             <S.SearchInput
               onChange={props.onChangeSearchInput}
               type="text"
-              placeholder="제목을 검색해주세요."
+              placeholder="제품을 검색해주세요."
             />
           </S.SearchWrap>
-          <S.DateWrap>
-            <S.DateInput
-              onChange={(date) => props.setStartDate(date)}
-              selected={props.startDate}
-              maxDate={props.maxDate}
-              dateFormat="yyyy-MM-dd"
-            />
-          </S.DateWrap>
-          <S.DateWrap>
-            <S.DateInput
-              onChange={(date) => props.setEndDate(date)}
-              selected={props.endDate}
-              minDate={props.minDate}
-              dateFormat="yyyy-MM-dd"
-            />
-          </S.DateWrap>
           <S.WriteBtn onClick={props.onClickWrite}>
             <S.WriteImg src="/pencil.png" />
             게시물 등록하기
@@ -61,12 +53,16 @@ export default function BoardListPresenterPage(
                     props.onClickOneRow(list);
                   }}
                 >
-                  <OneRowContainer list={list} />
+                  <OneRowContainer
+                    list={list}
+                    searchKeyword={props.searchKeyword}
+                  />
                 </div>
               )
             )}
           </InfiniteScroll>
         </S.List>
+        {props.todayItems.length > 0 && <TodayItems />}
       </S.ListWrapper>
     </S.Wrapper>
   );
