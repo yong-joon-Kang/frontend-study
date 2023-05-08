@@ -2,8 +2,8 @@ import UsedItemsDetailPresenterPage from "./UsedItemsDetail.presenter";
 import {
   FETCH_USED_ITEM,
   DELETE_BOARD,
-  LIKE_BOARD,
   DISLIKE_BOARD,
+  TOGGLE_USEDITEM_PICK,
 } from "./UsedItemsDetail.queries";
 import { useQuery, useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
@@ -92,18 +92,18 @@ export default function UsedItemsDetailContainerPage() {
     router.push(`/usedItems/detail/${String(router.query.id)}/edit`);
   };
 
-  const [likeUsedItems] = useMutation(LIKE_BOARD);
+  const [toggleUsedItemPick] = useMutation(TOGGLE_USEDITEM_PICK);
 
   const onClickCountLike = async () => {
-    await likeUsedItems({
+    await toggleUsedItemPick({
       variables: {
-        boardId: router.query.id,
+        useditemId: router.query.id,
       },
       refetchQueries: [
         {
-          query: FETCH_BOARD,
+          query: FETCH_USED_ITEM,
           variables: {
-            boardId: router.query.id,
+            useditemId: router.query.id,
           },
         },
       ],

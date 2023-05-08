@@ -4,6 +4,7 @@ import { IUsedItemsDetailPresenterPageProps } from "./UsedItemsDetail.types";
 import { Tooltip } from "antd";
 import { useRouter } from "next/router";
 import DefaultButton from "../../commons/button/DefaultButton";
+import LikeIcon from "../../commons/icon/LikeIcon";
 export default function UseditemDetailPresenterPage(
   props: IUsedItemsDetailPresenterPageProps
 ) {
@@ -45,12 +46,8 @@ export default function UseditemDetailPresenterPage(
         </S.Contents>
         <S.Footer>
           <S.LikeWrap isLikeIcon={true} onClick={props.onClickCountLike}>
-            <S.LikeIcon />
-            <S.LikeCnt>{fetchUseditem?.likeCount}</S.LikeCnt>
-          </S.LikeWrap>
-          <S.LikeWrap isLikeIcon={false} onClick={props.onClickCountDislike}>
-            <S.DislikeIcon />
-            <S.LikeCnt>{fetchUseditem?.dislikeCount}</S.LikeCnt>
+            <LikeIcon />
+            <S.LikeCnt>{fetchUseditem?.pickedCount}</S.LikeCnt>
           </S.LikeWrap>
         </S.Footer>
       </S.CardWrapper>
