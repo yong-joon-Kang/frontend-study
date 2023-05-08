@@ -66,12 +66,15 @@ export default function BoardListPresenterPage(
                   <S.Td>
                     {list.title
                       .replaceAll(
-                        props.searchInput,
-                        `${uuid}${props.searchInput}${uuid}`
+                        props.searchKeyword,
+                        `${uuid}${props.searchKeyword}${uuid}`
                       )
                       .split(uuid)
                       .map((el: string, index: number) => (
-                        <S.Title key={index} keyword={el === props.searchInput}>
+                        <S.Title
+                          key={index}
+                          keyword={el === props.searchKeyword}
+                        >
                           {el}
                         </S.Title>
                       ))}
