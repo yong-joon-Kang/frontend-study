@@ -6,6 +6,7 @@ import styled from "@emotion/styled";
 const BannerWrap = styled.div`
   width: 100%;
   height: 400px;
+  margin-bottom: 100px;
 `;
 
 const Img = styled.img`
