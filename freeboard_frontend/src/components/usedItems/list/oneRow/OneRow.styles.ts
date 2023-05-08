@@ -58,6 +58,10 @@ export const PartTags = styled.div`
   margin-bottom: 10px;
 `;
 
+export const BottomContent = styled.span`
+  margin-right: 10px;
+`;
+
 export const SellerPicture = styled.img`
   width: 40px;
   border-radius: 30px;

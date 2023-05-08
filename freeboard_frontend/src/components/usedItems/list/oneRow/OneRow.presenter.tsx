@@ -1,6 +1,7 @@
 import * as S from "./OneRow.styles";
 import { IContainerProps } from "./OneRow.types";
 import { getComma } from "../../../../commons/libraries/utils";
+import LikeIcon from "../../../commons/icon/LikeIcon";
 function OneRowPresenter(props: IContainerProps) {
   return (
     <S.Wrap>
@@ -15,16 +16,17 @@ function OneRowPresenter(props: IContainerProps) {
         <S.PartContents>{props.list.contents}</S.PartContents>
         <S.PartTags>{props.list.tags}</S.PartTags>
         <S.PartBottom>
-          <span>
+          <S.BottomContent>
             <S.SellerPicture
               src={`https://storage.googleapis.com/${props.list?.seller?.picture}`}
             />
             {props.list.seller?.name}
-          </span>
-          <span>
-            <S.LikeIcon />
+          </S.BottomContent>
+          <S.BottomContent>
+            <LikeIcon />
+            &nbsp;
             {props.list.pickedCount}
-          </span>
+          </S.BottomContent>
         </S.PartBottom>
       </S.Part>
       <S.Part isRight={true}>

@@ -4,7 +4,7 @@ import { HeartFilled } from "@ant-design/icons";
 export const Wrap = styled.div`
   position: absolute;
   right: -240px;
-  top: 123px;
+  top: 53px;
   border: 1px solid #aaa;
   width: 160px;
   display: flex;

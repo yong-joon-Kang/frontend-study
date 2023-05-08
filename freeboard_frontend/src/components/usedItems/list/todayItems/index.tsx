@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import * as S from "./TodayItems.styles";
 import { useRouter } from "next/router";
 import { getComma } from "../../../../commons/libraries/utils";
+import LikeIcon from "../../../commons/icon/LikeIcon";
+import { IUseditem } from "../../../../commons/types/generated/types";
 
 function index() {
   const router = useRouter();
@@ -22,7 +24,7 @@ function index() {
   return (
     <S.Wrap>
       <S.Title>오늘 본 상품</S.Title>
-      {todayItems.map((el: any) => (
+      {todayItems.map((el: IUseditem) => (
         <>
           <S.ItemWrap
             onClick={() => {
@@ -30,13 +32,14 @@ function index() {
             }}
           >
             <S.LikeWrap>
-              <S.LikeIcon />
+              <LikeIcon />
+              &nbsp;
               {el.pickedCount}
             </S.LikeWrap>
             <S.ImgWrap>
               <S.Img
-                src={`https://storage.googleapis.com/${el.images[0]}`}
-                alt={el.images}
+                src={`https://storage.googleapis.com/${el.images?.[0] ?? ""}`}
+                alt={el.images?.[0]}
               />
             </S.ImgWrap>
             <S.PartTitle>{el.name}</S.PartTitle>
