@@ -15,14 +15,16 @@ export default function BoardListPresenterPage(
           <S.SearchWrap>
             <S.SearchImg src="/search.png" />
             <S.SearchInput
-              onChange={props.onChangeSearchInput}
+              onChange={props.onChangeSearchKeyword}
               type="text"
               placeholder="제목을 검색해주세요."
             />
           </S.SearchWrap>
           <S.DateWrap>
             <S.DateInput
-              onChange={(date) => props.setStartDate(date)}
+              onChange={(date) => {
+                props.onChangeStartDate(date);
+              }}
               selected={props.startDate}
               maxDate={props.maxDate}
               dateFormat="yyyy-MM-dd"
@@ -30,7 +32,9 @@ export default function BoardListPresenterPage(
           </S.DateWrap>
           <S.DateWrap>
             <S.DateInput
-              onChange={(date) => props.setEndDate(date)}
+              onChange={(date) => {
+                props.onChangeEndDate(date);
+              }}
               selected={props.endDate}
               minDate={props.minDate}
               dateFormat="yyyy-MM-dd"
@@ -62,15 +66,12 @@ export default function BoardListPresenterPage(
                   <S.Td>
                     {list.title
                       .replaceAll(
-                        props.searchKeyword,
-                        `${uuid}${props.searchKeyword}${uuid}`
+                        props.searchInput,
+                        `${uuid}${props.searchInput}${uuid}`
                       )
                       .split(uuid)
                       .map((el: string, index: number) => (
-                        <S.Title
-                          key={index}
-                          keyword={el === props.searchKeyword}
-                        >
+                        <S.Title key={index} keyword={el === props.searchInput}>
                           {el}
                         </S.Title>
                       ))}

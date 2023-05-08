@@ -3,7 +3,7 @@ import BoardListPresenterPage from "./BoardList.presenter";
 import { FETCH_BOARDS, FETCH_BOARDS_COUNT } from "./BoardList.queries";
 import { useQuery } from "@apollo/client";
 import router from "next/router";
-import { ChangeEvent, MouseEvent, useEffect, useState } from "react";
+import { ChangeEvent, MouseEvent, useState } from "react";
 import _ from "lodash";
 
 import {
@@ -40,33 +40,46 @@ export default function BoardListContainerPage() {
     router.push(`/boards/detail/${event.currentTarget.id}`);
   };
 
-  const onChangeSearchInput = (event: ChangeEvent<HTMLInputElement>) => {
-    setSearchKeyword(event.target.value);
-  };
-
-  const debouncing = _.debounce((searchKeyword, startDate, endDate) => {
+  const getDebounce = _.debounce((searchKeyword, startDate, endDate) => {
+    setSearchKeyword(searchKeyword);
+    setStartDate(startDate);
+    setEndDate(endDate);
     refetch({ page: 1, search: searchKeyword, startDate, endDate });
     refetchCount({ search: searchKeyword, startDate, endDate });
   }, 300);
 
-  useEffect(() => {
-    debouncing(searchKeyword, startDate, endDate);
-  }, [searchKeyword, startDate, endDate]);
-  console.log(fetchBoardsCount?.fetchBoardsCount);
+  const onChangeSearchKeyword = (event: ChangeEvent<HTMLInputElement>) => {
+    getDebounce(event.target.value, startDate, endDate);
+  };
+
+  const onChangeStartDate = (date: Date) => {
+    getDebounce(searchKeyword, date, endDate);
+  };
+
+  const onChangeEndDate = (date: Date) => {
+    getDebounce(searchKeyword, startDate, date);
+  };
+
+  // useEffect(() => {
+  //   debouncing(searchKeyword, startDate, endDate);
+  // }, [searchKeyword, startDate, endDate]);
+  // console.log(fetchBoardsCount?.fetchBoardsCount);
   return (
     <>
       <BoardListPresenterPage
         data={data}
         onClickBoardWrite={onClickBoardWrite}
         onClickBoardDetail={onClickBoardDetail}
-        onChangeSearchInput={onChangeSearchInput}
-        searchKeyword={searchKeyword}
+        onChangeSearchKeyword={onChangeSearchKeyword}
+        onChangeStartDate={onChangeStartDate}
+        onChangeEndDate={onChangeEndDate}
         startDate={startDate}
         endDate={endDate}
         setStartDate={setStartDate}
         setEndDate={setEndDate}
         minDate={minDate}
         maxDate={maxDate}
+        searchKeyword={searchKeyword}
       />
       <Pagination
         refetch={refetch}

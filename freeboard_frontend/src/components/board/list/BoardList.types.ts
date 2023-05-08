@@ -9,7 +9,9 @@ export interface IBoardListPresenterPageProps {
   data?: Pick<IQuery, "fetchBoards">;
   onClickBoardDetail: (event: MouseEvent<HTMLDivElement>) => void;
   onClickBoardWrite: () => void;
-  onChangeSearchInput: (event: ChangeEvent<HTMLInputElement>) => void;
+  onChangeSearchKeyword: (event: ChangeEvent<HTMLInputElement>) => void;
+  onChangeStartDate: (date: any) => void;
+  onChangeEndDate: (date: any) => void;
   startDate: any;
   endDate: any;
   searchKeyword: string;
