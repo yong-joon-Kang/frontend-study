@@ -1,10 +1,27 @@
 import { LikeOutlined, DislikeOutlined } from "@ant-design/icons";
 import styled from "@emotion/styled";
 import { LikeType } from "./UsedItemsDetail.types";
+import { mideaQuery } from "../../../../styles/common";
 
 export const Wrapper = styled.div`
   width: 1200px;
   margin: 50px;
+
+  @media (max-width: ${mideaQuery.width1300}) {
+    width: ${mideaQuery.width1000};
+  }
+
+  @media (max-width: ${mideaQuery.width1100}) {
+    width: ${mideaQuery.width800};
+  }
+
+  @media (max-width: ${mideaQuery.width900}) {
+    width: ${mideaQuery.width600};
+  }
+
+  @media (max-width: ${mideaQuery.width700}) {
+    width: ${mideaQuery.width500};
+  }
 `;
 
 export const CardWrapper = styled.div`
@@ -31,6 +48,7 @@ export const HeadLeft = styled.div`
 
 export const ProfileImg = styled.img`
   width: 50px;
+  margin-right: 10px;
 `;
 
 export const ProfileDetailWrap = styled.div`
@@ -38,12 +56,36 @@ export const ProfileDetailWrap = styled.div`
   flex-direction: column;
 `;
 
-export const Title = styled.div`
+export const ContentHeader = styled.div``;
+
+export const ContentsRight = styled.div`
+  float: right;
+`;
+
+export const ContentsLeft = styled.div`
+  float: left;
+`;
+
+export const Remarks = styled.div`
+  font-size: 20px;
+  color: #bbb;
+  margin-bottom: 15px;
+`;
+
+export const Name = styled.div`
   font-size: 2em;
   margin-bottom: 30px;
 `;
 
-export const ProfileName = styled.div``;
+export const Price = styled.div`
+  font-size: 2em;
+  margin-bottom: 30px;
+  font-weight: bold;
+`;
+
+export const ProfileName = styled.div`
+  padding-left: 3px;
+`;
 
 export const ProfileDate = styled.div``;
 
@@ -78,6 +120,7 @@ export const LikeWrap = styled.div`
   margin: 0 30px;
   color: ${(props: LikeType) => (props.isLikeIcon ? "#ffd600;" : "#828282")};
   cursor: pointer;
+  font-size: 50px;
 `;
 
 export const LikeIcon = styled(LikeOutlined)`

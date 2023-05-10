@@ -2,7 +2,6 @@ import UsedItemsDetailPresenterPage from "./UsedItemsDetail.presenter";
 import {
   FETCH_USED_ITEM,
   DELETE_BOARD,
-  DISLIKE_BOARD,
   TOGGLE_USEDITEM_PICK,
 } from "./UsedItemsDetail.queries";
 import { useQuery, useMutation } from "@apollo/client";
@@ -35,8 +34,8 @@ export default function UsedItemsDetailContainerPage() {
     router.push("/usedItems/list");
   };
 
-  const [deleteUsedItems] =
-    useMutation<Pick<IMutation, "deleteUsedItems">>(DELETE_BOARD);
+  // const [deleteUsedItems] =
+  //   useMutation<Pick<IMutation, "deleteUsedItems">>(DELETE_BOARD);
 
   const [ismodalToggle, setModalToggle] = useState(false);
 
@@ -50,15 +49,15 @@ export default function UsedItemsDetailContainerPage() {
   };
 
   const onClickUsedItemsDelete = async () => {
-    await deleteUsedItems({
-      variables: {
-        boardId: router.query.id,
-      },
-    });
-    router.push({
-      pathname: "/boards/list",
-      // query: { isSuccess: true },
-    });
+    // await deleteUsedItems({
+    //   variables: {
+    //     boardId: router.query.id,
+    //   },
+    // });
+    // router.push({
+    //   pathname: "/boards/list",
+    //   // query: { isSuccess: true },
+    // });
   };
 
   // interface ICart {
@@ -110,23 +109,6 @@ export default function UsedItemsDetailContainerPage() {
     });
   };
 
-  const [dislikeUsedItems] = useMutation(DISLIKE_BOARD);
-  const onClickCountDislike = async () => {
-    await dislikeUsedItems({
-      variables: {
-        boardId: router.query.id,
-      },
-      refetchQueries: [
-        {
-          query: FETCH_BOARD,
-          variables: {
-            boardId: router.query.id,
-          },
-        },
-      ],
-    });
-  };
-
   useEffect(() => {
     setUserName(localStorage.getItem("userName") ?? "");
   }, []);
@@ -147,7 +129,6 @@ export default function UsedItemsDetailContainerPage() {
         onToggleModal={onToggleModal}
         onClickUsedItemsEdit={onClickUsedItemsEdit}
         onClickCountLike={onClickCountLike}
-        onClickCountDislike={onClickCountDislike}
       />
     </>
   );

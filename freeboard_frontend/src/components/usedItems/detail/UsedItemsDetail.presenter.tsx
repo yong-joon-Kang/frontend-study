@@ -1,10 +1,12 @@
 import * as S from "./UsedItemsDetail.styles";
-import { getDate } from "../../../commons/libraries/utils";
+import { getComma, getDate } from "../../../commons/libraries/utils";
 import { IUsedItemsDetailPresenterPageProps } from "./UsedItemsDetail.types";
 import { Tooltip } from "antd";
 import { useRouter } from "next/router";
 import DefaultButton from "../../commons/button/DefaultButton";
 import LikeIcon from "../../commons/icon/LikeIcon";
+import LikeOutLineIcon from "../../commons/icon/LikeOutLineIcon";
+import SlickSlide from "../../commons/slickSlide/SlickSlide";
 export default function UseditemDetailPresenterPage(
   props: IUsedItemsDetailPresenterPageProps
 ) {
@@ -22,7 +24,7 @@ export default function UseditemDetailPresenterPage(
             </S.ProfileDetailWrap>
           </S.HeadLeft>
           <S.HeadRight>
-            <Tooltip title={`${fetchUseditem?.youtubeUrl ?? ""}`}>
+            {/* <Tooltip title={`${fetchUseditem?.youtubeUrl ?? ""}`}>
               <S.LinkImg src="/link.png"></S.LinkImg>
             </Tooltip>
             <Tooltip
@@ -31,25 +33,29 @@ export default function UseditemDetailPresenterPage(
               }`}
             >
               <S.LocationImg src="/location.png"></S.LocationImg>
-            </Tooltip>
+            </Tooltip> */}
           </S.HeadRight>
         </S.Header>
         <S.Contents>
-          <S.Title>{fetchUseditem?.name}</S.Title>
-          {fetchUseditem?.contents}
-          {fetchUseditem?.images?.map((el, index) => (
-            <S.UploadImg
-              key={index}
-              src={`https://storage.googleapis.com/${el}`}
-            ></S.UploadImg>
-          ))}
+          <S.ContentHeader>
+            <S.ContentsLeft>
+              <S.Remarks>{fetchUseditem?.remarks}</S.Remarks>
+              <S.Name>{fetchUseditem?.name}</S.Name>
+              <S.Price>
+                {getComma(String(fetchUseditem?.price) ?? "")}원
+              </S.Price>
+            </S.ContentsLeft>
+            <S.ContentsRight>
+              <S.LikeWrap isLikeIcon={true} onClick={props.onClickCountLike}>
+                <LikeOutLineIcon />
+                <S.LikeCnt>{fetchUseditem?.pickedCount}</S.LikeCnt>
+              </S.LikeWrap>
+            </S.ContentsRight>
+          </S.ContentHeader>
+          <SlickSlide images={fetchUseditem?.images ?? []} />
         </S.Contents>
-        <S.Footer>
-          <S.LikeWrap isLikeIcon={true} onClick={props.onClickCountLike}>
-            <LikeIcon />
-            <S.LikeCnt>{fetchUseditem?.pickedCount}</S.LikeCnt>
-          </S.LikeWrap>
-        </S.Footer>
+
+        <S.Footer></S.Footer>
       </S.CardWrapper>
       <S.ButtonWrapper>
         <DefaultButton onClick={props.onClickUsedItemsList} text="목록으로" />
