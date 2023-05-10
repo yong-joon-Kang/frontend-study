@@ -1,8 +1,9 @@
 import { HeartFilled } from "@ant-design/icons";
 import styled from "@emotion/styled";
+import { color } from "../../../../styles/common";
 
 const Like = styled(HeartFilled)`
-  color: #ffd600;
+  color: ${color.primary};
 `;
 
 function LikeIcon() {
