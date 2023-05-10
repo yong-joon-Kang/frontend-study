@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { HeartFilled } from "@ant-design/icons";
+import { mideaQuery } from "../../../../../styles/common";
 
 export const Wrap = styled.div`
   position: absolute;
@@ -14,6 +15,10 @@ export const Wrap = styled.div`
   overflow-y: auto;
   overflow-x: hidden;
   max-height: 550px;
+
+  @media (max-width: 1550px) {
+    display: none;
+  }
 
   ::-webkit-scrollbar {
     width: 6px; /* 스크롤바의 너비를 10px로 설정 */

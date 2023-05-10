@@ -12,6 +12,10 @@ export const ListWrapper = styled.div`
   height: 800px;
   margin-top: 70px;
   position: relative;
+
+  @media (max-width: 1100px) {
+    width: 90%;
+  }
 `;
 
 export const ListHeader = styled.div`

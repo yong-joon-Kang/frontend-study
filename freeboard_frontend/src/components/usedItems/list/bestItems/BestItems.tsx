@@ -4,6 +4,7 @@ import { FETCH_USEDITEMS_OFTHEBEST } from "./BestItems.queries";
 import styled from "@emotion/styled";
 import LikeIcon from "../../../commons/icon/LikeIcon";
 import { useRouter } from "next/router";
+import { mideaQuery } from "../../../../../styles/common";
 
 const Title = styled.div`
   font-size: 1.7em;
@@ -17,6 +18,14 @@ const ItemsWrap = styled.div`
   justify-content: space-between;
   margin: 0 auto;
   width: 850px;
+  padding: 10px;
+  overflow: hidden;
+  @media (max-width: ${mideaQuery.width900}) {
+    width: ${mideaQuery.width620};
+  }
+  @media (max-width: ${mideaQuery.width700}) {
+    width: ${mideaQuery.width410};
+  }
 `;
 
 const ItemWrap = styled.div`
@@ -24,9 +33,9 @@ const ItemWrap = styled.div`
   flex-direction: column;
   justify-content: space-between;
   width: 200px;
-  height: 230px;
+  height: 260px;
   padding: 10px;
-  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
   margin: 0 5px;
   cursor: pointer;
 `;

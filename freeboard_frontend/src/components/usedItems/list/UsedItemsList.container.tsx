@@ -12,7 +12,6 @@ import {
   IQueryFetchUseditemsArgs,
 } from "../../../commons/types/generated/types";
 import styled from "@emotion/styled";
-import BestItems from "./bestItems/BestItems";
 
 const ListWrap = styled.div`
   position: relative;
@@ -112,7 +111,7 @@ export default function BoardListContainerPage() {
   }, []);
   return (
     <ListWrap>
-      <BestItems />
+      {/* <BestItems /> */}
       <BoardListPresenterPage
         data={data}
         onClickWrite={onClickWrite}
