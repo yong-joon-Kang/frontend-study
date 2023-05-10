@@ -20,13 +20,14 @@ const hiddenBannerPath = [
 ];
 
 const LayoutWrap = styled.div`
+  width: auto;
   height: auto;
   display: flex;
   flex-direction: column;
 `;
 
 const Content = styled.div`
-  width: 100%;
+  /* width: 100%; */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -40,10 +41,8 @@ const Layout = (props: IPropsLayout) => {
   return (
     <LayoutWrap>
       <Header />
-      <Content>
-        {!isHiddenBanner && <Banner />}
-        {props.children}
-      </Content>
+      {!isHiddenBanner && <Banner />}
+      <Content>{props.children}</Content>
       <Footer />
     </LayoutWrap>
   );
