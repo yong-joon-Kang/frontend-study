@@ -5,7 +5,7 @@ function CartPresenter(props) {
       {props?.cart.map((el) => (
         <>
           <div>
-            <img src={`https://storage.googleapis.com/${el.image}`}></img>
+            <img src={`https://storage.googleapis.com/${el.images[0]}`}></img>
           </div>
           <div></div>
         </>
