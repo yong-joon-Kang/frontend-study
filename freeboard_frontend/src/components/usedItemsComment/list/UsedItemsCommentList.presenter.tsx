@@ -20,7 +20,7 @@ export default function BoardCommentListPresenterPage(
   }
 
   return (
-    <S.Wrapper>
+    <S.Wrapper isAnswer={props.isAnswer}>
       <S.CommentListWrap>
         <InfiniteScroll
           pageStart={0}
@@ -54,6 +54,7 @@ export default function BoardCommentListPresenterPage(
                 index={index}
                 onClickUpdate={props.onClickUpdate}
                 onToggleModal={props.onToggleModal}
+                isAnswer={props.isAnswer}
               />
             )
           )}

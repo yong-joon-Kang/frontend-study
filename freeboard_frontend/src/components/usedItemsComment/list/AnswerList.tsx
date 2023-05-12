@@ -90,8 +90,6 @@ export default function AnswerListPage(props: IPropsAnswerList) {
         onClickUpdate={onClickUpdate}
         isEditArr={isEditArr}
         onToggleModal={onToggleModal}
-        // onLoadMore={onLoadMore}
-        // hasMore={hasMore}
         setIsEditArr={setIsEditArr}
         isAnswer={props.isAnswer}
         useditemQuestionId={props.useditemQuestionId}

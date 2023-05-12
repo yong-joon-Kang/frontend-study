@@ -2,10 +2,13 @@ import styled from "@emotion/styled";
 import { Rate } from "antd";
 import { mideaQuery } from "../../../../styles/common";
 
+interface IProps {
+  isAnswer: boolean;
+}
+
 export const Wrapper = styled.div`
   width: 1200px;
-  margin: 50px;
-  border-top: 1px solid #aaa;
+  border-top: ${(props: IProps) => (props.isAnswer ? "" : "1px solid #aaa;")};
   padding-top: 30px;
 
   @media (max-width: ${mideaQuery.width1300}) {
@@ -32,7 +35,8 @@ export const StarRate = styled(Rate)`
 export const CommentListWrap = styled.div``;
 
 export const CommentList = styled.div`
-  border-bottom: 1px solid #aaa;
+  border-bottom: ${(props: IProps) =>
+    props.isAnswer ? "" : "1px solid #aaa;"};
   margin-bottom: 10px;
 `;
 

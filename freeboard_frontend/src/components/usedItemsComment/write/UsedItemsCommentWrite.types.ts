@@ -11,10 +11,10 @@ export interface IUsedItemsCommentPresenterPageProps extends editProps {
 }
 
 export interface editProps extends editContentsProps {
-  isEdit: boolean;
-  id: string;
-  setIsEditArr: Dispatch<SetStateAction<boolean[]>> | undefined;
-  index: number;
+  isEdit?: boolean;
+  id?: string;
+  setIsEditArr?: Dispatch<SetStateAction<boolean[]>>;
+  index?: number;
 }
 
 export interface editContentsProps {
@@ -24,37 +24,10 @@ export interface editContentsProps {
 export interface ICurrLengthProps {
   length: string;
 }
-
 export interface IProps extends editProps {
-  // isEdit?: boolean;
-  // id?: string;
   contents?: string;
-  // index?: number;
   isEditArr?: boolean[];
-  // setIsEditArr?: Dispatch<SetStateAction<boolean[]>>;
   isAnswer?: boolean;
   setIsAnswer?: Dispatch<SetStateAction<boolean>>;
   useditemQuestionId?: string;
 }
-
-// export interface IAnswer {
-//   isAnswer?: boolean;
-//   id: string;
-//   isEdit: boolean;
-//   contents: string;
-//   useditemQuestionId?: string;
-//   index: number;
-//   isEditArr: boolean[];
-//   setIsEditArr: Dispatch<SetStateAction<boolean[]>>;
-// }
-
-// export interface IProps {
-//   isAnswer?: boolean;
-//   useditemQuestionId?: string;
-//   isEdit?: boolean;
-//   id?: string;
-//   contents?: string;
-//   index?: number;
-//   isEditArr?: boolean[];
-//   setIsEditArr?: Dispatch<SetStateAction<boolean[]>>;
-// }
