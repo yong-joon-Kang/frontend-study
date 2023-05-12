@@ -12,6 +12,7 @@ import {
   IQueryFetchUseditemQuestionAnswersArgs,
 } from "../../../../commons/types/generated/types";
 import AnswerListPage from "../AnswerList";
+import AnswerArrow from "../../../commons/icon/AnswerArrow";
 
 function UsedItemsCommentOneRow(props: IProps) {
   // console.log(props.el);
@@ -30,8 +31,9 @@ function UsedItemsCommentOneRow(props: IProps) {
   // console.log("얘 안나오냐 설마");
   // console.log(props.el._id);
   return (
-    <S.CommentList key={props.el._id}>
+    <S.CommentList isAnswer={props.isAnswer} key={props.el._id}>
       <S.CommentHeader>
+        {props.isAnswer && <AnswerArrow />}
         <S.ProfileImg src="/profileDef.png" />
         <S.MiddleWrap>
           <S.Writer>{props.el.user?.name}</S.Writer>

@@ -1,3 +1,4 @@
+import AnswerArrow from "../../commons/icon/AnswerArrow";
 import * as S from "./UsedItemsCommentWrite.styles";
 import { IUsedItemsCommentPresenterPageProps } from "./UsedItemsCommentWrite.types";
 
@@ -26,7 +27,7 @@ export default function BoardCommentPresenterPage(
             src="/cancel.png"
           ></S.DeleteBtn>
         )}
-        {props.isAnswer && <S.AnswerArrow src="/answerArrow.png" />}
+        {props.isAnswer && <AnswerArrow />}
         <S.TextAreaWrap>
           <S.TextArea
             onChange={props.onChangeTextArea}
