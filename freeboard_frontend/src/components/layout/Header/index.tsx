@@ -6,7 +6,7 @@ import { useRecoilState } from "recoil";
 import {
   accessTokenState,
   logOutState,
-  userNameState,
+  userInfoState,
 } from "../../../commons/libraries/recoil";
 import { Drawer, Modal } from "antd";
 import NavMenu from "../NavMenu";
@@ -56,7 +56,7 @@ function Header() {
   const [open, setOpen] = useState(false);
 
   const router = useRouter();
-  const [userName] = useRecoilState(userNameState);
+  const [userInfo] = useRecoilState(userInfoState);
   const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
   const [, setLogOutState] = useRecoilState(logOutState);
 
@@ -125,7 +125,7 @@ function Header() {
               accessToken ? router.push("/") : router.push("/signUp");
             }}
           >
-            {accessToken ? `${userName}님` : "회원가입"}
+            {accessToken ? `${userInfo.name}님` : "회원가입"}
           </Label>
         </LabelWrap>
       </SideWrap>
