@@ -16,6 +16,11 @@ import ConfirmModalPresenter from "../../../commons/modals/confirmModal.presente
 import { useEffect, useState } from "react";
 import { Modal } from "antd";
 import { IUsedItemsDetailPresenterPageProps } from "./UsedItemsDetail.types";
+import BoardCommentListContainerPage from "../../usedItemsComment/list/UsedItemsCommentList.container";
+import BoardWriteContainerPage from "../../board/write/BoardWrite.container";
+import BoardCommentWriteContainerPage from "../../boardComment/write/BoardCommentWrite.container";
+import UsedItemsCommentWriteContainerPage from "../../usedItemsComment/write/UsedItemsCommentWrite.container";
+import UsedItemsCommentListContainerPage from "../../usedItemsComment/list/UsedItemsCommentList.container";
 
 export default function UsedItemsDetailContainerPage() {
   const [userName, setUserName] = useState("");
@@ -130,6 +135,8 @@ export default function UsedItemsDetailContainerPage() {
         onClickUsedItemsEdit={onClickUsedItemsEdit}
         onClickCountLike={onClickCountLike}
       />
+      <UsedItemsCommentWriteContainerPage />
+      <UsedItemsCommentListContainerPage />
     </>
   );
 }

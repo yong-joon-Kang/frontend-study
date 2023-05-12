@@ -55,7 +55,10 @@ export default function UseditemDetailPresenterPage(
           <SlickSlide images={fetchUseditem?.images ?? []} />
         </S.Contents>
 
-        <S.Footer></S.Footer>
+        <S.Footer>
+          <div>{fetchUseditem?.contents}</div>
+          <S.Tags>{fetchUseditem?.tags?.map((el) => ` #${el}`)}</S.Tags>
+        </S.Footer>
       </S.CardWrapper>
       <S.ButtonWrapper>
         <DefaultButton onClick={props.onClickUsedItemsList} text="목록으로" />

@@ -26,7 +26,6 @@ export const Wrapper = styled.div`
 
 export const CardWrapper = styled.div`
   min-height: 847px;
-  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
   padding: 50px;
   display: flex;
   flex-direction: column;
@@ -101,16 +100,23 @@ export const HeadRight = styled.div`
 
 export const Contents = styled.div`
   width: 100%;
-  padding: 30px 0 0 30px;
+  padding: 30px 0 70px 0;
   display: flex;
   flex-direction: column;
 `;
 
 export const Footer = styled.div`
   display: flex;
-  flex-direction: row;
-  align-items: center;
+  flex-direction: column;
   margin-top: 100px;
+  width: 100%;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 50px;
+`;
+
+export const Tags = styled.div`
+  margin-top: 30px;
+  color: #bbb;
 `;
 
 export const LikeWrap = styled.div`
