@@ -10,7 +10,7 @@ export const logOutState = atom({
   default: false,
 });
 
-export const userNameState = atom({
-  key: "userNameState",
-  default: "",
+export const userInfoState = atom({
+  key: "userInfoState",
+  default: { _id: "" },
 });

@@ -10,7 +10,7 @@ import { useRecoilState } from "recoil";
 import {
   accessTokenState,
   logOutState,
-  userNameState,
+  userInfoState,
 } from "../../commons/libraries/recoil";
 import { useEffect } from "react";
 
@@ -24,30 +24,32 @@ const GLOBAL_STATE = new InMemoryCache();
 
 const ApolloSettings = (props: IProps) => {
   const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
-  const [, setUserName] = useRecoilState(userNameState);
+  const [, setUserInfo] = useRecoilState(userInfoState);
   const [isLogOut] = useRecoilState(logOutState);
 
-  useEffect(() => {
-    const result = localStorage.getItem("accessToken");
-    if (result) {
-      setAccessToken(result);
-      setUserName("");
-    }
-  }, []);
+  // useEffect(() => {
+  //   const result = localStorage.getItem("accessToken");
+  //   if (result) {
+  //     setAccessToken(result);
+  //     setUserInfo({});
+  //   }
+  // }, []);
 
   // 새로고침 할 때
   useEffect(() => {
+    if (localStorage.getItem("userInfo") === "undefined")
+      localStorage.setItem("userInfo", "{}");
     const accessToken = localStorage.getItem("accessToken");
-    const userName = localStorage.getItem("userName");
+    const userInfo = JSON.parse(localStorage.getItem("userInfo") ?? "{}");
     setAccessToken(accessToken ?? "");
-    setUserName(userName ?? "");
+    setUserInfo(userInfo ?? {});
   }, []);
 
   // 로그아웃을 눌렀을 때
   useEffect(() => {
     if (!accessToken && isLogOut) {
       localStorage.setItem("accessToken", "");
-      localStorage.setItem("userName", "");
+      localStorage.setItem("userInfo", "{}");
       client.clearStore(); // 캐시된 서버 데이터(로그인 정보 등) 초기화
       location.reload();
     }
