@@ -9,6 +9,9 @@ const ConfirmModalPresenter = (props: any) => {
         onCancel={props.onToggleModal}
       >
         {props.btnFnc === "boardDelete" && <p>정말로 삭제하시겠습니까?</p>}
+        {props.btnFnc === "usedItemQuestionDelete" && (
+          <p>정말로 삭제하시겠습니까?</p>
+        )}
         {props.btnFnc === "boardCommentDelete" && (
           <>
             <input
