@@ -1,12 +1,24 @@
-import BoardCommentWriteContainerPage from "../write/BoardCommentWrite.container";
-import * as S from "./BoardCommentList.styles";
-import { IBoardCommentListPresenterPageProps } from "./BoardCommentList.types";
-import BoardCommentOneRow from "./BoardCommentOneRow/BoardCommentOneRow";
+import UsedItemsCommentWriteContainerPage from "../write/UsedItemsCommentWrite.container";
+import * as S from "./UsedItemsCommentList.styles";
+import { UsedItemsCommentListPresenterPageProps } from "./UsedItemsCommentList.types";
+import UsedItemsCommentOneRow from "./usedItemsCommentOneRow/UsedItemsCommentOneRow";
 import InfiniteScroll from "react-infinite-scroller";
 
 export default function BoardCommentListPresenterPage(
-  props: IBoardCommentListPresenterPageProps
+  props: UsedItemsCommentListPresenterPageProps
 ) {
+  const resultObj =
+    props.data?.fetchUseditemQuestions ??
+    props.data?.fetchUseditemQuestionAnswers;
+  if (props.data?.fetchUseditemQuestions) {
+    console.log("Questions");
+    console.log(props.data?.fetchUseditemQuestions);
+  } else {
+    console.log("QuestionAnswers");
+    console.log(props.data?.fetchUseditemQuestionAnswers);
+    console.log(props.useditemQuestionId);
+  }
+
   return (
     <S.Wrapper>
       <S.CommentListWrap>
@@ -20,23 +32,23 @@ export default function BoardCommentListPresenterPage(
             </div>
           }
         >
-          {props.data?.fetchBoardComments.map((el, index: number) =>
+          {resultObj?.map((el, index: number) =>
             props.isEditArr[index] ? (
               // 댓글 수정 컴포넌트
-              <BoardCommentWriteContainerPage
+              <UsedItemsCommentWriteContainerPage
                 key={el._id}
                 isEdit={true}
                 id={el._id}
-                writer={el.writer}
                 contents={el.contents}
-                rating={el.rating}
                 index={index}
                 isEditArr={props.isEditArr}
                 setIsEditArr={props.setIsEditArr}
+                isAnswer={props.isAnswer}
+                useditemQuestionId={props.useditemQuestionId}
               />
             ) : (
               // 댓글 리스트 중 하나의 댓글
-              <BoardCommentOneRow
+              <UsedItemsCommentOneRow
                 key={el._id}
                 el={el}
                 index={index}

@@ -1,15 +1,38 @@
-import { ICurrLengthProps } from "./BoardCommentWrite.types";
+import { ICurrLengthProps } from "./UsedItemsCommentWrite.types";
 import styled from "@emotion/styled";
 import { Rate } from "antd";
+import { mideaQuery } from "../../../../styles/common";
+
+interface IProps {
+  isAnswer: boolean;
+}
 
 export const Wrapper = styled.div`
   width: 1200px;
   margin: 30px 0;
   padding-top: 30px;
   position: relative;
+
+  @media (max-width: ${mideaQuery.width1300}) {
+    width: ${mideaQuery.width1000};
+  }
+
+  @media (max-width: ${mideaQuery.width1100}) {
+    width: ${mideaQuery.width800};
+  }
+
+  @media (max-width: ${mideaQuery.width900}) {
+    width: ${mideaQuery.width600};
+  }
+
+  @media (max-width: ${mideaQuery.width700}) {
+    width: ${mideaQuery.width500};
+  }
 `;
 
-export const CommentWriteWrap = styled.div``;
+export const CommentWriteWrap = styled.div`
+  ${(props: IProps) => props.isAnswer && "display: flex;"};
+`;
 
 export const Header = styled.div`
   display: flex;
@@ -86,4 +109,9 @@ export const DeleteBtn = styled.img`
   cursor: pointer;
   position: absolute;
   right: 0;
+`;
+
+export const AnswerArrow = styled.img`
+  height: 30px;
+  margin-left: 60px;
 `;
