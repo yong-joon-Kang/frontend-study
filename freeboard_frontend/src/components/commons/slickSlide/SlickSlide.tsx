@@ -25,25 +25,11 @@ const AWrap = styled.div`
 const AImg = styled.img`
   width: 100%;
   height: 100%;
+  object-fit: contain;
 `;
 
-// function SampleNextArrow(props: any) {
-//   const { className, style, onClick } = props;
-//   return (
-//     <div
-//       className={className}
-//       style={{
-//         ...style,
-//         display: "block",
-//         fontSize: "30px",
-//       }}
-//       onClick={onClick}
-//     />
-//   );
-// }
-
 function SlickSlide(props: { images: string[] }) {
-  console.log(props);
+  // console.log(props);
   const imageArr = props?.images;
   // let currIdx;
   const [currIdx, setCurrIdx] = useState(0);
@@ -64,7 +50,6 @@ function SlickSlide(props: { images: string[] }) {
     slidesToShow: 1,
     slidesToScroll: 1,
     appendDots: (dots: any) => <SlickDots>{dots}</SlickDots>,
-    // nextArrow: <SampleNextArrow />,
     beforeChange: (oldIndex: number, newIndex: number) => {
       setCurrIdx(newIndex);
     },
@@ -78,7 +63,7 @@ function SlickSlide(props: { images: string[] }) {
     justify-content: center;
 
     li {
-      width: 50px;
+      width: 70px;
       height: 70px;
       margin-right: 30px;
     }
