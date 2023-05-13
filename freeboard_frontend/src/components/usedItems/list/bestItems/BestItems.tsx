@@ -35,7 +35,7 @@ const ItemWrap = styled.div`
   width: 200px;
   height: 260px;
   padding: 10px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
   margin: 0 5px;
   cursor: pointer;
 `;
