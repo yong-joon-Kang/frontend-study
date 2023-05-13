@@ -8,7 +8,7 @@ interface IProps {
 }
 
 export const Wrapper = styled.div`
-  width: 1200px;
+  width: ${(props: IProps) => (props.isAnswer ? "" : "1200px")};
   margin: 30px 0;
   padding-top: 30px;
   position: relative;

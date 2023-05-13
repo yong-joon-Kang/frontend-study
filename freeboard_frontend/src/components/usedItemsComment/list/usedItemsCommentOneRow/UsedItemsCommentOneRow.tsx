@@ -38,7 +38,9 @@ function UsedItemsCommentOneRow(props: IProps) {
         <S.MiddleWrap>
           <S.Writer>{props.el.user?.name}</S.Writer>
           <S.Contents>{props.el.contents}</S.Contents>
-          <S.Date>{getDate(props.el.user?.updatedAt)}</S.Date>
+          <S.Date>
+            {!props.isAnswer && getDate(props.el.user?.updatedAt)}
+          </S.Date>
         </S.MiddleWrap>
         <S.RightWrap>
           {props.el.user?._id === userInfo._id ? (
