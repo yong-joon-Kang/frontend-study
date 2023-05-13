@@ -50,7 +50,7 @@ export default function UsedItemsDetailContainerPage() {
 
   const handleOk = () => {
     setModalToggle(!ismodalToggle);
-    onClickUsedItemsDelete();
+    router.push("/usedItems/cart");
   };
 
   const onClickUsedItemsDelete = async () => {
@@ -90,6 +90,8 @@ export default function UsedItemsDetailContainerPage() {
     // 3. 장바구니에 담기
     cartStorage.push(cart);
     localStorage.setItem("cart", JSON.stringify(cartStorage));
+
+    onToggleModal();
   };
 
   const onClickUsedItemsEdit = () => {
@@ -124,7 +126,7 @@ export default function UsedItemsDetailContainerPage() {
         onToggleModal={onToggleModal}
         handleOk={handleOk}
         ismodalToggle={ismodalToggle}
-        btnFnc="boardDelete"
+        btnFnc="cartIn"
       />
       <UsedItemsDetailPresenterPage
         data={data}
