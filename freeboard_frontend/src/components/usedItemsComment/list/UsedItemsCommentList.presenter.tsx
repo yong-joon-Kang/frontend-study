@@ -10,14 +10,6 @@ export default function BoardCommentListPresenterPage(
   const resultObj =
     props.data?.fetchUseditemQuestions ??
     props.data?.fetchUseditemQuestionAnswers;
-  if (props.data?.fetchUseditemQuestions) {
-    console.log("Questions");
-    console.log(props.data?.fetchUseditemQuestions);
-  } else {
-    console.log("QuestionAnswers");
-    console.log(props.data?.fetchUseditemQuestionAnswers);
-    console.log(props.useditemQuestionId);
-  }
 
   return (
     <S.Wrapper isAnswer={props.isAnswer}>

@@ -6,7 +6,6 @@ export default function BoardCommentPresenterPage(
   props: IUsedItemsCommentPresenterPageProps
 ) {
   // console.log("=========================");
-  console.log(props.isAnswer);
   return (
     <S.Wrapper isAnswer={Boolean(props.isAnswer)}>
       <S.CommentWriteWrap isAnswer={props.isAnswer}>

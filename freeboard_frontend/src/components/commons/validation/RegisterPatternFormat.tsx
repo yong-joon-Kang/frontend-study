@@ -15,8 +15,6 @@ function RegisterPatternFormat(props: ValidationProps) {
       <Input
         type="text"
         register={props.register}
-        // name="tags"
-        defaultValue={props.defaultValue}
         placeholder={props.placeholder}
         {...props.register("tags", {
           required: false,
