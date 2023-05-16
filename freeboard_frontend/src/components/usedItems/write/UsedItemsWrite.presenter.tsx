@@ -12,7 +12,9 @@ export default function BoardWritePresenterPage(
   props: IUsedItemsPresenterPageProps
 ) {
   // console.log(props.data);
-  const usedItem = props.data?.fetchUseditem;
+  const usedItem = props?.data?.fetchUseditem;
+  console.log(usedItem);
+  // const test = usedItem?.tags?.map((tag) => `#${tag}`);
   return (
     <S.Wrapper>
       <form onSubmit={props.handleSubmit(props.onSubmit)}>
@@ -102,9 +104,8 @@ export default function BoardWritePresenterPage(
             <RegisterPatternFormat
               register={props.register}
               maxLength={30}
-              placeholder="#태그1 #태그2 #태그3"
-              defaultValue={usedItem?.tags?.map((tag) => "#" + tag).join("")}
-              pattern={/^.*#.*$/}
+              placeholder="태그1, 태그2, 태그3"
+              // pattern={/^.*#.*$/}
             />
           </S.InputWrap>
           {props.errors.tags?.type === "pattern" && (

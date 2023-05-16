@@ -7,7 +7,7 @@ import { Modal, message } from "antd";
 import { WithAuth } from "../../commons/withAuth/WithAuth";
 import { indexPageProps } from "./UsedItemsWrite.types";
 import { useMutation, useQuery } from "@apollo/client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { FETCH_USED_ITEM } from "../detail/UsedItemsDetail.queries";
@@ -32,7 +32,9 @@ function UsedItemsWriteContainerPage(props: indexPageProps) {
     },
   });
 
-  // console.log(data?.fetchUseditem);
+  // console.log(
+  //   fetchUsedItemData?.fetchUseditem && fetchUsedItemData?.fetchUseditem
+  // );
 
   const {
     register,
@@ -51,8 +53,10 @@ function UsedItemsWriteContainerPage(props: indexPageProps) {
 
     let tags = [];
     if (data.tags.length > 0 && data.tags[0]) {
-      const resultTags = data.tags?.replaceAll(" ", "").split("#");
-      tags = resultTags?.filter((el: string) => el); // 공백인 태그는 제거
+      if (data.tags.includes(" ")) {
+        const resultTags = data.tags?.replaceAll(" ", "").split(",");
+        tags = resultTags?.filter((el: string) => el); // 공백인 태그는 제거
+      }
     }
 
     // 상품가격 숫자로 변경
