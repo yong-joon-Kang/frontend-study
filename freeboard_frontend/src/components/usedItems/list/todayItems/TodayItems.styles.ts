@@ -45,7 +45,7 @@ export const ItemWrap = styled.div`
   display: flex;
   flex-direction: column;
   border: 1px solid #ccc;
-  height: 220px;
+  height: 250px;
   width: 100%;
   margin: 10px 0;
   padding: 10px;
