@@ -5,6 +5,7 @@ import OneRowContainer from "./oneRow/OneRow.container";
 import InfiniteScroll from "react-infinite-scroller";
 import TodayItems from "./todayItems";
 import Select from "react-select";
+import SearchInput from "../../commons/searchInput/SearchInput";
 
 export default function BoardListPresenterPage(
   props: IBoardListPresenterPageProps
@@ -13,18 +14,14 @@ export default function BoardListPresenterPage(
     <S.Wrapper>
       <S.ListWrapper>
         <S.ListHeader>
-          {/* <span>판매중상품</span> &nbsp;
-          <span>판매된상품</span> */}
           <Select
             defaultValue={props.selectedOption}
             onChange={props.setSelectedOption}
             options={props.options}
           />
           <S.SearchWrap>
-            <S.SearchImg src="/search.png" />
-            <S.SearchInput
+            <SearchInput
               onChange={props.onChangeSearchInput}
-              type="text"
               placeholder="제품을 검색해주세요."
             />
           </S.SearchWrap>

@@ -29,13 +29,6 @@ export const ListHeader = styled.div`
 export const SearchWrap = styled.div`
   flex: 2;
   margin: 0 50px;
-  display: flex;
-  background: #f2f2f2;
-  height: 40px;
-  border: none;
-  outline: none;
-  align-items: center;
-  padding: 0 20px;
 `;
 
 export const SearchInput = styled.input`
