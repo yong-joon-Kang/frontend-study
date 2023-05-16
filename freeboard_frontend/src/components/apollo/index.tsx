@@ -18,8 +18,7 @@ interface IProps {
   children: JSX.Element;
 }
 
-// 페이지가 이동되면 app.tsx부터 다시 리렌더링 되기 때문에 캐시 초기화되어
-// 불필요한 api요청이 없도록 방지하기 위해 함수 밖에서 만들어줌 (globalState 캐시 유지)
+// 캐시 유지
 const GLOBAL_STATE = new InMemoryCache();
 
 const ApolloSettings = (props: IProps) => {
@@ -62,7 +61,7 @@ const ApolloSettings = (props: IProps) => {
 
   const client = new ApolloClient({
     link: ApolloLink.from([uploadLink as unknown as ApolloLink]),
-    cache: GLOBAL_STATE,
+    cache: GLOBAL_STATE, // 페이지 전환(_app.tsx 리렌더) 되어도, 캐시 유지
   });
   return <ApolloProvider client={client}>{props.children}</ApolloProvider>;
 };
