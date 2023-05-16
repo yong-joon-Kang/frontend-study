@@ -99,11 +99,9 @@ export default function UsedItemsCommentWriteContainerPage(props: IProps) {
             },
           ],
         });
-        if (props.isEditArr && props.index && props.setIsEditArr) {
-          const isEditArr = [...props.isEditArr];
-          isEditArr[props.index] = false;
-          props.setIsEditArr(isEditArr);
-        }
+        const isEditArr = [...(props.isEditArr ?? [])];
+        isEditArr[Number(props.index)] = false;
+        if (props.setIsEditArr) props.setIsEditArr(isEditArr);
       } else {
         console.log("등록");
         console.log(props.isAnswer);
@@ -177,11 +175,9 @@ export default function UsedItemsCommentWriteContainerPage(props: IProps) {
           },
         ],
       });
-      if (props.isEditArr && props.index && props.setIsEditArr) {
-        const isEditArr = [...props.isEditArr];
-        isEditArr[props.index] = false;
-        props.setIsEditArr(isEditArr);
-      }
+      const isEditArr = [...(props.isEditArr ?? [])];
+      isEditArr[Number(props.index)] = false;
+      if (props.setIsEditArr) props.setIsEditArr(isEditArr);
     } else {
       await createUseditemQuestionAnswer({
         variables: {
