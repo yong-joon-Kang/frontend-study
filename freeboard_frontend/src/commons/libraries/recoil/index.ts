@@ -12,5 +12,5 @@ export const logOutState = atom({
 
 export const userInfoState = atom({
   key: "userInfoState",
-  default: { _id: "" },
+  default: { _id: "", name: "" },
 });
