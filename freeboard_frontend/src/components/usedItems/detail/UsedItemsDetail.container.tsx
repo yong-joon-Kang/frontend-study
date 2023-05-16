@@ -33,12 +33,13 @@ export default function UsedItemsDetailContainerPage() {
     variables: {
       useditemId: String(router.query.id),
     },
+    fetchPolicy: "network-only",
   });
 
   const onClickUsedItemsList = () => {
     router.push("/usedItems/list");
   };
-
+  console.log(data);
   // const [deleteUsedItems] =
   //   useMutation<Pick<IMutation, "deleteUsedItems">>(DELETE_BOARD);
 
@@ -117,7 +118,7 @@ export default function UsedItemsDetailContainerPage() {
   };
 
   useEffect(() => {
-    setUserName(localStorage.getItem("userName") ?? "");
+    setUserName(JSON.parse(localStorage.getItem("userInfo") ?? "").name);
   }, []);
 
   return (

@@ -24,8 +24,11 @@ export default function BoardDetailContainerPage() {
       variables: {
         boardId: String(router.query.id),
       },
+      fetchPolicy: "network-only",
     }
   );
+
+  console.log(data);
 
   const onClickBoardList = () => {
     router.push("/boards/list");
