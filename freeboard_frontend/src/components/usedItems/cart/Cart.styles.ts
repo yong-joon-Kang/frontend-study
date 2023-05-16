@@ -1,9 +1,11 @@
 import styled from "@emotion/styled";
 
 export const ItemWrap = styled.div`
-  border: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  padding: 20px;
   width: 100%;
   display: flex;
+  padding: 10px 0;
 `;
 
 export const RightWrap = styled.div`
@@ -66,4 +68,44 @@ export const Input = styled.input`
   font-size: 1.5em;
   flex: 1;
   text-align: center;
+`;
+
+export const Title = styled.div`
+  font-size: 2em;
+  font-weight: bold;
+  margin: 60px 0;
+`;
+
+export const Label = styled.span`
+  font-size: 1.2em;
+`;
+
+export const CheckBox = styled.input`
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+`;
+
+export const DeleteBtn = styled.div`
+  border: 1px solid #ccc;
+  width: 100px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666;
+  cursor: pointer;
+`;
+
+export const Header = styled.div`
+  display: flex;
+  border-bottom: 1px solid #ccc;
+  align-items: center;
+  padding-bottom: 10px;
+`;
+
+export const HeaderLeftWrap = styled.div`
+  flex: 1;
+  display: flex;
+  align-items: center;
 `;
