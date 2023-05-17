@@ -122,7 +122,7 @@ function Header() {
         <LabelWrap isPseudo={true}>
           <Label
             onClick={() => {
-              accessToken ? router.push("/") : router.push("/signUp");
+              accessToken ? router.push("/myPage") : router.push("/signUp");
             }}
           >
             {accessToken ? `${userInfo.name}님` : "회원가입"}
