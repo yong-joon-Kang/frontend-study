@@ -1,42 +1,21 @@
-import { getDate } from "../../commons/libraries/utils";
-import * as S from "./myPage.styles";
+import { getDate } from "../../../commons/libraries/utils";
+import * as S from "./MyCartPage.styles";
 import { Col, Row } from "antd";
-import { useRecoilState } from "recoil";
-import { userInfoState } from "../../commons/libraries/recoil";
-import SearchInput from "../commons/searchInput/SearchInput";
 
-function MyPagePresenter(props) {
-  const [userInfo] = useRecoilState(userInfoState);
+import SearchInput from "../../commons/searchInput/SearchInput";
+import { IContainerProps } from "./MyCartPage.types";
+import { IUseditem } from "../../../commons/types/generated/types";
+// import LeftMenu from "../leftMenu/LeftMenu";
+
+function MyCartPagePresenter(props: IContainerProps) {
   const data =
     props.data?.fetchUseditemsISold || props.data?.fetchUseditemsIPicked;
 
   return (
     <S.Wrap>
-      <S.MyInfoWrap>
-        <S.Title>MYPAGE</S.Title>
-        <S.ProfileImg src="/profileDef.png" />
-        <S.MyInfoSubWrap1>
-          <S.Label isName={true}>{userInfo.name}</S.Label>
-          <S.LabelWrap isWrap1={true}>
-            <S.Img src="/myPoint.png" />
-            <S.Label>100,000</S.Label>
-          </S.LabelWrap>
-        </S.MyInfoSubWrap1>
-        <S.MyInfoSubWrap2>
-          <S.LabelWrap>
-            <S.Img src="/myCart.png" />
-            <S.Label>내 장터</S.Label>
-          </S.LabelWrap>
-          <S.LabelWrap>
-            <S.Img src="/myPointDef.png" />
-            <S.Label>내 포인트</S.Label>
-          </S.LabelWrap>
-          <S.LabelWrap>
-            <S.Img src="/profileDef.png" />
-            <S.Label>내 프로필</S.Label>
-          </S.LabelWrap>
-        </S.MyInfoSubWrap2>
-      </S.MyInfoWrap>
+      {/* <S.MyInfoWrap>
+        <LeftMenu />
+      </S.MyInfoWrap> */}
       <S.MyListWrap>
         <S.ListHeader>
           <S.HeaderRightWrap>
@@ -78,7 +57,7 @@ function MyPagePresenter(props) {
               <S.Label isHeader={true}>날짜</S.Label>
             </Col>
           </Row>
-          {data?.map((el, index) => (
+          {data?.map((el: IUseditem, index: number) => (
             <Row key={el._id} style={S.row}>
               <Col style={S.tdCss} span={2}>
                 <S.Label>{index}</S.Label>
@@ -103,4 +82,4 @@ function MyPagePresenter(props) {
   );
 }
 
-export default MyPagePresenter;
+export default MyCartPagePresenter;

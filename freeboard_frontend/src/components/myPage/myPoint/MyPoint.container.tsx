@@ -1,21 +1,21 @@
 import { useQuery } from "@apollo/client";
-import MyPagePresenter from "./myPage.presenter";
+import MyPagePresenter from "./MyPoint.presenter";
 import {
   FETCH_USEDITEMS_COUNT_IPICKED,
   FETCH_USEDITEMS_COUNT_ISOLD,
   FETCH_USEDITEMS_IPICKED,
   FETCH_USEDITEMS_ISOLD,
-} from "./myPage.queries";
+} from "./MyPoint.queries";
 import {
   IQuery,
   IQueryFetchUseditemsIPickedArgs,
   IQueryFetchUseditemsISoldArgs,
-} from "../../commons/types/generated/types";
+} from "../../../commons/types/generated/types";
 import { ChangeEvent, useState } from "react";
-import Pagination from "../pagination/Pagination.container";
+import Pagination from "../../pagination/Pagination.container";
 import _ from "lodash";
 
-function MyPageContainer() {
+function MyCartPageContainer() {
   const [resultData, setResultData]: any = useState();
   const [clickedTab, setClickedTab] = useState("fetchUseditemsISold");
 
@@ -58,11 +58,16 @@ function MyPageContainer() {
 
   const getDebounce = _.debounce((searchKeyword) => {
     // setSearchKeyword(searchKeyword);
-    refetchUsedItems({ page: 1, search: searchKeyword });
+    if (clickedTab === "fetchUseditemsISold") {
+      refetchUsedItems({ page: 1, search: searchKeyword });
+    } else {
+      refetchIPicked({ page: 1, search: searchKeyword });
+    }
   }, 300);
+  console.log(myPickedData);
 
   return (
-    <>
+    <div style={{ display: "flex", flexDirection: "column" }}>
       <MyPagePresenter
         data={resultData ?? myUseditemsData}
         onClickMyUseditems={onClickMyUseditems}
@@ -81,8 +86,8 @@ function MyPageContainer() {
           count={myPickedCount?.fetchUseditemsCountIPicked}
         />
       )}
-    </>
+    </div>
   );
 }
 
-export default MyPageContainer;
+export default MyCartPageContainer;

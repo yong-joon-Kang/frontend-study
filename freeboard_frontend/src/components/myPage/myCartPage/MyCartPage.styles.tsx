@@ -1,5 +1,6 @@
-import { color } from "../../../styles/common";
+import { color } from "../../../../styles/common";
 import styled from "@emotion/styled";
+import { cssProps } from "./MyCartPage.types";
 
 export const Wrap = styled.div`
   display: flex;
@@ -12,35 +13,6 @@ export const MyInfoWrap = styled.div`
   flex-direction: column;
   align-items: center;
   margin-right: 30px;
-`;
-
-export const Title = styled.div`
-  font-weight: bold;
-  margin-bottom: 48px;
-  font-size: 1.5em;
-`;
-
-export const Img = styled.img`
-  width: 20px;
-  height: 20px;
-  margin-right: 5px;
-`;
-
-export const ProfileImg = styled.img`
-  width: 80px;
-  height: 80px;
-`;
-
-export const MyInfoSubWrap1 = styled.div`
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  margin: 28px 0 76.5px 0;
-`;
-
-export const MyInfoSubWrap2 = styled.div`
-  display: flex;
-  flex-direction: column;
 `;
 
 export const MyListWrap = styled.div``;
@@ -66,28 +38,29 @@ export const OneRow = styled.div`
 `;
 
 export const Label = styled.span`
-  font-weight: ${(props) => (props.isHeader || props.isName) && "bold"};
+  font-weight: ${(props: cssProps) =>
+    (props.isHeader || props.isName) && "bold"};
   font-size: ${(props) => props.isName && "1.3em"};
 `;
 
 export const MyUseditemsTab = styled.span`
   cursor: pointer;
-  ${(props) =>
+  ${(props: cssProps) =>
     props.clickedTab === "fetchUseditemsISold" &&
-    `border-bottom:2px solid ${color.primary}`}
+    `border-bottom:2px solid ${color.primary};`};
+
+  color: ${(props) =>
+    props.clickedTab === "fetchUseditemsISold" ? "#000" : "#ccc"};
 `;
 
 export const MyPickedTab = styled.span`
   cursor: pointer;
-  ${(props) =>
+  ${(props: cssProps) =>
     props.clickedTab === "fetchUseditemsIPicked" &&
-    `border-bottom:2px solid ${color.primary}`}
-`;
+    `border-bottom:2px solid ${color.primary}`};
 
-export const LabelWrap = styled.span`
-  display: flex;
-  align-items: center;
-  ${(props) => (props.isWrap1 ? "margin-top: 10px;" : "margin-bottom: 23px")};
+  color: ${(props) =>
+    props.clickedTab === "fetchUseditemsIPicked" ? "#000" : "#ccc"};
 `;
 
 export const searchInput = {
