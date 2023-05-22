@@ -10,7 +10,7 @@ import { IUseditem } from "../../../commons/types/generated/types";
 function MyCartPagePresenter(props: IContainerProps) {
   const data =
     props.data?.fetchUseditemsISold || props.data?.fetchUseditemsIPicked;
-
+  // console.log(data);
   return (
     <S.Wrap>
       {/* <S.MyInfoWrap>
@@ -34,6 +34,7 @@ function MyCartPagePresenter(props: IContainerProps) {
             </S.MyPickedTab>
           </S.HeaderRightWrap>
           <SearchInput
+            searchInputRef={props.searchInputRef}
             style={S.searchInput}
             placeholder="필요한 내용을 입력해주세요."
             onChange={props.onChangeSearchInput}

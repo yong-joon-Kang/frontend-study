@@ -11,13 +11,14 @@ import {
   IQueryFetchUseditemsIPickedArgs,
   IQueryFetchUseditemsISoldArgs,
 } from "../../../commons/types/generated/types";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import Pagination from "../../pagination/Pagination.container";
 import _ from "lodash";
 
 function MyCartPageContainer() {
   const [resultData, setResultData]: any = useState();
   const [clickedTab, setClickedTab] = useState("fetchUseditemsISold");
+  const searchInputRef = useRef();
 
   const { data: myUseditemsData, refetch: refetchUsedItems } = useQuery<
     Pick<IQuery, "fetchUseditemsISold">,
@@ -45,11 +46,15 @@ function MyCartPageContainer() {
   const onClickMyUseditems = () => {
     setResultData(myUseditemsData);
     setClickedTab("fetchUseditemsISold");
+    searchInputRef?.current?.value = "";
+    refetchIPicked({ page: 1, search: "" });
   };
 
   const onClickMyPick = () => {
     setResultData(myPickedData);
     setClickedTab("fetchUseditemsIPicked");
+    searchInputRef?.current?.value = "";
+    refetchUsedItems({ page: 1, search: "" });
   };
 
   const onChangeSearchInput = (event: ChangeEvent<HTMLInputElement>) => {
@@ -64,16 +69,27 @@ function MyCartPageContainer() {
       refetchIPicked({ page: 1, search: searchKeyword });
     }
   }, 300);
-  console.log(myPickedData);
+
+  useEffect(() => {
+    if (clickedTab === "fetchUseditemsISold") {
+      setResultData(myUseditemsData);
+    } else {
+      setResultData(myPickedData);
+    }
+    console.log(resultData);
+  }, [myUseditemsData, myPickedData]);
+
+  console.log(resultData);
 
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
       <MyPagePresenter
-        data={resultData ?? myUseditemsData}
+        data={resultData}
         onClickMyUseditems={onClickMyUseditems}
         onClickMyPick={onClickMyPick}
         clickedTab={clickedTab}
         onChangeSearchInput={onChangeSearchInput}
+        searchInputRef={searchInputRef}
       />
       {clickedTab === "fetchUseditemsISold" ? (
         <Pagination

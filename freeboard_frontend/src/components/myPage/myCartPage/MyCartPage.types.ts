@@ -1,6 +1,7 @@
 import { ChangeEvent } from "react";
 
 export interface IContainerProps {
+  searchInputRef: any;
   data: any;
   onClickMyUseditems: () => void;
   onClickMyPick: () => void;
