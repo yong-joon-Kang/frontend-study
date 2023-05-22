@@ -1,13 +1,30 @@
 import * as S from "./LeftMenu.styles";
 import { useRecoilState } from "recoil";
 import { userInfoState } from "../../../commons/libraries/recoil";
+import { IProps } from "./LeftMenu.types";
 
-function LeftMenu(props) {
+function LeftMenu(props: IProps) {
   const [userInfo] = useRecoilState(userInfoState);
   return (
     <S.Wrap>
       <S.Title>MYPAGE</S.Title>
-      <S.ProfileImg src="/profileDef.png" />
+      <S.ProfileImgWrap>
+        <S.ProfileRadius>
+          <S.ProfileImg
+            src={
+              userInfo.picture
+                ? `https://storage.googleapis.com/${userInfo.picture}`
+                : "/profileDef.png"
+            }
+          />
+        </S.ProfileRadius>
+        <S.SettingImg
+          onClick={() => {
+            props.onClickMenu("mySettings");
+          }}
+          src="/setting.png"
+        />
+      </S.ProfileImgWrap>
       <S.MyInfoSubWrap1>
         <S.Label isName={true}>{userInfo.name}</S.Label>
         <S.LabelWrap isWrap1={true}>
