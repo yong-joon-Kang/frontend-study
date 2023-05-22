@@ -63,12 +63,15 @@ export const PartTags = styled.div`
 `;
 
 export const BottomContent = styled.span`
+  display: flex;
+  align-items: center;
   margin-right: 10px;
 `;
 
 export const SellerPicture = styled.img`
-  width: 40px;
-  border-radius: 30px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
   margin-right: 5px;
 `;
 
@@ -82,4 +85,7 @@ export const Price = styled.span`
   font-weight: bold;
 `;
 
-export const PartBottom = styled.span``;
+export const PartBottom = styled.div`
+  display: flex;
+  align-items: center;
+`;
