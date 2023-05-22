@@ -1,5 +1,9 @@
 import styled from "@emotion/styled";
 
+interface cssProps {
+  isLast?: boolean;
+}
+
 export const Wrap = styled.div`
   display: flex;
   flex-direction: column;
@@ -13,10 +17,22 @@ export const Title = styled.div`
 
 export const RowWrap = styled.div`
   display: flex;
-  justify-content: space-between;
-  width: 900px;
+  justify-content: ${(props: cssProps) =>
+    props.isLast ? "end" : "space-between"};
+  width: 800px;
   margin-bottom: 20px;
   align-items: center;
+`;
+
+export const Button = styled.div`
+  width: 150px;
+  height: 42px;
+  font-size: 14px;
+  background-color: #bdbdbd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
 `;
 
 export const Label = styled.span`
@@ -24,11 +40,10 @@ export const Label = styled.span`
 `;
 
 export const Input = styled.input`
-  width: 690px;
+  width: 590px;
   height: 52px;
-  background: #e0e0e0;
+  background: #eee;
   outline: none;
   border: none;
-  opacity: 0.3;
   padding-left: 20px;
 `;
