@@ -29,6 +29,7 @@ interface IProps {
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
   placeholder: string;
   style?: any;
+  searchInputRef: any;
 }
 
 function SearchInput(props: IProps) {
@@ -36,6 +37,7 @@ function SearchInput(props: IProps) {
     <Wrap style={props.style}>
       <SearchImg src="/search.png" />
       <Input
+        ref={props.searchInputRef}
         onChange={props.onChange}
         type="text"
         placeholder={props.placeholder}
