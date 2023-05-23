@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { CssProps } from "./LeftMenu.types";
+import { color } from "../../../../styles/common";
 
 export const Wrap = styled.div`
   display: flex;
@@ -23,7 +24,6 @@ export const Img = styled.img`
 export const ProfileRadius = styled.div`
   width: 100px;
   height: 100px;
-  border: 1px solid #bbb;
   border-radius: 50%;
   overflow: hidden;
   display: flex;
@@ -45,8 +45,8 @@ export const SettingImg = styled.img`
 `;
 
 export const ProfileImg = styled.img`
-  width: 80px;
-  height: 80px;
+  width: 100%;
+  height: 100%;
 `;
 
 export const MyInfoSubWrap1 = styled.div`
@@ -65,6 +65,18 @@ export const Label = styled.span`
   font-weight: ${(props: CssProps) =>
     (props.isHeader ?? props.isName) && "bold"};
   font-size: ${(props) => props.isName && "1.3em"};
+`;
+
+export const Charging = styled.span`
+  border-radius: 10%;
+  padding: 5px 10px;
+  background-color: ${color.primary};
+  color: #111;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
 `;
 
 export const LabelWrap = styled.span`
