@@ -5,6 +5,7 @@ import MyCartPageContainer from "../../src/components/myPage/myCartPage/MyCartPa
 import MyPointContainer from "../../src/components/myPage/myPoint/MyPoint.container";
 import MyProfileContainer from "../../src/components/myPage/MyProfile/MyProfile.container";
 import MySettingsContainer from "../../src/components/myPage/mySettings/mySettings.container";
+import { WithAuth } from "../../src/components/commons/withAuth/WithAuth";
 
 export const Wrap = styled.div`
   display: flex;
@@ -28,4 +29,4 @@ function index() {
   );
 }
 
-export default index;
+export default WithAuth(index);
