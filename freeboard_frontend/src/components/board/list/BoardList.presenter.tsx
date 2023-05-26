@@ -40,7 +40,7 @@ export default function BoardListPresenterPage(
               dateFormat="yyyy-MM-dd"
             />
           </S.DateWrap>
-          <S.BoardWriteBtn onClick={props.onClickBoardWrite}>
+          <S.BoardWriteBtn onClick={props.onClickMoveToPage("/boards/new")}>
             <S.WriteImg src="/pencil.png" />
             게시물 등록하기
           </S.BoardWriteBtn>
@@ -58,9 +58,10 @@ export default function BoardListPresenterPage(
             <tbody>
               {props.data?.fetchBoards.map((list: any, index: number) => (
                 <S.Tr
-                  id={list._id}
                   key={list._id}
-                  onClick={props.onClickBoardDetail}
+                  onClick={props.onClickMoveToPage(
+                    `/boards/detail/${list._id}`
+                  )}
                 >
                   <S.Td>{index + 1}</S.Td>
                   <S.Td>

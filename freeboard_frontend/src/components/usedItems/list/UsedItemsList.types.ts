@@ -13,12 +13,12 @@ export interface IBoardListPresenterPageProps {
   maxDate: any;
   data?: Pick<IQuery, "fetchUseditems">;
   onClickOneRow: (arg0: any) => void;
-  onClickWrite: () => void;
   onChangeSearchInput: (event: ChangeEvent<HTMLInputElement>) => void;
   startDate: any;
   endDate: any;
   searchKeyword: string;
   todayItems: any;
+  onClickMoveToPage: (page: string) => () => void;
 }
 
 export interface ITrProps {

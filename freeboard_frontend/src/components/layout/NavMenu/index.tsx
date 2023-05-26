@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { useRecoilState } from "recoil";
 import { userInfoState } from "../../../commons/libraries/recoil";
-import { useRouter } from "next/router";
+import { useMoveToPage } from "../../../commons/customHooks/useMoveToPage/useMoveToPage";
 
 const Wrap = styled.div`
   background-color: #fff;
@@ -28,14 +28,13 @@ const Li = styled.div`
 `;
 
 export const ProfileImg = styled.img`
-  width: 120px;
-  height: 120px;
+  width: 100%;
+  height: 100%;
 `;
 
 export const ProfileRadius = styled.div`
   width: 150px;
   height: 150px;
-  border: 1px solid #bbb;
   border-radius: 50%;
   overflow: hidden;
   display: flex;
@@ -45,22 +44,13 @@ export const ProfileRadius = styled.div`
   cursor: pointer;
 `;
 
-interface ILayoutProps {
-  onClickNavMenu: (arg0: string) => void;
-}
-
-// eslint-disable-next-line react/display-name
-const NavMenu = (props: ILayoutProps) => {
-  const router = useRouter();
+const NavMenu = () => {
+  const { onClickMoveToPage } = useMoveToPage();
   const [userInfo] = useRecoilState(userInfoState);
 
   return (
     <Wrap>
-      <ProfileRadius
-        onClick={() => {
-          router.push("/myPage");
-        }}
-      >
+      <ProfileRadius onClick={onClickMoveToPage("/myPage")}>
         <ProfileImg
           src={
             userInfo.picture
@@ -71,34 +61,10 @@ const NavMenu = (props: ILayoutProps) => {
       </ProfileRadius>
       <NavigateWrap>
         <Ul>
-          <Li
-            onClick={() => {
-              props.onClickNavMenu("boardList");
-            }}
-          >
-            게시판
-          </Li>
-          <Li
-            onClick={() => {
-              props.onClickNavMenu("usedItems");
-            }}
-          >
-            중고마켓
-          </Li>
-          <Li
-            onClick={() => {
-              props.onClickNavMenu("OpenApi");
-            }}
-          >
-            Open Api
-          </Li>
-          <Li
-            onClick={() => {
-              props.onClickNavMenu("FireBase");
-            }}
-          >
-            FireBase
-          </Li>
+          <Li onClick={onClickMoveToPage("/boards/list")}>게시판</Li>
+          <Li onClick={onClickMoveToPage("/usedItems/list")}>중고마켓</Li>
+          <Li onClick={onClickMoveToPage("/OpenApi")}>Open Api</Li>
+          <Li onClick={onClickMoveToPage("/FireBase")}>FireBase</Li>
         </Ul>
       </NavigateWrap>
     </Wrap>

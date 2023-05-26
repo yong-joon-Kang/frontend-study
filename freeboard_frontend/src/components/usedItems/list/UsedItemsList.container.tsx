@@ -3,9 +3,9 @@
 import BoardListPresenterPage from "./UsedItemsList.presenter";
 import { FETCH_USED_ITEMS } from "./UsedItemsList.queries";
 import { useQuery } from "@apollo/client";
-import router from "next/router";
 import { ChangeEvent, useEffect, useState } from "react";
 import _ from "lodash";
+import { useMoveToPage } from "../../../commons/customHooks/useMoveToPage/useMoveToPage";
 
 import {
   IQuery,
@@ -18,6 +18,7 @@ const ListWrap = styled.div`
 `;
 
 export default function BoardListContainerPage() {
+  const { onClickMoveToPage } = useMoveToPage();
   const [todayItems, setTodayItems] = useState([]);
   const [searchKeyword, setSearchKeyword] = useState("");
   const [startDate, setStartDate] = useState(
@@ -37,20 +38,16 @@ export default function BoardListContainerPage() {
     },
   });
 
-  const onClickWrite = () => {
-    router.push("/usedItems/new");
-  };
-
   const onClickOneRow = (list: any) => {
     const Storage = JSON.parse(localStorage.getItem("todayItems") ?? "[]");
     const result = Storage.filter((el: any) => el._id === list._id);
     if (result.length > 0) {
-      router.push(`/usedItems/detail/${list._id}`);
+      onClickMoveToPage(`/usedItems/detail/${list._id}`)();
       return;
     }
     Storage.push(list);
     localStorage.setItem("todayItems", JSON.stringify(Storage));
-    router.push(`/usedItems/detail/${list._id}`);
+    onClickMoveToPage(`/usedItems/detail/${list._id}`)();
   };
 
   const onChangeSearchInput = (event: ChangeEvent<HTMLInputElement>) => {
@@ -114,7 +111,6 @@ export default function BoardListContainerPage() {
       {/* <BestItems /> */}
       <BoardListPresenterPage
         data={data}
-        onClickWrite={onClickWrite}
         onClickOneRow={onClickOneRow}
         onChangeSearchInput={onChangeSearchInput}
         searchKeyword={searchKeyword}
@@ -130,6 +126,7 @@ export default function BoardListContainerPage() {
         options={options}
         selectedOption={selectedOption}
         setSelectedOption={setSelectedOption}
+        onClickMoveToPage={onClickMoveToPage}
       />
     </ListWrap>
   );

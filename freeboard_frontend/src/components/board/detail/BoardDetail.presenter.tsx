@@ -52,8 +52,16 @@ export default function BoardDetailPresenterPage(
         </S.Footer>
       </S.CardWrapper>
       <S.ButtonWrapper>
-        <S.Button onClick={props.onClickBoardList}>목록으로</S.Button>
-        <S.Button onClick={props.onClickBoardEdit}>수정하기</S.Button>
+        <S.Button onClick={props.onClickMoveToPage("/boards/list")}>
+          목록으로
+        </S.Button>
+        <S.Button
+          onClick={props.onClickMoveToPage(
+            `/boards/detail/${String(props.router.query.id)}/edit`
+          )}
+        >
+          수정하기
+        </S.Button>
         <S.Button onClick={props.onToggleModal}>삭제하기</S.Button>
       </S.ButtonWrapper>
     </S.Wrapper>

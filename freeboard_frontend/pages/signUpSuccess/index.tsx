@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { useRouter } from "next/router";
+import { useMoveToPage } from "../../src/commons/customHooks/useMoveToPage/useMoveToPage";
 
 const Wrap = styled.div`
   margin-top: 200px;
@@ -26,15 +26,12 @@ const Btn = styled.div`
 `;
 
 function signUpSuccess() {
-  const router = useRouter();
-  const onClickLogin = () => {
-    router.push("/signIn");
-  };
+  const { onClickMoveToPage } = useMoveToPage();
   return (
     <Wrap>
       <Text>WELCOME!!</Text>
       <Text>회원가입이 완료되었습니다!</Text>
-      <Btn onClick={onClickLogin}>로그인 페이지로 이동</Btn>
+      <Btn onClick={onClickMoveToPage("/signIn")}>로그인 페이지로 이동</Btn>
     </Wrap>
   );
 }

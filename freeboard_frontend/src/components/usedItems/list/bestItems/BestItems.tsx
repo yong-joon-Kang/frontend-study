@@ -3,8 +3,8 @@ import { IQuery } from "../../../../commons/types/generated/types";
 import { FETCH_USEDITEMS_OFTHEBEST } from "./BestItems.queries";
 import styled from "@emotion/styled";
 import LikeIcon from "../../../commons/icon/LikeIcon";
-import { useRouter } from "next/router";
 import { mideaQuery } from "../../../../../styles/common";
+import { useMoveToPage } from "../../../../commons/customHooks/useMoveToPage/useMoveToPage";
 
 const Title = styled.div`
   font-size: 1.7em;
@@ -76,7 +76,7 @@ interface ICssProps {
 }
 
 function BestItems() {
-  const router = useRouter();
+  const { onClickMoveToPage } = useMoveToPage();
   const { data } = useQuery<Pick<IQuery, "fetchUseditemsOfTheBest">>(
     FETCH_USEDITEMS_OFTHEBEST
   );
@@ -88,9 +88,7 @@ function BestItems() {
         {data?.fetchUseditemsOfTheBest.map((el) => (
           <ItemWrap
             key={el._id}
-            onClick={() => {
-              router.push(`/usedItems/detail/${el._id}`);
-            }}
+            onClick={onClickMoveToPage(`/usedItems/detail/${el._id}`)}
           >
             <Img
               src={`https://storage.googleapis.com/${el.images?.[0] ?? ""}`}

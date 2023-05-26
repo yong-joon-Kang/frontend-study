@@ -14,9 +14,11 @@ import {
 } from "../../../commons/types/generated/types";
 import ConfirmModalPresenter from "../../../commons/modals/confirmModal.presenter";
 import { useState } from "react";
+import { useMoveToPage } from "../../../commons/customHooks/useMoveToPage/useMoveToPage";
 
 export default function BoardDetailContainerPage() {
   const router = useRouter();
+  const { onClickMoveToPage } = useMoveToPage();
 
   const { data } = useQuery<Pick<IQuery, "fetchBoard">, IQueryFetchBoardArgs>(
     FETCH_BOARD,
@@ -27,12 +29,6 @@ export default function BoardDetailContainerPage() {
       fetchPolicy: "network-only",
     }
   );
-
-  console.log(data);
-
-  const onClickBoardList = () => {
-    router.push("/boards/list");
-  };
 
   const [deleteBoard] =
     useMutation<Pick<IMutation, "deleteBoard">>(DELETE_BOARD);
@@ -54,14 +50,7 @@ export default function BoardDetailContainerPage() {
         boardId: router.query.id,
       },
     });
-    router.push({
-      pathname: "/boards/list",
-      // query: { isSuccess: true },
-    });
-  };
-
-  const onClickBoardEdit = () => {
-    router.push(`/boards/detail/${String(router.query.id)}/edit`);
+    onClickMoveToPage("/boards/list")();
   };
 
   const [likeBoard] = useMutation(LIKE_BOARD);
@@ -109,11 +98,11 @@ export default function BoardDetailContainerPage() {
       />
       <BoardDetailPresenterPage
         data={data}
-        onClickBoardList={onClickBoardList}
         onToggleModal={onToggleModal}
-        onClickBoardEdit={onClickBoardEdit}
+        onClickMoveToPage={onClickMoveToPage}
         onClickCountLike={onClickCountLike}
         onClickCountDislike={onClickCountDislike}
+        router={router}
       />
     </>
   );

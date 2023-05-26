@@ -1,15 +1,16 @@
 import * as S from "./UsedItemsDetail.styles";
 import { getComma, getDate } from "../../../commons/libraries/utils";
 import { IUsedItemsDetailPresenterPageProps } from "./UsedItemsDetail.types";
-import { Tooltip } from "antd";
 import { useRouter } from "next/router";
 import DefaultButton from "../../commons/button/DefaultButton";
-import LikeIcon from "../../commons/icon/LikeIcon";
 import LikeOutLineIcon from "../../commons/icon/LikeOutLineIcon";
 import SlickSlide from "../../commons/slickSlide/SlickSlide";
+import { useMoveToPage } from "../../../commons/customHooks/useMoveToPage/useMoveToPage";
+
 export default function UseditemDetailPresenterPage(
   props: IUsedItemsDetailPresenterPageProps
 ) {
+  const { onClickMoveToPage } = useMoveToPage();
   const fetchUseditem = props.data?.fetchUseditem;
   const router = useRouter();
   return (
@@ -61,7 +62,10 @@ export default function UseditemDetailPresenterPage(
         </S.Footer>
       </S.CardWrapper>
       <S.ButtonWrapper>
-        <DefaultButton onClick={props.onClickUsedItemsList} text="목록으로" />
+        <DefaultButton
+          onClick={onClickMoveToPage("/usedItems/list")}
+          text="목록으로"
+        />
         {/* 권한에 따른 수정버튼 표출 */}
         {props.userName === fetchUseditem?.seller?.name ? (
           <DefaultButton onClick={props.onClickUsedItemsEdit} text="수정하기" />
@@ -74,9 +78,7 @@ export default function UseditemDetailPresenterPage(
               text="장바구니 담기"
             />
             <DefaultButton
-              onClick={() => {
-                router.push("/usedItems/cart");
-              }}
+              onClick={onClickMoveToPage("/usedItems/cart")}
               text="장바구니"
             />
           </>

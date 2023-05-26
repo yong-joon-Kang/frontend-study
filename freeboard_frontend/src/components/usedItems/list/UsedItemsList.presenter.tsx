@@ -25,7 +25,7 @@ export default function BoardListPresenterPage(
               placeholder="제품을 검색해주세요."
             />
           </S.SearchWrap>
-          <S.WriteBtn onClick={props.onClickWrite}>
+          <S.WriteBtn onClick={props.onClickMoveToPage("/usedItems/new")}>
             <S.WriteImg src="/pencil.png" />
             게시물 등록하기
           </S.WriteBtn>

@@ -1,7 +1,5 @@
 import styled from "@emotion/styled";
-import { useRouter } from "next/router";
 import { useState } from "react";
-
 import { useRecoilState } from "recoil";
 import {
   accessTokenState,
@@ -10,6 +8,7 @@ import {
 } from "../../../commons/libraries/recoil";
 import { Drawer, Modal } from "antd";
 import NavMenu from "../NavMenu";
+import { useMoveToPage } from "../../../commons/customHooks/useMoveToPage/useMoveToPage";
 
 const HeaderWrap = styled.div`
   display: flex;
@@ -53,9 +52,9 @@ interface cssProps {
 }
 
 function Header() {
+  const { onClickMoveToPage } = useMoveToPage();
   const [open, setOpen] = useState(false);
 
-  const router = useRouter();
   const [userInfo] = useRecoilState(userInfoState);
   const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
   const [, setLogOutState] = useRecoilState(logOutState);
@@ -80,40 +79,22 @@ function Header() {
     setOpen(false);
   };
 
-  const onClickNavMenu = (menuName: string) => {
-    if (menuName === "boardList") {
-      router.push("/boards/list");
-    } else if (menuName === "usedItems") {
-      router.push("/usedItems/list");
-    } else if (menuName === "OpenApi") {
-      router.push("/OpenApi");
-    } else if (menuName === "FireBase") {
-      router.push("/FireBase");
-    }
-  };
-
   return (
     <HeaderWrap>
       <SideWrap isMenu={true}>
         <Label onClick={showDrawer}>Menu</Label>
         <Drawer placement="left" onClose={onClose} open={open}>
-          <NavMenu onClickNavMenu={onClickNavMenu} />
+          <NavMenu />
         </Drawer>
       </SideWrap>
       <SideWrap>
-        <Label
-          onClick={() => {
-            router.push("/");
-          }}
-        >
-          Main
-        </Label>
+        <Label onClick={onClickMoveToPage("/")}>Main</Label>
       </SideWrap>
       <SideWrap isLogin={true}>
         <LabelWrap>
           <Label
             onClick={() => {
-              accessToken ? onClickLogOut() : router.push("/signIn");
+              accessToken ? onClickLogOut() : onClickMoveToPage("/signIn")();
             }}
           >
             {accessToken ? "로그아웃" : "로그인"}
@@ -122,7 +103,9 @@ function Header() {
         <LabelWrap isPseudo={true}>
           <Label
             onClick={() => {
-              accessToken ? router.push("/myPage") : router.push("/signUp");
+              accessToken
+                ? onClickMoveToPage("/myPage")()
+                : onClickMoveToPage("/signUp")();
             }}
           >
             {accessToken ? `${userInfo.name}님` : "회원가입"}

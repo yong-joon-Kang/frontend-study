@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import * as S from "./TodayItems.styles";
-import { useRouter } from "next/router";
 import { getComma } from "../../../../commons/libraries/utils";
 import LikeIcon from "../../../commons/icon/LikeIcon";
 import { IUseditem } from "../../../../commons/types/generated/types";
+import { useMoveToPage } from "../../../../commons/customHooks/useMoveToPage/useMoveToPage";
 
 function index() {
-  const router = useRouter();
+  const { onClickMoveToPage } = useMoveToPage();
   const [todayItems, setTodayItems] = useState([]);
   useEffect(() => {
     const storage = localStorage.getItem("todayItems");
@@ -16,20 +16,13 @@ function index() {
       );
   }, []);
 
-  const onClickItem = (id: string) => {
-    console.log(id);
-    router.push(`/usedItems/detail/${id}`);
-  };
-
   return (
     <S.Wrap>
       <S.Title>오늘 본 상품</S.Title>
       {todayItems.map((el: IUseditem) => (
         <>
           <S.ItemWrap
-            onClick={() => {
-              onClickItem(el._id);
-            }}
+            onClick={onClickMoveToPage(`/usedItems/detail/${el._id}`)}
           >
             <S.LikeWrap>
               <LikeIcon />
@@ -44,7 +37,7 @@ function index() {
             </S.ImgWrap>
             <S.PartTitle>{el.name}</S.PartTitle>
             <S.PartContents>{el.contents}</S.PartContents>
-            <S.Price>{getComma(el.price)}원</S.Price>
+            <S.Price>{getComma(String(el.price))}원</S.Price>
             <S.PartTags>{el.tags}</S.PartTags>
           </S.ItemWrap>
         </>

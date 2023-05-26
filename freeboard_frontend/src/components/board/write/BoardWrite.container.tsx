@@ -16,10 +16,13 @@ import {
 } from "../../../commons/types/generated/types";
 import { useDaumPostcodePopup } from "react-daum-postcode";
 import { message } from "antd";
+import { useMoveToPage } from "../../../commons/customHooks/useMoveToPage/useMoveToPage";
 
 export default function BoardWriteContainerPage(
   props: IBoardWriteContainerPageProps
 ) {
+  const { onClickMoveToPage } = useMoveToPage();
+
   const [createBoard] = useMutation<
     Pick<IMutation, "createBoard">,
     IMutationCreateBoardArgs
@@ -145,10 +148,7 @@ export default function BoardWriteContainerPage(
             },
           },
         });
-        router.push({
-          pathname: `/boards/detail/${result?.data?.createBoard._id}`,
-          query: { crud: "create" },
-        });
+        onClickMoveToPage(`/boards/detail/${result?.data?.createBoard._id}`)();
       }
     } catch (error) {
       if (error instanceof Error) console.log(error.message);
@@ -202,8 +202,7 @@ export default function BoardWriteContainerPage(
       });
       console.log(result);
       // alert("정상적으로 수정되었습니다.");
-
-      router.push(`/boards/detail/${result?.data?.updateBoard._id}`);
+      onClickMoveToPage(`/boards/detail/${result?.data?.updateBoard._id}`)();
     } catch (error) {
       if (error instanceof Error) {
         messageApi.open({

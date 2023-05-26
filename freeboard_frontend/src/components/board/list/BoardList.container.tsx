@@ -2,8 +2,7 @@
 import BoardListPresenterPage from "./BoardList.presenter";
 import { FETCH_BOARDS, FETCH_BOARDS_COUNT } from "./BoardList.queries";
 import { useQuery } from "@apollo/client";
-import router from "next/router";
-import { ChangeEvent, MouseEvent, useState } from "react";
+import { ChangeEvent, useState } from "react";
 import _ from "lodash";
 
 import {
@@ -12,8 +11,10 @@ import {
   IQueryFetchBoardsCountArgs,
 } from "../../../commons/types/generated/types";
 import Pagination from "../../pagination/Pagination.container";
+import { useMoveToPage } from "../../../commons/customHooks/useMoveToPage/useMoveToPage";
 
 export default function BoardListContainerPage() {
+  const { onClickMoveToPage } = useMoveToPage();
   const [searchKeyword, setSearchKeyword] = useState("");
   const [startDate, setStartDate] = useState(
     new Date(new Date().setMonth(new Date().getMonth() - 1))
@@ -31,14 +32,6 @@ export default function BoardListContainerPage() {
     Pick<IQuery, "fetchBoardsCount">,
     IQueryFetchBoardsCountArgs
   >(FETCH_BOARDS_COUNT);
-
-  const onClickBoardWrite = () => {
-    router.push("/boards/new");
-  };
-
-  const onClickBoardDetail = (event: MouseEvent<HTMLDivElement>) => {
-    router.push(`/boards/detail/${event.currentTarget.id}`);
-  };
 
   const getDebounce = _.debounce((searchKeyword, startDate, endDate) => {
     setSearchKeyword(searchKeyword);
@@ -60,16 +53,10 @@ export default function BoardListContainerPage() {
     getDebounce(searchKeyword, startDate, date);
   };
 
-  // useEffect(() => {
-  //   debouncing(searchKeyword, startDate, endDate);
-  // }, [searchKeyword, startDate, endDate]);
-  // console.log(fetchBoardsCount?.fetchBoardsCount);
   return (
     <>
       <BoardListPresenterPage
         data={data}
-        onClickBoardWrite={onClickBoardWrite}
-        onClickBoardDetail={onClickBoardDetail}
         onChangeSearchKeyword={onChangeSearchKeyword}
         onChangeStartDate={onChangeStartDate}
         onChangeEndDate={onChangeEndDate}
@@ -80,6 +67,7 @@ export default function BoardListContainerPage() {
         minDate={minDate}
         maxDate={maxDate}
         searchKeyword={searchKeyword}
+        onClickMoveToPage={onClickMoveToPage}
       />
       <Pagination
         refetch={refetch}
