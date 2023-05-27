@@ -1,9 +1,4 @@
-export interface IListProps {
-  list: any;
-  searchKeyword: string;
-}
-
-export interface IContainerProps {
+export interface IProps {
   list: any;
   searchKeyword: string;
 }

@@ -1,8 +1,8 @@
 import * as S from "./OneRow.styles";
-import { IContainerProps } from "./OneRow.types";
+import { IProps } from "./OneRow.types";
 import { getComma } from "../../../../commons/libraries/utils";
 import LikeIcon from "../../../commons/icon/LikeIcon";
-function OneRowPresenter(props: IContainerProps) {
+function OneRowPresenter(props: IProps) {
   return (
     <S.Wrap>
       <S.Part isImgPart={true}>

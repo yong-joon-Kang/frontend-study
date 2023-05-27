@@ -1,7 +1,7 @@
 import OneRowPresenter from "./OneRow.presenter";
-import { IListProps } from "./OneRow.types";
+import { IProps } from "./OneRow.types";
 
-function OneRowContainer(props: IListProps) {
+function OneRowContainer(props: IProps) {
   return (
     <OneRowPresenter list={props.list} searchKeyword={props.searchKeyword} />
   );
