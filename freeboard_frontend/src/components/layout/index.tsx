@@ -3,6 +3,7 @@ import Banner from "./banner";
 import Header from "./Header";
 import Footer from "./Footer";
 import styled from "@emotion/styled";
+import { useLogined } from "../../commons/customHooks/useLogined/useLogined";
 
 interface IPropsLayout {
   children: JSX.Element;
@@ -35,6 +36,7 @@ const Content = styled.div`
 `;
 
 const Layout = (props: IPropsLayout) => {
+  useLogined();
   const router = useRouter();
   const isHiddenBanner = hiddenBannerPath.includes(router.pathname);
 
