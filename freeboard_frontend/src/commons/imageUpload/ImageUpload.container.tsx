@@ -9,6 +9,7 @@ function ImageUpload(props: IBoardWriteProps) {
   const uploadRef = useRef<HTMLInputElement>(null);
   const [uploadFile] = useMutation(UPLOAD_FILE);
   const fileUrls = [...props.fileUrls];
+  console.log(fileUrls);
 
   const onClickImageUpload = (event: any) => {
     event.preventDefault(); // 폼 제출 막기
@@ -48,6 +49,7 @@ function ImageUpload(props: IBoardWriteProps) {
       uploadRef={uploadRef}
       imageUrl={props.fileUrls[props.index]}
       isProduct={props.isProduct}
+      isProfile={props.isProfile}
     />
   );
 }

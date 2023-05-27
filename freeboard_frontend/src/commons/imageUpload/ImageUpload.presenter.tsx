@@ -8,6 +8,7 @@ function ImageUploadPresenterPage(props: IUploadProps) {
       <S.UploadBtn
         onClick={props.onClickImageUpload}
         isProduct={props.isProduct}
+        isProfile={props.isProfile}
       >
         {props.imageUrl ? (
           <>

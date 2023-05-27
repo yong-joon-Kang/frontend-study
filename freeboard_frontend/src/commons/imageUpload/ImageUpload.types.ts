@@ -13,6 +13,7 @@ export interface IUploadProps {
   onClickUploadImgCancel: (event: MouseEvent<HTMLImageElement>) => void;
   imageUrl: string;
   isProduct?: boolean;
+  isProfile?: boolean;
 }
 
 export interface IBoardWriteProps {
@@ -20,8 +21,10 @@ export interface IBoardWriteProps {
   fileUrls: string[];
   index: number;
   isProduct?: boolean;
+  isProfile?: boolean;
 }
 
 export interface ICssprops {
   isProduct?: boolean;
+  isProfile?: boolean;
 }

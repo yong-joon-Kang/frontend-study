@@ -5,10 +5,12 @@ export const UploadBtn = styled.button`
   ${(props: ICssprops) =>
     props.isProduct
       ? "height: 140px; width: 140px;"
+      : props.isProfile
+      ? "height: 300px; width: 300px;"
       : "height: 100px; width: 100px;"};
 
-  backrground: #bdbdbd;
-  border: 1px solid #bdbdbd;
+  background: #eee;
+  border: none;
   margin-right: 20px;
   cursor: pointer;
   position: relative;
