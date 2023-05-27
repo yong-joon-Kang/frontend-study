@@ -43,6 +43,8 @@ export default function BoardCommentWriteContainerPage(
     if (editCmtProps.writer) setWriter(editCmtProps.writer);
     if (editCmtProps.rating) setRateCnt(editCmtProps.rating);
     if (editCmtProps.contents) setContents(editCmtProps.contents);
+    if (editCmtProps.contents)
+      setContentsLength(String(editCmtProps.contents.length));
   }, []);
 
   const onClickCmtWrite = async () => {
@@ -130,7 +132,14 @@ export default function BoardCommentWriteContainerPage(
       setContentsLength("0");
       setWriter("");
       setPw("");
-    } catch (error) {}
+    } catch (error) {
+      if (error instanceof Error) {
+        messageApi.open({
+          type: "error",
+          content: error.message,
+        });
+      }
+    }
   };
 
   const onChangeTextArea = (event: ChangeEvent<HTMLTextAreaElement>) => {
