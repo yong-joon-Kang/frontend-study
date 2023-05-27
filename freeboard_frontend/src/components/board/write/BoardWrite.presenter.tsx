@@ -1,4 +1,5 @@
 import ImageUpload from "../../../commons/imageUpload/ImageUpload.container";
+import DefaultButton from "../../commons/button/DefaultButton";
 import * as S from "./BoardWrite.styles";
 import { IBoardWritePresenterPageProps } from "./BoardWrite.types";
 import { v4 as uuidv4 } from "uuid";
@@ -81,7 +82,12 @@ export default function BoardWritePresenterPage(
       </S.SubWrap>
       <S.SubWrap>
         <S.Label>유튜브</S.Label>
-        <S.TitleInput type="text" onChange={props.onChangeYoutubeUrl} />
+        <S.TitleInput
+          type="text"
+          defaultValue={fetchBoard?.youtubeUrl ?? ""}
+          onChange={props.onChangeYoutubeUrl}
+          placeholder="전체 링크를 복사하여 넣어주세요."
+        />
       </S.SubWrap>
       <S.SubWrap>
         <S.Label>사진 첨부</S.Label>
@@ -95,17 +101,8 @@ export default function BoardWritePresenterPage(
             />
           ))}
         </S.UploadWrap>
-        {/* <input ref={props.fileRef1} onChange={props.onChangeFile} type="file" />
-        <S.UploadBtn>
-          <S.Plus>+</S.Plus>
-          <S.UploadText>Upload</S.UploadText>
-        </S.UploadBtn>
-        <S.UploadBtn>
-          <S.Plus>+</S.Plus>
-          <S.UploadText>Upload</S.UploadText>
-        </S.UploadBtn> */}
       </S.SubWrap>
-      <S.SubWrap>
+      {/* <S.SubWrap>
         <S.Label>메인 설정</S.Label>
         <label>
           <S.RadioBtn type="radio" name="chkMainOption" /> 유튜브
@@ -113,14 +110,19 @@ export default function BoardWritePresenterPage(
         <label>
           <S.RadioBtn type="radio" name="chkMainOption" /> 사진
         </label>
-      </S.SubWrap>
+      </S.SubWrap> */}
       <S.SubmitWrap>
-        <S.SubmitBtn
+        <DefaultButton
+          text="이전으로"
+          onClick={() => {
+            history.back();
+          }}
+        />
+        <DefaultButton
+          text={props.isEdit ? "수정하기" : "등록하기"}
           onClick={props.isEdit ? props.onSubmitUpdate : props.onSubmit}
           isActive={props.isActive}
-        >
-          {props.isEdit ? "수정하기" : "등록하기"}
-        </S.SubmitBtn>
+        />
       </S.SubmitWrap>
     </S.Wrapper>
   );

@@ -49,7 +49,7 @@ export default function BoardWriteContainerPage(
 
   const [isActive, setIsActive] = useState(Boolean);
 
-  const [messageApi, contextHolder] = message.useMessage(); // 비밀번호 에러 alert
+  const [messageApi, contextHolder] = message.useMessage();
 
   const router = useRouter();
 
@@ -72,7 +72,6 @@ export default function BoardWriteContainerPage(
 
   const onPasswordChanged = (event: ChangeEvent<HTMLInputElement>) => {
     setPassword(event.target.value);
-
     if (writer && event.target.value && title && contents) {
       setIsActive(true);
     } else {
@@ -207,7 +206,7 @@ export default function BoardWriteContainerPage(
       if (error instanceof Error) {
         messageApi.open({
           type: "error",
-          content: "비밀번호가 일치하지 않습니다.",
+          content: error.message,
         });
       }
     }
