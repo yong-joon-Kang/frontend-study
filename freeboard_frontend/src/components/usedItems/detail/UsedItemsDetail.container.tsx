@@ -1,13 +1,11 @@
 import UsedItemsDetailPresenterPage from "./UsedItemsDetail.presenter";
 import {
   FETCH_USED_ITEM,
-  DELETE_BOARD,
   TOGGLE_USEDITEM_PICK,
 } from "./UsedItemsDetail.queries";
 import { useQuery, useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
 import {
-  IMutation,
   IQuery,
   IQueryFetchUseditemArgs,
   IUseditem,
@@ -15,10 +13,6 @@ import {
 import ConfirmModalPresenter from "../../../commons/modals/confirmModal.presenter";
 import { useEffect, useState } from "react";
 import { Modal } from "antd";
-import { IUsedItemsDetailPresenterPageProps } from "./UsedItemsDetail.types";
-import BoardCommentListContainerPage from "../../usedItemsComment/list/UsedItemsCommentList.container";
-import BoardWriteContainerPage from "../../board/write/BoardWrite.container";
-import BoardCommentWriteContainerPage from "../../boardComment/write/BoardCommentWrite.container";
 import UsedItemsCommentWriteContainerPage from "../../usedItemsComment/write/UsedItemsCommentWrite.container";
 import UsedItemsCommentListContainerPage from "../../usedItemsComment/list/UsedItemsCommentList.container";
 
@@ -36,13 +30,6 @@ export default function UsedItemsDetailContainerPage() {
     fetchPolicy: "network-only",
   });
 
-  const onClickUsedItemsList = () => {
-    router.push("/usedItems/list");
-  };
-  console.log(data);
-  // const [deleteUsedItems] =
-  //   useMutation<Pick<IMutation, "deleteUsedItems">>(DELETE_BOARD);
-
   const [ismodalToggle, setModalToggle] = useState(false);
 
   const onToggleModal = () => {
@@ -53,29 +40,6 @@ export default function UsedItemsDetailContainerPage() {
     setModalToggle(!ismodalToggle);
     router.push("/usedItems/cart");
   };
-
-  const onClickUsedItemsDelete = async () => {
-    // await deleteUsedItems({
-    //   variables: {
-    //     boardId: router.query.id,
-    //   },
-    // });
-    // router.push({
-    //   pathname: "/boards/list",
-    //   // query: { isSuccess: true },
-    // });
-  };
-
-  // interface ICart {
-  //   _id: string;
-  //   name: string;
-  //   remarks: string;
-  //   contents: string;
-  //   price: string;
-  //   tags: string[];
-  //   images: string[];
-  //   buyer:
-  // }
 
   const onClickInCart = (cart: IUseditem) => {
     // 1. 기존 장바구니 가져오기
@@ -133,7 +97,6 @@ export default function UsedItemsDetailContainerPage() {
         data={data}
         userName={userName}
         onClickInCart={onClickInCart}
-        onClickUsedItemsList={onClickUsedItemsList}
         onToggleModal={onToggleModal}
         onClickUsedItemsEdit={onClickUsedItemsEdit}
         onClickCountLike={onClickCountLike}

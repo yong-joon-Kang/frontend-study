@@ -33,25 +33,6 @@ export default function BoardCommentPresenterPage(
           value={props.writer}
           placeholder="작성자"
         />
-        {/* {props.isEdit ? (
-          <S.WriterInput
-            onChange={props.onChangeWriter}
-            defaultValue={
-              props.isEdit
-                ? props.editWriter !== null
-                  ? props.editWriter
-                  : ""
-                : ""
-            }
-            placeholder="작성자"
-          />
-        ) : (
-          <S.WriterInput
-            onChange={props.onChangeWriter}
-            value={props.writer}
-            placeholder="작성자"
-          />
-        )} */}
         <S.WriterInput
           type="password"
           onChange={props.onChangePw}
@@ -65,25 +46,6 @@ export default function BoardCommentPresenterPage(
             value={props.contents}
             placeholder="개인정보를 공유 및 요청하거나, 명예 훼손, 무단 광고, 불법 정보 유포시 모니터링 후 삭제될 수 있으며, 이에 대한 민형사상 책임은 게시자에게 있습니다."
           ></S.TextArea>
-          {/* {props.isEdit ? (
-            <S.TextArea
-              onChange={props.onChangeTextArea}
-              defaultValue={
-                props.isEdit
-                  ? props.editContents !== null
-                    ? props.editContents
-                    : ""
-                  : ""
-              }
-              placeholder="개인정보를 공유 및 요청하거나, 명예 훼손, 무단 광고, 불법 정보 유포시 모니터링 후 삭제될 수 있으며, 이에 대한 민형사상 책임은 게시자에게 있습니다."
-            ></S.TextArea>
-          ) : (
-            <S.TextArea
-              onChange={props.onChangeTextArea}
-              value={props.contents}
-              placeholder="개인정보를 공유 및 요청하거나, 명예 훼손, 무단 광고, 불법 정보 유포시 모니터링 후 삭제될 수 있으며, 이에 대한 민형사상 책임은 게시자에게 있습니다."
-            ></S.TextArea>
-          )} */}
           <S.ContentsLength>
             <S.CurrLength length={props.contentsLength}>
               {props.contentsLength ? props.contentsLength : "0"}

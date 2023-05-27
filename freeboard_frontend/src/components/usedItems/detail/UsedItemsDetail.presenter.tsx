@@ -1,7 +1,6 @@
 import * as S from "./UsedItemsDetail.styles";
 import { getComma, getDate } from "../../../commons/libraries/utils";
 import { IUsedItemsDetailPresenterPageProps } from "./UsedItemsDetail.types";
-import { useRouter } from "next/router";
 import DefaultButton from "../../commons/button/DefaultButton";
 import LikeOutLineIcon from "../../commons/icon/LikeOutLineIcon";
 import SlickSlide from "../../commons/slickSlide/SlickSlide";
@@ -12,7 +11,6 @@ export default function UseditemDetailPresenterPage(
 ) {
   const { onClickMoveToPage } = useMoveToPage();
   const fetchUseditem = props.data?.fetchUseditem;
-  const router = useRouter();
   return (
     <S.Wrapper>
       <S.CardWrapper>
