@@ -8,7 +8,8 @@ const Wrap = styled.div`
 `;
 
 const UploadImg = styled.img`
-  width: 200px;
+  height: 450px;
+  object-fit: contain;
 `;
 
 const AWrap = styled.div`
@@ -72,12 +73,15 @@ function SlickSlide(props: { images: string[] }) {
   return (
     <Wrap>
       <Slider {...settings}>
-        {props.images?.map((el: string, index: number) => (
-          <UploadImg
-            key={index}
-            src={`https://storage.googleapis.com/${el}`}
-          ></UploadImg>
-        ))}
+        {props.images?.map(
+          (el: string, index: number) =>
+            el && (
+              <UploadImg
+                key={index}
+                src={`https://storage.googleapis.com/${el}`}
+              ></UploadImg>
+            )
+        )}
       </Slider>
     </Wrap>
   );
