@@ -112,19 +112,6 @@ export default function BoardWritePresenterPage(
             <S.ErrorText>태그는 시작할 때 #을 입력해주세요.</S.ErrorText>
           )}
         </S.SubWrap>
-        {/* <S.SubWrap>
-          <S.Label>주소</S.Label>
-          <S.AddrNumInput type="text" placeholder="07592" readOnly />
-          <S.AddrNumBtn onClick={props.onClickPostCode}>
-            우편번호 검색
-          </S.AddrNumBtn>
-          <S.Input type="text" readOnly />
-          <S.Input type="text" onChange={props.onChangeDetailAddress} />
-        </S.SubWrap>
-        <S.SubWrap>
-          <S.Label>유튜브</S.Label>
-          <S.Input type="text" onChange={props.onChangeYoutubeUrl} />
-        </S.SubWrap> */}
         <S.SubWrap>
           <S.Label>사진 첨부</S.Label>
           <S.UploadWrap>
@@ -139,25 +126,14 @@ export default function BoardWritePresenterPage(
             ))}
           </S.UploadWrap>
         </S.SubWrap>
-        {/* <S.SubWrap>
-          <S.Label>메인 사진 설정</S.Label>
-          <label>
-            <S.RadioBtn type="radio" name="chkMainOption" /> 사진1
-          </label>
-          <label>
-            <S.RadioBtn type="radio" name="chkMainOption" /> 사진2
-          </label>
-          <label>
-            <S.RadioBtn type="radio" name="chkMainOption" /> 사진3
-          </label>
-        </S.SubWrap> */}
-
         <S.SubmitWrap>
-          <DefaultButton text="목록으로" onClick={props.onClickUsedItemsList} />
           <DefaultButton
-            text={props.isEdit ? "수정하기" : "등록하기"}
-            isActive={props.isActive}
+            onClick={() => {
+              history.back();
+            }}
+            text="이전으로"
           />
+          <DefaultButton text={props.isEdit ? "수정하기" : "등록하기"} />
         </S.SubmitWrap>
       </form>
     </S.Wrapper>

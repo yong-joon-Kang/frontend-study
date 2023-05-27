@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { ICssprops, ISubmitBtnProps } from "./UsedItemsWrite.types";
+import { ICssprops } from "./UsedItemsWrite.types";
 
 export const Wrapper = styled.div`
   width: 60%;
@@ -99,20 +99,6 @@ export const SubmitWrap = styled.div`
   display: flex;
 `;
 
-export const SubmitBtn = styled.button`
-  background: ${(props: ISubmitBtnProps) => {
-    if (props.isActive) {
-      return "#FFD600";
-    } else {
-      return "#BDBDBD";
-    }
-  }};
-  width: 170px;
-  height: 52px;
-  border: none;
-  font-weight: bold;
-  cursor: pointer;
-`;
 export const ErrorText = styled.div`
   color: red;
 `;

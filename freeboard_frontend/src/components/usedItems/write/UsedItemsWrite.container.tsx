@@ -3,11 +3,11 @@
 import UsedItemsPresenterPage from "./UsedItemsWrite.presenter";
 import { CREATE_USED_ITEM, UPDATE_USED_ITEM } from "./UsedItemsWrite.queries";
 
-import { Modal, message } from "antd";
+import { message } from "antd";
 import { WithAuth } from "../../commons/withAuth/WithAuth";
 import { indexPageProps } from "./UsedItemsWrite.types";
 import { useMutation, useQuery } from "@apollo/client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { FETCH_USED_ITEM } from "../detail/UsedItemsDetail.queries";
@@ -31,10 +31,6 @@ function UsedItemsWriteContainerPage(props: indexPageProps) {
       useditemId: String(router.query.id),
     },
   });
-
-  // console.log(
-  //   fetchUsedItemData?.fetchUseditem && fetchUsedItemData?.fetchUseditem
-  // );
 
   const {
     register,
@@ -158,30 +154,11 @@ function UsedItemsWriteContainerPage(props: indexPageProps) {
         fileUrls={fileUrls}
         setFileUrls={setFileUrls}
         onClickUsedItemsList={onClickUsedItemsList}
-        // formState={formState}
         control={control}
         errors={errors}
-        // writerErr={writerErr}
-        // passwordErr={passwordErr}
-        // titleErr={titleErr}
-        // contentsErr={contentsErr}
         isEdit={props.isEdit}
-        // fetchBoardDataList={props.fetchBoardDataList}
-        // onWriterChanged={onWriterChanged}
-        // onPasswordChanged={onPasswordChanged}
-        // onTitleChanged={onTitleChanged}
-        // onContentsChanged={onContentsChanged}
         onSubmit={onSubmit}
-        // onSubmitUpdate={onSubmitUpdate}
         data={fetchUsedItemData}
-
-        // onClickPostCode={onClickPostCode}
-        // zipcode={zipcode}
-        // address={address}
-        // onChangeDetailAddress={onChangeDetailAddress}
-        // setFileUrls={setFileUrls}
-        // fileUrls={fileUrls}
-        // onChangeYoutubeUrl={onChangeYoutubeUrl}
       />
     </>
   );
