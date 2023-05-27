@@ -1,8 +1,8 @@
 import React from "react";
 import * as S from "./MyProfile.styles";
-import DefaultButton from "../../commons/button/DefaultButton";
 
 function MyProfileContainer() {
+  const onClickBtn = () => {};
   return (
     <S.Wrap>
       <S.Title>비밀번호 변경</S.Title>
@@ -18,7 +18,9 @@ function MyProfileContainer() {
         <S.Label>새 비밀번호 확인</S.Label>
         <S.Input placeholder="새 비밀번호 확인을 입력해주세요." />
       </S.RowWrap>
-      <DefaultButton />
+      <S.RowWrap isLast={true}>
+        <S.Button onClick={onClickBtn}>비밀번호 변경</S.Button>
+      </S.RowWrap>
     </S.Wrap>
   );
 }
