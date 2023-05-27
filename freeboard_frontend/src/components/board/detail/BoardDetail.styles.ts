@@ -1,10 +1,27 @@
 import { LikeOutlined, DislikeOutlined } from "@ant-design/icons";
 import styled from "@emotion/styled";
 import { LikeType } from "./BoardDetail.types";
+import { mideaQuery } from "../../../../styles/common";
 
 export const Wrapper = styled.div`
   width: 1200px;
   margin: 50px;
+
+  @media (max-width: ${mideaQuery.width1300}) {
+    width: ${mideaQuery.width1000};
+  }
+
+  @media (max-width: ${mideaQuery.width1100}) {
+    width: ${mideaQuery.width800};
+  }
+
+  @media (max-width: ${mideaQuery.width900}) {
+    width: ${mideaQuery.width600};
+  }
+
+  @media (max-width: ${mideaQuery.width700}) {
+    width: ${mideaQuery.width500};
+  }
 `;
 
 export const CardWrapper = styled.div`
@@ -43,6 +60,10 @@ export const Title = styled.div`
   margin-bottom: 30px;
 `;
 
+export const Content = styled.div`
+  margin-bottom: 30px;
+`;
+
 export const ProfileName = styled.div``;
 
 export const ProfileDate = styled.div``;
@@ -62,6 +83,7 @@ export const Contents = styled.div`
   padding: 30px 0 0 30px;
   display: flex;
   flex-direction: column;
+  margin-bottom: 100px;
 `;
 
 export const Footer = styled.div`

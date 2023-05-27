@@ -1,12 +1,29 @@
 import { ICurrLengthProps } from "./BoardCommentWrite.types";
 import styled from "@emotion/styled";
 import { Rate } from "antd";
+import { mideaQuery } from "../../../../styles/common";
 
 export const Wrapper = styled.div`
   width: 1200px;
   margin: 30px 0;
   padding-top: 30px;
   position: relative;
+
+  @media (max-width: ${mideaQuery.width1300}) {
+    width: ${mideaQuery.width1000};
+  }
+
+  @media (max-width: ${mideaQuery.width1100}) {
+    width: ${mideaQuery.width800};
+  }
+
+  @media (max-width: ${mideaQuery.width900}) {
+    width: ${mideaQuery.width600};
+  }
+
+  @media (max-width: ${mideaQuery.width700}) {
+    width: ${mideaQuery.width500};
+  }
 `;
 
 export const CommentWriteWrap = styled.div``;
