@@ -37,7 +37,7 @@ export const LeftWrap = styled.div`
 `;
 
 export const Label = styled.div`
-  font-family: "Noto Sans CJK KR";
+  font-weight: bold;
   font-style: normal;
   font-size: 16px;
   width: 100%;
@@ -45,7 +45,6 @@ export const Label = styled.div`
 `;
 
 export const InputWrap = styled.div`
-  margin-bottom: 10px;
   padding: 10px;
   width: 100%;
   height: ${(props: ICssprops) => (props.isContent ? "250px" : "42px")};
@@ -103,7 +102,13 @@ export const ErrorText = styled.div`
   color: red;
 `;
 
-export const UploadWrap = styled.div`
+export const FlexRow = styled.div`
   display: flex;
   flex-direction: row;
+  align-items: ${(props: ICssprops) => props.alignCenter && "center"};
+`;
+
+export const Img = styled.img`
+  width: 30px;
+  height: 30px;
 `;

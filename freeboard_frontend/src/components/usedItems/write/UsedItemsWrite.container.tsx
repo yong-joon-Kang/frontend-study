@@ -44,6 +44,7 @@ function UsedItemsWriteContainerPage(props: indexPageProps) {
   );
 
   const onSubmit = async (data: any) => {
+    console.log(data);
     if (Object.keys(errors).length > 0) return false;
     if (!data.price) return false;
 
@@ -61,7 +62,9 @@ function UsedItemsWriteContainerPage(props: indexPageProps) {
       price = Number(data.price?.replaceAll(",", ""));
     }
 
-    const updateUseditemInput: IUpdateUseditemInput = {};
+    const updateUseditemInput: IUpdateUseditemInput = {
+      useditemAddress: {},
+    };
     const isChangedName = fetchUsedItemData?.fetchUseditem.name !== data.name;
     const isChangedRemarks =
       fetchUsedItemData?.fetchUseditem.remarks !== data.remarks;
@@ -72,6 +75,12 @@ function UsedItemsWriteContainerPage(props: indexPageProps) {
     const isChangedTags =
       JSON.stringify(fetchUsedItemData?.fetchUseditem.tags) !==
       JSON.stringify(data.tags);
+    const isChangedAddress =
+      fetchUsedItemData?.fetchUseditem.useditemAddress?.address !==
+      data.address;
+    const isChangedAddressDetail =
+      fetchUsedItemData?.fetchUseditem.useditemAddress?.addressDetail !==
+      data.addressDetail;
     const isChangedImages =
       JSON.stringify(fetchUsedItemData?.fetchUseditem.images) !==
       JSON.stringify(fileUrls);
@@ -79,6 +88,10 @@ function UsedItemsWriteContainerPage(props: indexPageProps) {
     if (isChangedRemarks) updateUseditemInput.remarks = data.remarks;
     if (isChangedContents) updateUseditemInput.contents = data.contents;
     if (isChangedPrice) updateUseditemInput.price = price;
+    if (isChangedAddress && updateUseditemInput.useditemAddress)
+      updateUseditemInput.useditemAddress.address = data.address;
+    if (isChangedAddressDetail && updateUseditemInput.useditemAddress)
+      updateUseditemInput.useditemAddress.addressDetail = data.addressDetail;
     if (isChangedTags) updateUseditemInput.tags = data.tags;
     if (isChangedImages) updateUseditemInput.images = fileUrls;
 

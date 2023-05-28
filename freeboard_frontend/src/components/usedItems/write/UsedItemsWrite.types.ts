@@ -32,4 +32,5 @@ export interface IUsedItemsPresenterPageProps {
 
 export interface ICssprops {
   isContent?: boolean;
+  alignCenter?: boolean;
 }

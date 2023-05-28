@@ -7,14 +7,23 @@ import NumberFormat from "../../commons/validation/NumberFormat";
 import ContentsFormat from "../../commons/validation/ContentsFormat";
 import DefaultFormat from "../../commons/validation/DefaultFormat";
 import RegisterPatternFormat from "../../commons/validation/RegisterPatternFormat";
+import KakaoMap from "../../commons/kakaoMap/KakaoMap";
+import { useRef, useState } from "react";
+import { Controller } from "react-hook-form";
+import DefaultAnchorBtn from "../../commons/button/DefaultAnchorBtn";
+import { useMoveToPage } from "../../../commons/customHooks/useMoveToPage/useMoveToPage";
 
 export default function BoardWritePresenterPage(
   props: IUsedItemsPresenterPageProps
 ) {
   // console.log(props.data);
+
   const usedItem = props?.data?.fetchUseditem;
-  console.log(usedItem);
-  // const test = usedItem?.tags?.map((tag) => `#${tag}`);
+
+  const addressRef = useRef("");
+  const [address, setAddress] = useState("");
+  const { onClickMoveToPage } = useMoveToPage();
+
   return (
     <S.Wrapper>
       <form onSubmit={props.handleSubmit(props.onSubmit)}>
@@ -113,8 +122,56 @@ export default function BoardWritePresenterPage(
           )}
         </S.SubWrap>
         <S.SubWrap>
+          <S.FlexRow>
+            <div style={{ flex: "2" }}>
+              <S.Label>거래위치</S.Label>
+              <KakaoMap address={address} />
+            </div>
+            <div style={{ marginLeft: "50px;", flex: "2" }}>
+              <S.Label>주소</S.Label>
+              <S.FlexRow alignCenter={true}>
+                {/* <S.Img src="/location.png" /> */}
+                <S.InputWrap>
+                  <Controller
+                    name="address"
+                    control={props.control}
+                    render={({ field }) => (
+                      <S.Input
+                        {...field}
+                        ref={addressRef}
+                        placeholder="검색할 주소를 입력해주세요."
+                      />
+                    )}
+                  />
+                </S.InputWrap>
+                <DefaultAnchorBtn
+                  onClick={() => {
+                    setAddress(addressRef.current.value);
+                  }}
+                  text="검색"
+                  height="42px"
+                  width="100px"
+                />
+              </S.FlexRow>
+              <div style={{ marginBottom: "16px" }}></div>
+              <S.InputWrap>
+                <Controller
+                  name="addressDetail"
+                  control={props.control}
+                  render={({ field }) => (
+                    <S.Input
+                      {...field}
+                      placeholder="상세 주소를 입력해주세요."
+                    />
+                  )}
+                />
+              </S.InputWrap>
+            </div>
+          </S.FlexRow>
+        </S.SubWrap>
+        <S.SubWrap>
           <S.Label>사진 첨부</S.Label>
-          <S.UploadWrap>
+          <S.FlexRow>
             {props.fileUrls.map((_el, index) => (
               <ImageUpload
                 key={uuidv4()}
@@ -124,13 +181,11 @@ export default function BoardWritePresenterPage(
                 isProduct={true}
               />
             ))}
-          </S.UploadWrap>
+          </S.FlexRow>
         </S.SubWrap>
         <S.SubmitWrap>
           <DefaultButton
-            onClick={() => {
-              history.back();
-            }}
+            onClick={onClickMoveToPage(`/usedItems/detail/${usedItem?._id}`)}
             text="이전으로"
           />
           <DefaultButton text={props.isEdit ? "수정하기" : "등록하기"} />
