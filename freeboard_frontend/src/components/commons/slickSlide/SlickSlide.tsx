@@ -4,7 +4,7 @@ import { useState } from "react";
 
 const Wrap = styled.div`
   width: 400px;
-  margin: 0 auto;
+  margin: 100px auto;
 `;
 
 const UploadImg = styled.img`
