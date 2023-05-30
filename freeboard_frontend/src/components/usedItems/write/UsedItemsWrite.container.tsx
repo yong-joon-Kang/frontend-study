@@ -51,11 +51,15 @@ function UsedItemsWriteContainerPage(props: indexPageProps) {
     if (!data.price) return false;
     if (data.contents === "<p><br></p>") return false;
 
+    // tags 가공
     let tags = [];
     if (data.tags.length > 0 && data.tags[0]) {
       if (data.tags.includes(" ")) {
-        const resultTags = data.tags?.replaceAll(" ", "").split(",");
+        const resultTags = data.tags?.replaceAll(" ", "").split("#");
         tags = resultTags?.filter((el: string) => el); // 공백인 태그는 제거
+      } else {
+        tags = data.tags?.split("#");
+        tags = tags?.filter((el: string) => el); // 공백인 태그는 제거
       }
     }
 
@@ -65,71 +69,76 @@ function UsedItemsWriteContainerPage(props: indexPageProps) {
       price = Number(data.price?.replaceAll(",", ""));
     }
 
-    // updateUseditemInput
-    const updateUseditemInput: IUpdateUseditemInput = {
-      useditemAddress: {},
-    };
-    const isChangedName = fetchUsedItemData?.fetchUseditem.name !== data.name;
-    const isChangedRemarks =
-      fetchUsedItemData?.fetchUseditem.remarks !== data.remarks;
-    const isChangedContents =
-      fetchUsedItemData?.fetchUseditem.contents !== data.contents;
-    const isChangedPrice =
-      fetchUsedItemData?.fetchUseditem.price !== data.price;
-    const isChangedTags =
-      JSON.stringify(fetchUsedItemData?.fetchUseditem.tags) !==
-      JSON.stringify(data.tags);
-    const isChangedAddress =
-      fetchUsedItemData?.fetchUseditem.useditemAddress?.address !==
-      data.address;
-    const isChangedAddressDetail =
-      fetchUsedItemData?.fetchUseditem.useditemAddress?.addressDetail !==
-      data.addressDetail;
-    const isChangedImages =
-      JSON.stringify(fetchUsedItemData?.fetchUseditem.images) !==
-      JSON.stringify(fileUrls);
-    if (isChangedName) updateUseditemInput.name = data.name;
-    if (isChangedRemarks) updateUseditemInput.remarks = data.remarks;
-    if (isChangedContents) updateUseditemInput.contents = data.contents;
-    if (isChangedPrice) updateUseditemInput.price = price;
-    if (isChangedAddress && updateUseditemInput.useditemAddress) {
-      updateUseditemInput.useditemAddress.address = data.address;
-    }
-    if (isChangedAddressDetail && updateUseditemInput.useditemAddress)
-      updateUseditemInput.useditemAddress.addressDetail = data.addressDetail;
-    if (isChangedTags) updateUseditemInput.tags = data.tags;
-    if (isChangedImages) updateUseditemInput.images = fileUrls;
-
-    // console.log(Object.values(updateUseditemInput)[0]);
-
-    // 주소 수정된 것이 없으면 key 삭제
-    let resultUpdateInput = updateUseditemInput;
-    if (
-      !Object.values(updateUseditemInput)[0]?.address &&
-      !Object.values(updateUseditemInput)[0]?.addressDetail
-    ) {
-      const { useditemAddress, ...rest } = updateUseditemInput;
-      resultUpdateInput = rest;
-    }
-
-    if (
-      Object.keys(updateUseditemInput).every(
-        (el) => el === "useditemAddress"
-      ) &&
-      !Object.values(updateUseditemInput)[0]?.address &&
-      !Object.values(updateUseditemInput)[0]?.addressDetail
-    ) {
-      messageApi.open({
-        type: "warning",
-        content: "수정한 것이 없습니다.",
-      });
-
-      return false;
-    }
+    console.log(fetchUsedItemData?.fetchUseditem.tags);
+    console.log(tags);
 
     if (props.isEdit) {
       // 수정 시
       try {
+        // updateUseditemInput
+        const updateUseditemInput: IUpdateUseditemInput = {
+          useditemAddress: {},
+        };
+        const isChangedName =
+          fetchUsedItemData?.fetchUseditem.name !== data.name;
+        const isChangedRemarks =
+          fetchUsedItemData?.fetchUseditem.remarks !== data.remarks;
+        const isChangedContents =
+          fetchUsedItemData?.fetchUseditem.contents !== data.contents;
+        const isChangedPrice =
+          fetchUsedItemData?.fetchUseditem.price !== data.price;
+        const isChangedTags =
+          JSON.stringify(fetchUsedItemData?.fetchUseditem.tags) !==
+          JSON.stringify(data.tags);
+        const isChangedAddress =
+          fetchUsedItemData?.fetchUseditem.useditemAddress?.address !==
+          data.address;
+        const isChangedAddressDetail =
+          fetchUsedItemData?.fetchUseditem.useditemAddress?.addressDetail !==
+          data.addressDetail;
+        const isChangedImages =
+          JSON.stringify(fetchUsedItemData?.fetchUseditem.images) !==
+          JSON.stringify(fileUrls);
+        if (isChangedName) updateUseditemInput.name = data.name;
+        if (isChangedRemarks) updateUseditemInput.remarks = data.remarks;
+        if (isChangedContents) updateUseditemInput.contents = data.contents;
+        if (isChangedPrice) updateUseditemInput.price = price;
+        if (isChangedAddress && updateUseditemInput.useditemAddress) {
+          updateUseditemInput.useditemAddress.address = data.address;
+        }
+        if (isChangedAddressDetail && updateUseditemInput.useditemAddress)
+          updateUseditemInput.useditemAddress.addressDetail =
+            data.addressDetail;
+        if (isChangedTags) updateUseditemInput.tags = tags;
+        if (isChangedImages) updateUseditemInput.images = fileUrls;
+
+        // console.log(Object.values(updateUseditemInput)[0]);
+
+        // 주소 수정된 것이 없으면 key 삭제
+        let resultUpdateInput = updateUseditemInput;
+        if (
+          !Object.values(updateUseditemInput)[0]?.address &&
+          !Object.values(updateUseditemInput)[0]?.addressDetail
+        ) {
+          const { useditemAddress, ...rest } = updateUseditemInput;
+          resultUpdateInput = rest;
+        }
+
+        if (
+          Object.keys(updateUseditemInput).every(
+            (el) => el === "useditemAddress"
+          ) &&
+          !Object.values(updateUseditemInput)[0]?.address &&
+          !Object.values(updateUseditemInput)[0]?.addressDetail
+        ) {
+          messageApi.open({
+            type: "warning",
+            content: "수정한 것이 없습니다.",
+          });
+
+          return false;
+        }
+
         const result = await updateUsedItems({
           variables: {
             useditemId: router.query.id,

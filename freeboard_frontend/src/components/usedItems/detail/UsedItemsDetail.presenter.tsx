@@ -65,7 +65,9 @@ export default function UseditemDetailPresenterPage(
         </S.Contents>
 
         <S.Footer>
-          <S.Tags>{fetchUseditem?.tags?.map((el) => ` #${el}`)}</S.Tags>
+          <S.Tags>
+            {fetchUseditem?.tags?.map((tag) => `#${tag}`).join(" ")}
+          </S.Tags>
         </S.Footer>
       </S.CardWrapper>
       <S.ButtonWrapper>

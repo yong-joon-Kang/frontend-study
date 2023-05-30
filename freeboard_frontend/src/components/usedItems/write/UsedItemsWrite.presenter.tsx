@@ -113,8 +113,9 @@ export default function BoardWritePresenterPage(
             <RegisterPatternFormat
               register={props.register}
               maxLength={30}
-              placeholder="태그1, 태그2, 태그3"
-              // pattern={/^.*#.*$/}
+              placeholder="#태그1 #태그2 #태그3"
+              pattern={/^.*#.*$/}
+              val={usedItem?.tags ?? []}
             />
           </S.InputWrap>
           {props.errors.tags?.type === "pattern" && (

@@ -1,6 +1,7 @@
 /* eslint-disable react/no-unknown-property */
 import styled from "@emotion/styled";
 import { ValidationProps } from "./type";
+import { useEffect, useState } from "react";
 
 export const Input = styled.input`
   outline: none;
@@ -10,6 +11,16 @@ export const Input = styled.input`
 `;
 
 function RegisterPatternFormat(props: ValidationProps) {
+  const [tagValue, setTagValue] = useState("");
+  useEffect(() => {
+    const value = props.val?.map((el: any) => `#${el}`).join(" ");
+    setTagValue(value);
+  }, [props]);
+
+  const handleChange = (event: any) => {
+    setTagValue(event.target.value);
+  };
+
   return (
     <>
       <Input
@@ -20,6 +31,8 @@ function RegisterPatternFormat(props: ValidationProps) {
           required: false,
           pattern: props.pattern,
         })}
+        value={tagValue}
+        onChange={handleChange}
       />
     </>
   );
