@@ -5,12 +5,18 @@ import DefaultButton from "../../commons/button/DefaultButton";
 import LikeOutLineIcon from "../../commons/icon/LikeOutLineIcon";
 import SlickSlide from "../../commons/slickSlide/SlickSlide";
 import { useMoveToPage } from "../../../commons/customHooks/useMoveToPage/useMoveToPage";
+import { MemoizedKakaoMap } from "../../commons/kakaoMap/KakaoMap";
 
 export default function UseditemDetailPresenterPage(
   props: IUsedItemsDetailPresenterPageProps
 ) {
   const { onClickMoveToPage } = useMoveToPage();
   const fetchUseditem = props.data?.fetchUseditem;
+
+  const createMarkup = () => {
+    return { __html: fetchUseditem?.contents.replace(/\n/g, "<br>") };
+  };
+
   return (
     <S.Wrapper>
       <S.CardWrapper>
@@ -52,10 +58,13 @@ export default function UseditemDetailPresenterPage(
             </S.ContentsRight>
           </S.ContentHeader>
           <SlickSlide images={fetchUseditem?.images ?? []} />
+          <S.Content>
+            <span dangerouslySetInnerHTML={createMarkup()}></span>
+          </S.Content>
+          <MemoizedKakaoMap address={fetchUseditem?.useditemAddress?.address} />
         </S.Contents>
 
         <S.Footer>
-          <div>{fetchUseditem?.contents}</div>
           <S.Tags>{fetchUseditem?.tags?.map((el) => ` #${el}`)}</S.Tags>
         </S.Footer>
       </S.CardWrapper>

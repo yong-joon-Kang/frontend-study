@@ -1,12 +1,11 @@
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 
 declare const window: typeof globalThis & {
   kakao: any;
 };
 
-function KakaoMap(props: any) {
+export function KakaoMap(props: any) {
   useEffect(() => {
-    console.log("되긴되냐고");
     const script = document.createElement("script");
     script.src =
       "//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=98c5518de50450620770efc790d70577&libraries=services";
@@ -61,4 +60,4 @@ function KakaoMap(props: any) {
   return <div id="map" style={{ width: "450px", height: "300px" }}></div>;
 }
 
-export default KakaoMap;
+export const MemoizedKakaoMap = React.memo(KakaoMap);

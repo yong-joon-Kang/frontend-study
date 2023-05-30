@@ -1,4 +1,6 @@
 export interface ValidationProps {
+  onChangeReactQuill?: (value: string) => void;
+  ref?: any;
   pattern?: RegExp;
   defaultValue?: string | number | readonly string[] | undefined;
   register?: any;
@@ -9,4 +11,5 @@ export interface ValidationProps {
   thousandSeparator?: boolean;
   placeholder: string;
   value?: string;
+  onChange?: (value: string) => void;
 }

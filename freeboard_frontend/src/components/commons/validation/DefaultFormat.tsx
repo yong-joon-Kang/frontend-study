@@ -14,13 +14,14 @@ function DefaultFormat(props: ValidationProps) {
     <>
       <Controller
         control={props.control}
-        name={props.name}
+        name={props.name ?? ""}
         rules={{ required: props.required, maxLength: props.maxLength }}
         render={({ field }) => (
           <Input
             {...field}
             defaultValue={props.value}
             placeholder={props.placeholder}
+            // onChange={(e) => props.onChange(e.target.value)}
           ></Input>
         )}
       />

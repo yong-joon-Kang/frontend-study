@@ -1,4 +1,5 @@
-import { IQuery } from "../../../commons/types/generated/types";
+import { UseFormSetValue } from "react-hook-form";
+import { IQuery, IUseditem } from "../../../commons/types/generated/types";
 
 export interface indexPageProps {
   isEdit: boolean;
@@ -18,6 +19,9 @@ export interface IUpdateBoardInput {
 }
 
 export interface IUsedItemsPresenterPageProps {
+  watch: any;
+  setValue: UseFormSetValue<IUseditem>;
+  onChangeReactQuill: (value: string) => void;
   data: Pick<IQuery, "fetchUseditem"> | undefined;
   control: any;
   errors: any;

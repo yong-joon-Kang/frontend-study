@@ -86,6 +86,11 @@ export const ProfileName = styled.div`
   padding-left: 3px;
 `;
 
+export const Content = styled.div`
+  font-size: 20px;
+  margin-bottom: 50px;
+`;
+
 export const ProfileDate = styled.div``;
 
 export const LinkImg = styled.img``;

@@ -35,8 +35,10 @@ function UsedItemsWriteContainerPage(props: indexPageProps) {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitted, isSubmitting },
     control,
+    // setValue,
+    watch,
   } = useForm({ defaultValues: fetchUsedItemData?.fetchUseditem });
 
   const [fileUrls, setFileUrls] = useState(
@@ -47,6 +49,7 @@ function UsedItemsWriteContainerPage(props: indexPageProps) {
     console.log(data);
     if (Object.keys(errors).length > 0) return false;
     if (!data.price) return false;
+    if (data.contents === "<p><br></p>") return false;
 
     let tags = [];
     if (data.tags.length > 0 && data.tags[0]) {
@@ -56,12 +59,13 @@ function UsedItemsWriteContainerPage(props: indexPageProps) {
       }
     }
 
-    // 상품가격 숫자로 변경
+    // 상품가격 string -> number type 변경
     let price;
     if (JSON.stringify(data.price)?.includes(",")) {
       price = Number(data.price?.replaceAll(",", ""));
     }
 
+    // updateUseditemInput
     const updateUseditemInput: IUpdateUseditemInput = {
       useditemAddress: {},
     };
@@ -88,16 +92,33 @@ function UsedItemsWriteContainerPage(props: indexPageProps) {
     if (isChangedRemarks) updateUseditemInput.remarks = data.remarks;
     if (isChangedContents) updateUseditemInput.contents = data.contents;
     if (isChangedPrice) updateUseditemInput.price = price;
-    if (isChangedAddress && updateUseditemInput.useditemAddress)
+    if (isChangedAddress && updateUseditemInput.useditemAddress) {
       updateUseditemInput.useditemAddress.address = data.address;
+    }
     if (isChangedAddressDetail && updateUseditemInput.useditemAddress)
       updateUseditemInput.useditemAddress.addressDetail = data.addressDetail;
     if (isChangedTags) updateUseditemInput.tags = data.tags;
     if (isChangedImages) updateUseditemInput.images = fileUrls;
 
-    console.log(updateUseditemInput);
+    // console.log(Object.values(updateUseditemInput)[0]);
 
-    if (Object.keys(updateUseditemInput).length < 1) {
+    // 주소 수정된 것이 없으면 key 삭제
+    let resultUpdateInput = updateUseditemInput;
+    if (
+      !Object.values(updateUseditemInput)[0]?.address &&
+      !Object.values(updateUseditemInput)[0]?.addressDetail
+    ) {
+      const { useditemAddress, ...rest } = updateUseditemInput;
+      resultUpdateInput = rest;
+    }
+
+    if (
+      Object.keys(updateUseditemInput).every(
+        (el) => el === "useditemAddress"
+      ) &&
+      !Object.values(updateUseditemInput)[0]?.address &&
+      !Object.values(updateUseditemInput)[0]?.addressDetail
+    ) {
       messageApi.open({
         type: "warning",
         content: "수정한 것이 없습니다.",
@@ -107,11 +128,12 @@ function UsedItemsWriteContainerPage(props: indexPageProps) {
     }
 
     if (props.isEdit) {
+      // 수정 시
       try {
         const result = await updateUsedItems({
           variables: {
             useditemId: router.query.id,
-            updateUseditemInput: updateUseditemInput,
+            updateUseditemInput: resultUpdateInput,
           },
         });
 
@@ -132,6 +154,7 @@ function UsedItemsWriteContainerPage(props: indexPageProps) {
         }
       }
     } else {
+      // 등록 시
       try {
         const result = await createUsedItems({
           variables: {
@@ -142,10 +165,13 @@ function UsedItemsWriteContainerPage(props: indexPageProps) {
               price,
               tags,
               images: fileUrls,
+              useditemAddress: {
+                address: "",
+                addressDetail: "",
+              },
             },
           },
         });
-
         console.log(result.data);
         router.push(`/usedItems/detail/${result.data.createUseditem._id}`);
       } catch (error) {
@@ -156,6 +182,11 @@ function UsedItemsWriteContainerPage(props: indexPageProps) {
 
   const onClickUsedItemsList = () => {
     router.push("/usedItems/list");
+  };
+
+  const onChangeReactQuill = (value: string) => {
+    console.log(value);
+    if (value !== "<p><br></p>") setValue("contents", value);
   };
 
   return (
@@ -172,6 +203,11 @@ function UsedItemsWriteContainerPage(props: indexPageProps) {
         isEdit={props.isEdit}
         onSubmit={onSubmit}
         data={fetchUsedItemData}
+        // setValue={setValue}
+        onChangeReactQuill={onChangeReactQuill}
+        isSubmitted={isSubmitted}
+        isSubmitting={isSubmitting}
+        watch={watch}
       />
     </>
   );

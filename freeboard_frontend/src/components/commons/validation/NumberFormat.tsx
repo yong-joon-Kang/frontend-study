@@ -15,7 +15,7 @@ function NumberFormat(props: ValidationProps) {
     <>
       <Controller
         control={props.control}
-        name={props.name}
+        name={props.name ?? ""}
         rules={{ required: props.required, maxLength: props.maxLength }}
         render={({ field }) => (
           <NumericFormat

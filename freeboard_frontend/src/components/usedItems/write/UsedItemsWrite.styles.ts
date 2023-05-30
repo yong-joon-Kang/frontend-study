@@ -46,10 +46,10 @@ export const Label = styled.div`
 
 export const InputWrap = styled.div`
   padding: 10px;
-  width: 100%;
-  height: ${(props: ICssprops) => (props.isContent ? "250px" : "42px")};
+  height: 42px;
   border: 1px solid #bdbdbd;
   display: flex;
+  flex: 1;
 `;
 
 export const Input = styled.input`

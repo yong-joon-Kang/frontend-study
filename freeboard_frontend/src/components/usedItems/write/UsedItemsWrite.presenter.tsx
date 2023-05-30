@@ -4,25 +4,32 @@ import * as S from "./UsedItemsWrite.styles";
 import { IUsedItemsPresenterPageProps } from "./UsedItemsWrite.types";
 import { v4 as uuidv4 } from "uuid";
 import NumberFormat from "../../commons/validation/NumberFormat";
-import ContentsFormat from "../../commons/validation/ContentsFormat";
 import DefaultFormat from "../../commons/validation/DefaultFormat";
 import RegisterPatternFormat from "../../commons/validation/RegisterPatternFormat";
-import KakaoMap from "../../commons/kakaoMap/KakaoMap";
-import { useRef, useState } from "react";
+import KakaoMap, { MemoizedKakaoMap } from "../../commons/kakaoMap/KakaoMap";
+import { useRef, useState, memo } from "react";
 import { Controller } from "react-hook-form";
-import DefaultAnchorBtn from "../../commons/button/DefaultAnchorBtn";
 import { useMoveToPage } from "../../../commons/customHooks/useMoveToPage/useMoveToPage";
+import "react-quill/dist/quill.snow.css";
+import _ from "lodash";
+import ContentsFormat from "../../commons/validation/ContentsFormat";
 
 export default function BoardWritePresenterPage(
   props: IUsedItemsPresenterPageProps
 ) {
-  // console.log(props.data);
+  const { onClickMoveToPage } = useMoveToPage();
+
+  console.log(props.data);
 
   const usedItem = props?.data?.fetchUseditem;
 
   const addressRef = useRef("");
-  const [address, setAddress] = useState("");
-  const { onClickMoveToPage } = useMoveToPage();
+
+  const [address, setAddress] = useState(null);
+
+  const handleDebounce = _.debounce((event) => {
+    setAddress(event.target.value);
+  }, 500);
 
   return (
     <S.Wrapper>
@@ -70,22 +77,15 @@ export default function BoardWritePresenterPage(
         </S.SubWrap>
         <S.SubWrap>
           <S.Label>상품설명</S.Label>
-          <S.InputWrap isContent={true}>
-            <ContentsFormat
-              control={props.control}
-              name="contents"
-              required={true}
-              maxLength={1000}
-              placeholder="상품설명을 입력해주세요."
-              value={usedItem?.contents ?? ""}
-            />
-          </S.InputWrap>
-          {props.errors.contents?.type === "required" && (
-            <S.ErrorText>상품설명을 입력해주세요.</S.ErrorText>
-          )}
-          {props.errors.contents?.type === "maxLength" && (
-            <S.ErrorText>상품설명은 1000글자 이하로 입력해주세요.</S.ErrorText>
-          )}
+          <ContentsFormat
+            control={props.control}
+            errors={props.errors}
+            maxLength={1000}
+            placeholder="상품설명을 입력해주세요."
+            isSubmitted={props.isSubmitted}
+            watch={props.watch}
+            value={usedItem?.contents}
+          />
         </S.SubWrap>
         <S.SubWrap>
           <S.Label>판매가격</S.Label>
@@ -125,7 +125,9 @@ export default function BoardWritePresenterPage(
           <S.FlexRow>
             <div style={{ flex: "2" }}>
               <S.Label>거래위치</S.Label>
-              <KakaoMap address={address} />
+              <MemoizedKakaoMap
+                address={address ?? usedItem?.useditemAddress?.address}
+              />
             </div>
             <div style={{ marginLeft: "50px;", flex: "2" }}>
               <S.Label>주소</S.Label>
@@ -140,32 +142,14 @@ export default function BoardWritePresenterPage(
                         {...field}
                         ref={addressRef}
                         placeholder="검색할 주소를 입력해주세요."
+                        defaultValue={usedItem?.useditemAddress?.address}
+                        onChange={handleDebounce}
                       />
                     )}
                   />
                 </S.InputWrap>
-                <DefaultAnchorBtn
-                  onClick={() => {
-                    setAddress(addressRef.current.value);
-                  }}
-                  text="검색"
-                  height="42px"
-                  width="100px"
-                />
               </S.FlexRow>
               <div style={{ marginBottom: "16px" }}></div>
-              <S.InputWrap>
-                <Controller
-                  name="addressDetail"
-                  control={props.control}
-                  render={({ field }) => (
-                    <S.Input
-                      {...field}
-                      placeholder="상세 주소를 입력해주세요."
-                    />
-                  )}
-                />
-              </S.InputWrap>
             </div>
           </S.FlexRow>
         </S.SubWrap>
