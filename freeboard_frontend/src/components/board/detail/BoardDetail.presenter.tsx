@@ -55,22 +55,24 @@ export default function BoardDetailPresenterPage(
           <S.Title>{fetchBoard?.title}</S.Title>
           <S.Content>{fetchBoard?.contents}</S.Content>
           <SlickSlide images={fetchBoard?.images ?? []} />
-          <YouTube
-            style={{ margin: "200px auto 0 auto" }}
-            videoId={videoId ?? ""} // defaults -> null
-            opts={{
-              width: "560",
-              height: "315",
-              playerVars: {
-                autoplay: 0, // 자동재생 O
-                rel: 0, // 관련 동영상 표시하지 않음
-                modestbranding: 1, // 컨트롤 바에 youtube 로고를 표시하지 않음
-              },
-            }}
-            onEnd={(e) => {
-              e.target.stopVideo(0);
-            }}
-          />
+          {videoId && (
+            <YouTube
+              style={{ margin: "200px auto 0 auto" }}
+              videoId={videoId ?? ""} // defaults -> null
+              opts={{
+                width: "560",
+                height: "315",
+                playerVars: {
+                  autoplay: 0, // 자동재생 O
+                  rel: 0, // 관련 동영상 표시하지 않음
+                  modestbranding: 1, // 컨트롤 바에 youtube 로고를 표시하지 않음
+                },
+              }}
+              onEnd={(e) => {
+                e.target.stopVideo(0);
+              }}
+            />
+          )}
         </S.Contents>
         <S.Footer>
           <S.LikeWrap isLikeIcon={true} onClick={props.onClickCountLike}>
