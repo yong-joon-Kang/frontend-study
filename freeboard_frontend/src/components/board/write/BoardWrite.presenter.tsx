@@ -117,7 +117,7 @@ export default function BoardWritePresenterPage(
       <S.SubmitWrap>
         <DefaultButton
           text="이전으로"
-          onClick={onClickMoveToPage(`/usedItems/detail/${fetchBoard?._id}`)}
+          onClick={onClickMoveToPage(`/boards/detail/${fetchBoard?._id}`)}
         />
         <DefaultButton
           text={props.isEdit ? "수정하기" : "등록하기"}
