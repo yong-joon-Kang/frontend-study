@@ -1,3 +1,4 @@
+import { useMoveToPage } from "../../../commons/customHooks/useMoveToPage/useMoveToPage";
 import ImageUpload from "../../../commons/imageUpload/ImageUpload.container";
 import DefaultButton from "../../commons/button/DefaultButton";
 import * as S from "./BoardWrite.styles";
@@ -8,6 +9,8 @@ export default function BoardWritePresenterPage(
   props: IBoardWritePresenterPageProps
 ) {
   const fetchBoard = props.fetchBoardDataList?.fetchBoard;
+  const { onClickMoveToPage } = useMoveToPage();
+
   return (
     <S.Wrapper>
       <S.HeaderTitle>
@@ -114,9 +117,7 @@ export default function BoardWritePresenterPage(
       <S.SubmitWrap>
         <DefaultButton
           text="이전으로"
-          onClick={() => {
-            history.back();
-          }}
+          onClick={onClickMoveToPage(`/usedItems/detail/${fetchBoard?._id}`)}
         />
         <DefaultButton
           text={props.isEdit ? "수정하기" : "등록하기"}
