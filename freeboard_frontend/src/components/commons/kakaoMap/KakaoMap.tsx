@@ -57,7 +57,12 @@ export function KakaoMap(props: any) {
     };
   }, [props]);
 
-  return <div id="map" style={{ width: "450px", height: "300px" }}></div>;
+  return (
+    <div
+      id="map"
+      style={{ width: "450px", height: "300px", margin: "30px auto" }}
+    ></div>
+  );
 }
 
 export const MemoizedKakaoMap = React.memo(KakaoMap);
