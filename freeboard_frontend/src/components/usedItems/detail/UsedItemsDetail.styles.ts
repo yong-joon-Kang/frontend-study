@@ -1,6 +1,6 @@
 import { LikeOutlined, DislikeOutlined } from "@ant-design/icons";
 import styled from "@emotion/styled";
-import { LikeType } from "./UsedItemsDetail.types";
+import { LikeType, cssProps } from "./UsedItemsDetail.types";
 import { mideaQuery } from "../../../../styles/common";
 
 export const Wrapper = styled.div`
@@ -25,7 +25,7 @@ export const Wrapper = styled.div`
 `;
 
 export const CardWrapper = styled.div`
-  min-height: 847px;
+  min-height: 447px;
   padding: 50px;
   display: flex;
   flex-direction: column;
@@ -105,7 +105,7 @@ export const HeadRight = styled.div`
 
 export const Contents = styled.div`
   width: 100%;
-  padding: 30px 0 70px 0;
+  padding: 30px 0 10px 0;
   display: flex;
   flex-direction: column;
 `;
@@ -113,10 +113,10 @@ export const Contents = styled.div`
 export const Footer = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: 100px;
   width: 100%;
-  border-bottom: 1px solid #ccc;
-  padding-bottom: 50px;
+  border-bottom: ${(props: cssProps) =>
+    props.isBottomLine && "1px solid #ccc;"};
+  border-top: 1px solid #ccc;
 `;
 
 export const Tags = styled.div`

@@ -14,3 +14,7 @@ export interface IUsedItemsDetailPresenterPageProps {
 export interface LikeType {
   isLikeIcon: boolean;
 }
+
+export interface cssProps {
+  isBottomLine: boolean;
+}

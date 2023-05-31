@@ -6,6 +6,7 @@ import LikeOutLineIcon from "../../commons/icon/LikeOutLineIcon";
 import SlickSlide from "../../commons/slickSlide/SlickSlide";
 import { useMoveToPage } from "../../../commons/customHooks/useMoveToPage/useMoveToPage";
 import { MemoizedKakaoMap } from "../../commons/kakaoMap/KakaoMap";
+import DOMPurify from "dompurify";
 
 export default function UseditemDetailPresenterPage(
   props: IUsedItemsDetailPresenterPageProps
@@ -13,9 +14,9 @@ export default function UseditemDetailPresenterPage(
   const { onClickMoveToPage } = useMoveToPage();
   const fetchUseditem = props.data?.fetchUseditem;
 
-  const createMarkup = () => {
-    return { __html: fetchUseditem?.contents.replace(/\n/g, "<br>") };
-  };
+  // const createMarkup = () => {
+  //   return { __html: fetchUseditem?.contents.replace(/\n/g, "<br>") };
+  // };
 
   return (
     <S.Wrapper>
@@ -57,17 +58,29 @@ export default function UseditemDetailPresenterPage(
               </S.LikeWrap>
             </S.ContentsRight>
           </S.ContentHeader>
-          <SlickSlide images={fetchUseditem?.images ?? []} />
+          {fetchUseditem?.images?.[0] && (
+            <SlickSlide images={fetchUseditem?.images ?? []} />
+          )}
           <S.Content>
-            <span dangerouslySetInnerHTML={createMarkup()}></span>
+            {typeof window !== "undefined" && (
+              <span
+                dangerouslySetInnerHTML={{
+                  __html: DOMPurify.sanitize(fetchUseditem?.contents ?? ""),
+                }}
+              ></span>
+            )}
           </S.Content>
-          <MemoizedKakaoMap address={fetchUseditem?.useditemAddress?.address} />
-        </S.Contents>
-
-        <S.Footer>
           <S.Tags>
             {fetchUseditem?.tags?.map((tag) => `#${tag}`).join(" ")}
           </S.Tags>
+        </S.Contents>
+
+        <S.Footer isBottomLine={!!fetchUseditem?.useditemAddress?.address}>
+          {fetchUseditem?.useditemAddress?.address && (
+            <MemoizedKakaoMap
+              address={fetchUseditem?.useditemAddress?.address}
+            />
+          )}
         </S.Footer>
       </S.CardWrapper>
       <S.ButtonWrapper>
