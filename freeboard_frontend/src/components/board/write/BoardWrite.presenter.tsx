@@ -120,6 +120,7 @@ export default function BoardWritePresenterPage(
           onClick={onClickMoveToPage(`/boards/detail/${fetchBoard?._id}`)}
         />
         <DefaultButton
+          isSubmitting={props.isSubmitting}
           text={props.isEdit ? "수정하기" : "등록하기"}
           onClick={props.isEdit ? props.onSubmitUpdate : props.onSubmit}
           isActive={props.isActive}

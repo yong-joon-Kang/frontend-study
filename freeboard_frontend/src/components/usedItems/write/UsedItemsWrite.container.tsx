@@ -46,7 +46,7 @@ function UsedItemsWriteContainerPage(props: indexPageProps) {
   );
 
   const onSubmit = async (data: any) => {
-    console.log(data);
+    // console.log(data);
     if (Object.keys(errors).length > 0) return false;
     if (!data.price) return false;
     if (data.contents === "<p><br></p>") return false;
@@ -68,9 +68,6 @@ function UsedItemsWriteContainerPage(props: indexPageProps) {
     if (JSON.stringify(data.price)?.includes(",")) {
       price = Number(data.price?.replaceAll(",", ""));
     }
-
-    console.log(fetchUsedItemData?.fetchUseditem.tags);
-    console.log(tags);
 
     if (props.isEdit) {
       // 수정 시
@@ -181,7 +178,7 @@ function UsedItemsWriteContainerPage(props: indexPageProps) {
             },
           },
         });
-        console.log(result.data);
+        // console.log(result.data);
         router.push(`/usedItems/detail/${result.data.createUseditem._id}`);
       } catch (error) {
         if (error instanceof Error) console.log(error.message);
@@ -193,10 +190,10 @@ function UsedItemsWriteContainerPage(props: indexPageProps) {
     router.push("/usedItems/list");
   };
 
-  const onChangeReactQuill = (value: string) => {
-    console.log(value);
-    if (value !== "<p><br></p>") setValue("contents", value);
-  };
+  // const onChangeReactQuill = (value: string) => {
+  //   console.log(value);
+  //   if (value !== "<p><br></p>") setValue("contents", value);
+  // };
 
   return (
     <>
@@ -213,7 +210,7 @@ function UsedItemsWriteContainerPage(props: indexPageProps) {
         onSubmit={onSubmit}
         data={fetchUsedItemData}
         // setValue={setValue}
-        onChangeReactQuill={onChangeReactQuill}
+        // onChangeReactQuill={onChangeReactQuill}
         isSubmitted={isSubmitted}
         isSubmitting={isSubmitting}
         watch={watch}

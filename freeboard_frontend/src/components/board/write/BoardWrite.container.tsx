@@ -32,6 +32,7 @@ export default function BoardWriteContainerPage(
     IMutationUpdateBoardArgs
   >(EDIT_BOARD);
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [writer, setWriter] = useState("");
   const [password, setPassword] = useState("");
   const [title, setTitle] = useState("");
@@ -104,6 +105,7 @@ export default function BoardWriteContainerPage(
   };
 
   const onSubmit = async () => {
+    setIsSubmitting(true);
     if (!writer) {
       setWriterErr("작성자는 필수입력 입니다.");
     } else {
@@ -271,6 +273,7 @@ export default function BoardWriteContainerPage(
         setFileUrls={setFileUrls}
         fileUrls={fileUrls}
         onChangeYoutubeUrl={onChangeYoutubeUrl}
+        isSubmitting={isSubmitting}
       />
     </>
   );

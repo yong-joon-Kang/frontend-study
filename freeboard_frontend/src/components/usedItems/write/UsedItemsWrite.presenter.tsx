@@ -6,8 +6,8 @@ import { v4 as uuidv4 } from "uuid";
 import NumberFormat from "../../commons/validation/NumberFormat";
 import DefaultFormat from "../../commons/validation/DefaultFormat";
 import RegisterPatternFormat from "../../commons/validation/RegisterPatternFormat";
-import KakaoMap, { MemoizedKakaoMap } from "../../commons/kakaoMap/KakaoMap";
-import { useRef, useState, memo } from "react";
+import { MemoizedKakaoMap } from "../../commons/kakaoMap/KakaoMap";
+import { useRef, useState } from "react";
 import { Controller } from "react-hook-form";
 import { useMoveToPage } from "../../../commons/customHooks/useMoveToPage/useMoveToPage";
 import "react-quill/dist/quill.snow.css";
@@ -173,7 +173,10 @@ export default function BoardWritePresenterPage(
             onClick={onClickMoveToPage(`/usedItems/detail/${usedItem?._id}`)}
             text="이전으로"
           />
-          <DefaultButton text={props.isEdit ? "수정하기" : "등록하기"} />
+          <DefaultButton
+            isSubmitting={props.isSubmitted}
+            text={props.isEdit ? "수정하기" : "등록하기"}
+          />
         </S.SubmitWrap>
       </form>
     </S.Wrapper>

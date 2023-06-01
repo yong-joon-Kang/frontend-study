@@ -14,12 +14,18 @@ interface IProps {
   text?: string;
   onClick?: () => void;
   isActive?: boolean;
+  isSubmitting?: boolean;
 }
 
 function DefaultButton(props: IProps) {
   return (
     <>
-      <Input onClick={props.onClick} type="submit" value={props.text} />
+      <Input
+        onClick={props.onClick}
+        type="submit"
+        value={props.text}
+        disabled={props.isSubmitting}
+      />
     </>
   );
 }
