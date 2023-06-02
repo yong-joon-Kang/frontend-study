@@ -1,3 +1,4 @@
+import { IUser } from "./../../types/generated/types";
 import { atom } from "recoil";
 
 export const accessTokenState = atom({
@@ -10,7 +11,7 @@ export const logOutState = atom({
   default: false,
 });
 
-export const userInfoState = atom({
+export const userInfoState = atom<IUser>({
   key: "userInfoState",
-  default: {},
+  default: Object.create(null) as IUser,
 });

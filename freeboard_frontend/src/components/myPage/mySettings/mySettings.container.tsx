@@ -7,6 +7,7 @@ import { gql, useMutation } from "@apollo/client";
 import {
   IMutation,
   IMutationUpdateUserArgs,
+  IUser,
 } from "../../../commons/types/generated/types";
 import { Modal } from "antd";
 
@@ -31,7 +32,7 @@ function mySettingsContainer() {
   >(UPDATE_USER_INPUT);
 
   const onClickBtn = async () => {
-    const updateUserInputObj = {};
+    const updateUserInputObj = Object.create(null) as IUser;
     if (userInfoObj.picture === fileUrls[0] && userInfoObj.name === name) {
       Modal.warning({ content: "수정한 것이 없습니다." });
       return false;
@@ -48,11 +49,7 @@ function mySettingsContainer() {
         },
       });
       Modal.success({ content: "성공적으로 변경되었습니다." });
-      setUserInfo({ name: name, picture: fileUrls[0] });
-      localStorage.setItem(
-        "userInfo",
-        `{ "name": "${name}", "picture": "${fileUrls[0]}" }`
-      );
+      setUserInfo({ ...userInfoObj, name: name, picture: fileUrls[0] });
     } catch (error) {
       console.log(error);
     }
