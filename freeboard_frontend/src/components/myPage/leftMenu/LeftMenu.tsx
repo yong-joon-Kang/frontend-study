@@ -8,21 +8,6 @@ import ConfirmModalPresenter from "../../../commons/modals/confirmModal.presente
 function LeftMenu(props: IProps) {
   const [userInfo] = useRecoilState(userInfoState);
 
-  const [ismodalToggle, setModalToggle] = useState(false);
-
-  const onToggleModal = () => {
-    setModalToggle(!ismodalToggle);
-  };
-
-  const handleOk = () => {
-    setModalToggle(!ismodalToggle);
-    // props.onClickBoardDelete?.();
-  };
-
-  const onClickCharging = () => {
-    onToggleModal();
-  };
-
   const options = [
     { value: 100, label: "100" },
     { value: 500, label: "500" },
@@ -38,6 +23,21 @@ function LeftMenu(props: IProps) {
     value: false,
     label: "포인트 선택",
   });
+
+  const [ismodalToggle, setModalToggle] = useState(false);
+
+  const onToggleModal = () => {
+    setModalToggle(!ismodalToggle);
+  };
+
+  const handleOk = () => {
+    setModalToggle(!ismodalToggle);
+    // props.onClickBoardDelete?.();
+  };
+
+  const onClickCharging = () => {
+    onToggleModal();
+  };
 
   // useEffect(() => {
   //   refetch({
@@ -81,7 +81,7 @@ function LeftMenu(props: IProps) {
           <S.Label isName={true}>{userInfo.name}</S.Label>
           <S.LabelWrap isWrap1={true}>
             <S.Img src="/myPoint.png" />
-            <S.Label>100,000</S.Label>
+            <S.Label>{userInfo?.userPoint?.amount}</S.Label>
           </S.LabelWrap>
           <S.LabelWrap isWrap1={true}>
             <S.Charging onClick={onClickCharging}>충전하기</S.Charging>
