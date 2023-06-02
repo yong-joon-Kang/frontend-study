@@ -1,6 +1,7 @@
 import { Modal } from "antd";
 import * as S from "./confirmModal.styles";
 import Select from "react-select";
+import PointChargingBtn from "../../components/commons/button/PointChargingBtn";
 
 const ConfirmModalPresenter = (props: any) => {
   return (
@@ -49,21 +50,22 @@ const ConfirmModalPresenter = (props: any) => {
           </>
         )}
         <S.Footer>
-          <S.Button
-            btnFnc={props.btnFnc}
-            type="primary"
-            onClick={props.handleOk}
-          >
-            {props.btnFnc === "charging" ? (
-              <span>충전하기</span>
-            ) : (
-              <span>확인</span>
-            )}
-          </S.Button>
-          {props.btnFnc !== "charging" && (
-            <S.Button isCancel={true} onClick={props.onToggleModal}>
-              취소
-            </S.Button>
+          {props.btnFnc === "charging" ? (
+            <PointChargingBtn
+              // btnFnc={props.btnFnc}
+              // type="primary"
+              // onClick={props.handleOk}
+              selectedOption={props.selectedOption}
+            >
+              충전하기
+            </PointChargingBtn>
+          ) : (
+            <>
+              <S.Button onClick={props.handleOk}>확인</S.Button>
+              <S.Button isCancel={true} onClick={props.onToggleModal}>
+                취소
+              </S.Button>
+            </>
           )}
         </S.Footer>
       </Modal>
