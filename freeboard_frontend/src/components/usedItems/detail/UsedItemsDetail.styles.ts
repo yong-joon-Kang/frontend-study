@@ -117,6 +117,8 @@ export const Footer = styled.div`
   border-bottom: ${(props: cssProps) =>
     props.isBottomLine && "1px solid #ccc;"};
   border-top: 1px solid #ccc;
+  padding: 30px;
+  align-items: center;
 `;
 
 export const Tags = styled.div`
