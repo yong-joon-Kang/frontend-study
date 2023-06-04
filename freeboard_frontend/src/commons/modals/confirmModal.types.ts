@@ -3,6 +3,6 @@ export interface IConfirmModalTypes {
 }
 
 export interface cssProps {
-  isCancel: boolean;
-  btnFnc: string;
+  isCancel?: boolean;
+  btnFnc?: string;
 }
