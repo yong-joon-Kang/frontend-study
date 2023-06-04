@@ -19,9 +19,8 @@ export default function BoardWritePresenterPage(
 ) {
   const { onClickMoveToPage } = useMoveToPage();
 
-  console.log(props.data);
-
   const usedItem = props?.data?.fetchUseditem;
+  console.log(usedItem);
 
   const addressRef = useRef("");
 
@@ -40,6 +39,7 @@ export default function BoardWritePresenterPage(
         <S.WriterWrap>
           <S.Label>상품명</S.Label>
           <S.InputWrap>
+            {usedItem?.name ?? ""}
             <DefaultFormat
               control={props.control}
               name="name"
@@ -170,8 +170,12 @@ export default function BoardWritePresenterPage(
         </S.SubWrap>
         <S.SubmitWrap>
           <DefaultButton
-            onClick={onClickMoveToPage(`/usedItems/detail/${usedItem?._id}`)}
-            text="이전으로"
+            onClick={
+              props.isEdit
+                ? onClickMoveToPage(`/usedItems/detail/${usedItem?._id}`)
+                : onClickMoveToPage("/usedItems/list")
+            }
+            text={props.isEdit ? "이전으로" : "목록으로"}
           />
           <DefaultButton
             isSubmitting={props.isSubmitted}
