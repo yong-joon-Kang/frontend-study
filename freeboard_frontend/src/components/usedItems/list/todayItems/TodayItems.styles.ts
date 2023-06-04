@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
 import { HeartFilled } from "@ant-design/icons";
-import { mideaQuery } from "../../../../../styles/common";
 
 export const Wrap = styled.div`
   position: absolute;
@@ -53,6 +52,7 @@ export const ItemWrap = styled.div`
 `;
 
 export const Img = styled.img`
+  width: 100%;
   height: 100px;
   object-fit: cover;
 `;
