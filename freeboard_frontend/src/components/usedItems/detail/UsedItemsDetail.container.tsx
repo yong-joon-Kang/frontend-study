@@ -15,8 +15,11 @@ import { useEffect, useState } from "react";
 import { Modal } from "antd";
 import UsedItemsCommentWriteContainerPage from "../../usedItemsComment/write/UsedItemsCommentWrite.container";
 import UsedItemsCommentListContainerPage from "../../usedItemsComment/list/UsedItemsCommentList.container";
+import { useRecoilState } from "recoil";
+import { userInfoState } from "../../../commons/libraries/recoil";
 
 export default function UsedItemsDetailContainerPage() {
+  const [userInfo] = useRecoilState(userInfoState);
   const [userName, setUserName] = useState("");
   const router = useRouter();
 
@@ -82,8 +85,8 @@ export default function UsedItemsDetailContainerPage() {
   };
 
   useEffect(() => {
-    setUserName(JSON.parse(localStorage.getItem("userInfo") ?? "").name);
-  }, []);
+    setUserName(userInfo?.name);
+  }, [userInfo]);
 
   return (
     <>

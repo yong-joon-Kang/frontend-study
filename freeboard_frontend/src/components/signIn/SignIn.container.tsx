@@ -5,12 +5,12 @@ import { LOGIN_USER } from "./SignIn.queries";
 import { Modal } from "antd";
 import { useRouter } from "next/router";
 import { useRecoilState } from "recoil";
-import { accessTokenState } from "../../commons/libraries/recoil";
+import { accessTokenState, loginState } from "../../commons/libraries/recoil";
 
 function SignInContainer() {
-  console.log("SignIn 실행");
   const router = useRouter();
   const [, setaccessToken] = useRecoilState(accessTokenState);
+  const [, setIsLogin] = useRecoilState(loginState);
 
   const [loginUser] = useMutation(LOGIN_USER);
 
@@ -77,9 +77,12 @@ function SignInContainer() {
       });
       console.log(result.data.loginUser);
       setaccessToken(result.data.loginUser.accessToken);
-      localStorage.setItem("accessToken", result.data.loginUser.accessToken);
+      localStorage.setItem("isLogin", "true");
+      setIsLogin(true);
+      // localStorage.setItem("accessToken", result.data.loginUser.accessToken);
 
       Modal.info({ content: "로그인에 성공하였습니다!" });
+
       router.push(localStorage.getItem("prevPage") ?? "/");
     } catch (error) {
       if (error instanceof Error)
