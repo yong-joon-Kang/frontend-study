@@ -1,5 +1,5 @@
 export interface ValidationProps {
-  val: any;
+  val?: any;
   onChangeReactQuill?: (value: string) => void;
   ref?: any;
   pattern?: RegExp;
