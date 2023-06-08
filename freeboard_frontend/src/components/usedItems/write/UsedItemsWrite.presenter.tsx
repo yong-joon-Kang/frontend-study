@@ -178,7 +178,7 @@ export default function BoardWritePresenterPage(
             text={props.isEdit ? "이전으로" : "목록으로"}
           />
           <DefaultButton
-            isSubmitting={props.isSubmitted}
+            isSubmitting={props.isSubmitting}
             text={props.isEdit ? "수정하기" : "등록하기"}
           />
         </S.SubmitWrap>

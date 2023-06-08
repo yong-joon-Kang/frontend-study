@@ -105,7 +105,7 @@ export default function BoardWriteContainerPage(
   };
 
   const onSubmit = async () => {
-    setIsSubmitting(true);
+    if (isActive) setIsSubmitting(true);
     if (!writer) {
       setWriterErr("작성자는 필수입력 입니다.");
     } else {

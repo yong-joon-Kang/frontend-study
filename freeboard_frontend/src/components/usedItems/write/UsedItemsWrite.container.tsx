@@ -35,7 +35,7 @@ function UsedItemsWriteContainerPage(props: indexPageProps) {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitted, isSubmitting },
+    formState: { errors, isSubmitted },
     control,
     // setValue,
     watch,
@@ -45,9 +45,10 @@ function UsedItemsWriteContainerPage(props: indexPageProps) {
     fetchUsedItemData?.fetchUseditem?.images ?? ["", "", ""]
   );
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const onSubmit = async (data: any) => {
-    // console.log(data);
     if (Object.keys(errors).length > 0) return false;
+    else setIsSubmitting(true);
     if (!data.price) return false;
     if (data.contents === "<p><br></p>") return false;
 
