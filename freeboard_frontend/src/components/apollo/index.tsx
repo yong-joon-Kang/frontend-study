@@ -56,7 +56,7 @@ const ApolloSettings = (props: IProps) => {
     if (
       (localStorage.getItem("prevPage") === "/myPage" ||
         localStorage.getItem("prevPage") === "/usedItems/new") &&
-      !isLogin
+      !JSON.parse(localStorage.getItem("isLogin") ?? "")
     ) {
       Modal.error({ content: "로그인 후 이용가능합니다!" });
       router.push("/signIn");
