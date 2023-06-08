@@ -8,7 +8,7 @@ export const accessTokenState = atom({
 
 export const loginState = atom({
   key: "loginState",
-  default: true,
+  default: false,
 });
 
 export const userInfoState = atom<IUser>({

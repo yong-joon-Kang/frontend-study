@@ -10,11 +10,13 @@ export function useLogined() {
   const [isLogin] = useRecoilState(loginState);
   const { data } =
     useQuery<Pick<IQuery, "fetchUserLoggedIn">>(FETCH_USER_LOGGED_IN);
+  console.log(data);
 
-  // console.log(data?.fetchUserLoggedIn);
   useEffect(() => {
     if (isLogin) {
-      if (data) setUserInfo(data?.fetchUserLoggedIn);
+      if (data) {
+        setUserInfo(data?.fetchUserLoggedIn);
+      }
     }
-  }, [data]);
+  }, [isLogin, data]);
 }

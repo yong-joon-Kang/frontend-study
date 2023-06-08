@@ -17,6 +17,7 @@ import { useEffect } from "react";
 import { getAccessToken } from "../../commons/libraries/getAccessToken";
 import { Modal } from "antd";
 import router from "next/router";
+import { access } from "fs";
 
 interface IProps {
   children: JSX.Element;
@@ -32,19 +33,26 @@ const ApolloSettings = (props: IProps) => {
 
   // 새로고침 할 때
   useEffect(() => {
-    if (localStorage.getItem("isLogin"))
+    // console.log("accessToken =====" + accessToken);
+    // console.log("userInfo ======" + userInfo.name);
+    if (JSON.parse(localStorage.getItem("isLogin") ?? ""))
       setIsLogin(Boolean(localStorage.getItem("isLogin")));
-    if (localStorage.getItem("isLogin")) {
+
+    if (JSON.parse(localStorage.getItem("isLogin") ?? "")) {
       getAccessToken().then((newAccessToken) => {
         setAccessToken(newAccessToken);
       });
     }
   }, []);
 
-  // 로그아웃을 눌렀을 때
   useEffect(() => {
-    setAccessToken("");
-    setUserInfo({});
+    console.log("isLogin 변경 시");
+    // 로그아웃인 경우
+    if (!isLogin) {
+      setAccessToken("");
+      setUserInfo({});
+    }
+
     if (
       (localStorage.getItem("prevPage") === "/myPage" ||
         localStorage.getItem("prevPage") === "/usedItems/new") &&
