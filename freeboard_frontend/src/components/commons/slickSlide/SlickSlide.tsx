@@ -1,6 +1,6 @@
 import Slider from "react-slick";
 import styled from "@emotion/styled";
-import { useState } from "react";
+import { memo, useState } from "react";
 
 const Wrap = styled.div`
   width: 400px;
@@ -38,9 +38,11 @@ function SlickSlide(props: { images: string[] }) {
     customPaging: function (i: number) {
       return (
         <AWrap isCurr={currIdx === i}>
-          <a>
-            <AImg src={`https://storage.googleapis.com/${imageArr[i]}`} />
-          </a>
+          {
+            <a>
+              <AImg src={`https://storage.googleapis.com/${imageArr[i]}`} />
+            </a>
+          }
         </AWrap>
       );
     },
@@ -73,18 +75,15 @@ function SlickSlide(props: { images: string[] }) {
   return (
     <Wrap>
       <Slider {...settings}>
-        {props.images?.map(
-          (el: string, index: number) =>
-            el && (
-              <UploadImg
-                key={index}
-                src={`https://storage.googleapis.com/${el}`}
-              ></UploadImg>
-            )
-        )}
+        {props.images?.map((el: string, index: number) => (
+          <UploadImg
+            key={index}
+            src={`https://storage.googleapis.com/${el}`}
+          ></UploadImg>
+        ))}
       </Slider>
     </Wrap>
   );
 }
 
-export default SlickSlide;
+export default memo(SlickSlide);

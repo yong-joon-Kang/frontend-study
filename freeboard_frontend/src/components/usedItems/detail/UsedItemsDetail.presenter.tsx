@@ -13,6 +13,7 @@ export default function UseditemDetailPresenterPage(
 ) {
   const { onClickMoveToPage } = useMoveToPage();
   const fetchUseditem = props.data?.fetchUseditem;
+  const slickImages = fetchUseditem?.images.filter(Boolean); // 공백인 요소 제거
 
   // const createMarkup = () => {
   //   return { __html: fetchUseditem?.contents.replace(/\n/g, "<br>") };
@@ -29,18 +30,6 @@ export default function UseditemDetailPresenterPage(
               <S.ProfileDate>{getDate(fetchUseditem?.updatedAt)}</S.ProfileDate>
             </S.ProfileDetailWrap>
           </S.HeadLeft>
-          <S.HeadRight>
-            {/* <Tooltip title={`${fetchUseditem?.youtubeUrl ?? ""}`}>
-              <S.LinkImg src="/link.png"></S.LinkImg>
-            </Tooltip>
-            <Tooltip
-              title={`${fetchUseditem?.boardAddress?.address ?? ""} ${
-                fetchUseditem?.boardAddress?.addressDetail ?? ""
-              }`}
-            >
-              <S.LocationImg src="/location.png"></S.LocationImg>
-            </Tooltip> */}
-          </S.HeadRight>
         </S.Header>
         <S.Contents>
           <S.ContentHeader>
@@ -58,9 +47,7 @@ export default function UseditemDetailPresenterPage(
               </S.LikeWrap>
             </S.ContentsRight>
           </S.ContentHeader>
-          {fetchUseditem?.images?.[0] && (
-            <SlickSlide images={fetchUseditem?.images ?? []} />
-          )}
+          {<SlickSlide images={slickImages ?? []} />}
           <S.Content>
             {typeof window !== "undefined" && (
               <span

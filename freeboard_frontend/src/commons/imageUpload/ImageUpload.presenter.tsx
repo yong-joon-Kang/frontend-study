@@ -3,6 +3,7 @@ import * as S from "./ImageUpload.styles";
 import { IUploadProps } from "./ImageUpload.types";
 
 function ImageUploadPresenterPage(props: IUploadProps) {
+  // console.log(props.fileUrl);
   return (
     <>
       <S.UploadBtn
@@ -10,13 +11,14 @@ function ImageUploadPresenterPage(props: IUploadProps) {
         isProduct={props.isProduct}
         isProfile={props.isProfile}
       >
-        {props.imageUrl ? (
+        {props.fileUrl ? (
           <>
             <S.Cancel
               onClick={props.onClickUploadImgCancel}
               src="/cancel.png"
             ></S.Cancel>
-            <S.Img src={`https://storage.googleapis.com/${props.imageUrl}`} />
+
+            <S.Img src={props.fileUrl} />
           </>
         ) : (
           <>

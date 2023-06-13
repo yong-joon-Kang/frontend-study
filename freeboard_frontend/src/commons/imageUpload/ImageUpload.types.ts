@@ -7,6 +7,7 @@ import {
 } from "react";
 
 export interface IUploadProps {
+  fileUrl: string;
   uploadRef: LegacyRef<HTMLInputElement> | undefined;
   onClickImageUpload: (event: any) => void;
   onChangeImageFile: (event: ChangeEvent<HTMLInputElement>) => void;
@@ -17,6 +18,10 @@ export interface IUploadProps {
 }
 
 export interface IBoardWriteProps {
+  imageUrl: any;
+  imageUrls: any;
+  setFile: any;
+  file: any;
   setFileUrls: Dispatch<SetStateAction<string[]>>;
   fileUrls: string[];
   index: number;

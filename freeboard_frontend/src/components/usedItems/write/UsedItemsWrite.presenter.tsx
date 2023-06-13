@@ -20,15 +20,16 @@ export default function BoardWritePresenterPage(
   const { onClickMoveToPage } = useMoveToPage();
 
   const usedItem = props?.data?.fetchUseditem;
-  console.log(usedItem);
+  // console.log(usedItem);
 
   const addressRef = useRef("");
 
   const [address, setAddress] = useState(null);
 
   const handleDebounce = _.debounce((event) => {
+    props.setValue("address", event.target.value);
     setAddress(event.target.value);
-  }, 500);
+  }, 300);
 
   return (
     <S.Wrapper>
@@ -135,7 +136,7 @@ export default function BoardWritePresenterPage(
               <S.FlexRow alignCenter={true}>
                 {/* <S.Img src="/location.png" /> */}
                 <S.InputWrap>
-                  <Controller
+                  {/* <Controller
                     name="address"
                     control={props.control}
                     render={({ field }) => (
@@ -144,9 +145,14 @@ export default function BoardWritePresenterPage(
                         ref={addressRef}
                         placeholder="검색할 주소를 입력해주세요."
                         defaultValue={usedItem?.useditemAddress?.address}
-                        onChange={handleDebounce}
+                        // onChange={handleDebounce}
                       />
                     )}
+                  /> */}
+                  <input
+                    type="text"
+                    defaultValue={usedItem?.useditemAddress?.address}
+                    onChange={handleDebounce}
                   />
                 </S.InputWrap>
               </S.FlexRow>
@@ -157,13 +163,17 @@ export default function BoardWritePresenterPage(
         <S.SubWrap>
           <S.Label>사진 첨부</S.Label>
           <S.FlexRow>
-            {props.fileUrls.map((_el, index) => (
+            {new Array(3).fill("").map((_el, index) => (
               <ImageUpload
                 key={uuidv4()}
+                file={props.file}
+                setFile={props.setFile}
                 fileUrls={props.fileUrls}
-                index={index}
                 setFileUrls={props.setFileUrls}
+                index={index}
                 isProduct={true}
+                // imageUrls={usedItem?.images ?? []}
+                registedFileUrl={usedItem?.images?.[index] ?? ""}
               />
             ))}
           </S.FlexRow>
