@@ -1,5 +1,6 @@
+import { getAccessToken } from "../getAccessToken";
 import { IUser } from "./../../types/generated/types";
-import { atom } from "recoil";
+import { atom, selector } from "recoil";
 
 export const accessTokenState = atom({
   key: "accessTokenState",
@@ -14,4 +15,12 @@ export const loginState = atom({
 export const userInfoState = atom<IUser>({
   key: "userInfoState",
   default: Object.create(null) as IUser,
+});
+
+export const restoreAccessTokenLoadable = selector({
+  key: "restoreAccessTokenLoadable",
+  get: async () => {
+    const newAccessToken = await getAccessToken();
+    return newAccessToken;
+  },
 });

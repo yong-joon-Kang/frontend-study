@@ -7,17 +7,15 @@ import {
 } from "@apollo/client";
 import { onError } from "@apollo/client/link/error";
 import { createUploadLink } from "apollo-upload-client";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValueLoadable } from "recoil";
 import {
   accessTokenState,
   loginState,
+  restoreAccessTokenLoadable,
   userInfoState,
 } from "../../commons/libraries/recoil";
 import { useEffect } from "react";
 import { getAccessToken } from "../../commons/libraries/getAccessToken";
-import { Modal } from "antd";
-import router from "next/router";
-import { access } from "fs";
 
 interface IProps {
   children: JSX.Element;
@@ -28,38 +26,27 @@ const GLOBAL_STATE = new InMemoryCache();
 
 const ApolloSettings = (props: IProps) => {
   const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
-  const [isLogin, setIsLogin] = useRecoilState(loginState);
+  const [isLogin] = useRecoilState(loginState);
   const [, setUserInfo] = useRecoilState(userInfoState);
+  const aaa = useRecoilValueLoadable(restoreAccessTokenLoadable);
 
   // 새로고침 할 때
   useEffect(() => {
-    // console.log("accessToken =====" + accessToken);
-    // console.log("userInfo ======" + userInfo.name);
-    if (JSON.parse(localStorage.getItem("isLogin") ?? ""))
-      setIsLogin(Boolean(localStorage.getItem("isLogin")));
-
-    if (JSON.parse(localStorage.getItem("isLogin") ?? "")) {
-      getAccessToken().then((newAccessToken) => {
-        setAccessToken(newAccessToken);
-      });
-    }
+    aaa.toPromise().then((newAccessToken) => {
+      console.log("newAccessToken==============================");
+      console.log(newAccessToken);
+      setAccessToken(newAccessToken);
+    });
   }, []);
 
   useEffect(() => {
     console.log("isLogin 변경 시");
     // 로그아웃인 경우
     if (!isLogin) {
+      console.log("로그아웃 한 경우===================");
       setAccessToken("");
       setUserInfo({});
-    }
-
-    if (
-      (localStorage.getItem("prevPage") === "/myPage" ||
-        localStorage.getItem("prevPage") === "/usedItems/new") &&
-      !JSON.parse(localStorage.getItem("isLogin") ?? "")
-    ) {
-      Modal.error({ content: "로그인 후 이용가능합니다!" });
-      router.push("/signIn");
+      client.clearStore(); // 캐시된 서버 데이터(로그인 정보 등) 초기화 ( accessToken 초기화 )
     }
   }, [isLogin]);
 
@@ -68,6 +55,8 @@ const ApolloSettings = (props: IProps) => {
     if (graphQLErrors) {
       for (const err of graphQLErrors) {
         // 1-2. 해당 에러가 토큰만료 에러인지 체크(UNAUTHENTICATED)
+        // console.log("api요청 시 무슨 에러인가??=======================");
+        // console.log(err.extensions.code);
         if (err.extensions.code === "UNAUTHENTICATED") {
           return fromPromise(
             // 2-1. refreshToken으로 accessToken을 재발급 받기
@@ -88,7 +77,6 @@ const ApolloSettings = (props: IProps) => {
       }
     }
   });
-
   const uploadLink = createUploadLink({
     uri: "https://backendonline.codebootcamp.co.kr/graphql",
     headers: { Authorization: `Bearer ${accessToken}` },

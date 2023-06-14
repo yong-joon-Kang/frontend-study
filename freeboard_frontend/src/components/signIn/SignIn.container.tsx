@@ -75,11 +75,8 @@ function SignInContainer() {
           password: info.password,
         },
       });
-      console.log(result.data.loginUser);
       setaccessToken(result.data.loginUser.accessToken);
-      localStorage.setItem("isLogin", "true");
       setIsLogin(true);
-      // localStorage.setItem("accessToken", result.data.loginUser.accessToken);
 
       Modal.info({ content: "로그인에 성공하였습니다!" });
 

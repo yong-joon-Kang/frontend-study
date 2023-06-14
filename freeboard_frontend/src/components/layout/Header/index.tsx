@@ -9,6 +9,7 @@ import {
 import { Drawer, Modal } from "antd";
 import NavMenu from "../NavMenu";
 import { useMoveToPage } from "../../../commons/customHooks/useMoveToPage/useMoveToPage";
+import { useMutation, gql } from "@apollo/client";
 
 const HeaderWrap = styled.div`
   display: flex;
@@ -51,6 +52,12 @@ interface cssProps {
   isLogin?: boolean;
 }
 
+const LOGOUT_USER = gql`
+  mutation logoutUser {
+    logoutUser
+  }
+`;
+
 function Header() {
   const { onClickMoveToPage } = useMoveToPage();
   const [open, setOpen] = useState(false);
@@ -58,10 +65,13 @@ function Header() {
   const [userInfo] = useRecoilState(userInfoState);
   const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
   const [, setIsLogin] = useRecoilState(loginState);
+
+  const [logoutUser] = useMutation(LOGOUT_USER);
   // console.log(accessToken);
-  const onClickOk = () => {
+  const onClickOk = async () => {
     setAccessToken("");
-    localStorage.setItem("isLogin", "false");
+    await logoutUser();
+    location.reload();
     setIsLogin(false);
   };
 
