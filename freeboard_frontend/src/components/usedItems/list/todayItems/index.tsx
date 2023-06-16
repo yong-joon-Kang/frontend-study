@@ -4,21 +4,48 @@ import { getComma } from "../../../../commons/libraries/utils";
 import LikeIcon from "../../../commons/icon/LikeIcon";
 import { IUseditem } from "../../../../commons/types/generated/types";
 import { useMoveToPage } from "../../../../commons/customHooks/useMoveToPage/useMoveToPage";
+import { useApolloClient } from "@apollo/client";
+import { FETCH_USED_ITEM } from "../../detail/UsedItemsDetail.queries";
 
-function index() {
+interface IProps {
+  todayItems: string[];
+}
+
+function index(props: IProps) {
+  const client = useApolloClient();
+
   const { onClickMoveToPage } = useMoveToPage();
-  const [todayItems, setTodayItems] = useState([]);
+  const [todayItems, setTodayItems] = useState<IUseditem[]>([]);
   useEffect(() => {
-    const storage = localStorage.getItem("todayItems");
-    if (storage)
-      setTodayItems(
-        JSON.parse(localStorage.getItem("todayItems") ?? "").reverse()
-      );
+    const fetchData = async () => {
+      const storageTodayItemsId = props.todayItems;
+      const todayItems = [];
+
+      for (const el of storageTodayItemsId) {
+        try {
+          const { data } = await client.query({
+            query: FETCH_USED_ITEM,
+            variables: {
+              useditemId: el,
+            },
+          });
+          if (data.fetchUseditem) todayItems.push(data.fetchUseditem);
+          console.log(todayItems.length);
+        } catch (error) {
+          console.log(error);
+        }
+      }
+
+      console.log("todayItems:", todayItems);
+      setTodayItems(todayItems);
+    };
+
+    fetchData();
   }, []);
 
   return (
     <S.Wrap>
-      <S.Title>오늘 본 상품</S.Title>
+      <S.Title>최근 본 상품</S.Title>
       {todayItems.map((el: IUseditem) => (
         <>
           <S.ItemWrap

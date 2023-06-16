@@ -40,12 +40,15 @@ export default function BoardListContainerPage() {
 
   const onClickOneRow = (list: any) => {
     const Storage = JSON.parse(localStorage.getItem("todayItems") ?? "[]");
-    const result = Storage.filter((el: any) => el._id === list._id);
+    const result = Storage.filter((el: any) => el === list._id);
     if (result.length > 0) {
+      const resultStorage = Storage.filter((el: any) => el !== list._id);
+      resultStorage.splice(0, 0, list._id);
+      localStorage.setItem("todayItems", JSON.stringify(resultStorage));
       onClickMoveToPage(`/usedItems/detail/${list._id}`)();
       return;
     }
-    Storage.push(list);
+    Storage.splice(0, 0, list._id);
     localStorage.setItem("todayItems", JSON.stringify(Storage));
     onClickMoveToPage(`/usedItems/detail/${list._id}`)();
   };

@@ -10,6 +10,7 @@ import SearchInput from "../../commons/searchInput/SearchInput";
 export default function BoardListPresenterPage(
   props: IBoardListPresenterPageProps
 ) {
+  console.log(props.data?.fetchUseditems);
   return (
     <S.Wrapper>
       <S.ListWrapper>
@@ -59,7 +60,9 @@ export default function BoardListPresenterPage(
             )}
           </InfiniteScroll>
         </S.List>
-        {props.todayItems.length > 0 && <TodayItems />}
+        {props.todayItems.length > 0 && (
+          <TodayItems todayItems={props.todayItems} />
+        )}
       </S.ListWrapper>
     </S.Wrapper>
   );
