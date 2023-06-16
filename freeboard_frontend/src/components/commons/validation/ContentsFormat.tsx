@@ -37,7 +37,7 @@ function ContentsFormat(props: ValidationProps) {
         render={({ field }) => (
           <MemoizedReactQuill
             placeholder={props.placeholder}
-            style={{ height: "300px", marginBottom: "100px" }}
+            style={{ height: "300px", marginBottom: "40px" }}
             theme="snow"
             defaultValue={props.value}
             onChange={field.onChange}
