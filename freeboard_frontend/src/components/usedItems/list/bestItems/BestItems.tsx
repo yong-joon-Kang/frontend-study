@@ -78,7 +78,10 @@ interface ICssProps {
 function BestItems() {
   const { onClickMoveToPage } = useMoveToPage();
   const { data } = useQuery<Pick<IQuery, "fetchUseditemsOfTheBest">>(
-    FETCH_USEDITEMS_OFTHEBEST
+    FETCH_USEDITEMS_OFTHEBEST,
+    {
+      fetchPolicy: "cache-and-network",
+    }
   );
 
   return (
