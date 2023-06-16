@@ -21,8 +21,11 @@ import { Modal, message } from "antd";
 import { IProps } from "./UsedItemsCommentWrite.types";
 import { FETCH_USEDITEM_QUESTIONS } from "../list/UsedItemsCommentList.queries";
 import { FETCH_USEDITEM_QUESTION_ANSWERS } from "../list/usedItemsCommentOneRow/usedItemsCommentOneRow.queries";
+import { useRecoilState } from "recoil";
+import { accessTokenState } from "../../../commons/libraries/recoil";
 
 export default function UsedItemsCommentWriteContainerPage(props: IProps) {
+  const [accessToken] = useRecoilState(accessTokenState);
   const [contents, setContents] = useState("");
   const [contentsLength, setContentsLength] = useState("");
   const [messageApi, contextHolder] = message.useMessage(); // 비밀번호 에러 alert
@@ -72,7 +75,7 @@ export default function UsedItemsCommentWriteContainerPage(props: IProps) {
         return false;
       }
 
-      if (!localStorage.getItem("accessToken")) {
+      if (!accessToken) {
         Modal.warning({ content: "로그인이 필요합니다!" });
         router.push("/signIn");
         return;
@@ -149,8 +152,7 @@ export default function UsedItemsCommentWriteContainerPage(props: IProps) {
       });
       return false;
     }
-
-    if (!localStorage.getItem("accessToken")) {
+    if (!accessToken) {
       Modal.warning({ content: "로그인이 필요합니다!" });
       router.push("/signIn");
       return;
