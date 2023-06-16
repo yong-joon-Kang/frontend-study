@@ -19,6 +19,8 @@ export interface IUpdateBoardInput {
 }
 
 export interface IUsedItemsPresenterPageProps {
+  setFile: any;
+  file: any;
   watch: any;
   setValue: UseFormSetValue<IUseditem>;
   // onChangeReactQuill: (value: string) => void;
@@ -33,6 +35,7 @@ export interface IUsedItemsPresenterPageProps {
   onClickUsedItemsList: () => void;
   isEdit: boolean;
   isSubmitted: boolean;
+  isSubmitting: boolean;
 }
 
 export interface ICssprops {

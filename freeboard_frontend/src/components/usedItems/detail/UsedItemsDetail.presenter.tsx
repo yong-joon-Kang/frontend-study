@@ -13,7 +13,7 @@ export default function UseditemDetailPresenterPage(
 ) {
   const { onClickMoveToPage } = useMoveToPage();
   const fetchUseditem = props.data?.fetchUseditem;
-  const slickImages = fetchUseditem?.images.filter(Boolean); // 공백인 요소 제거
+  const slickImages = fetchUseditem?.images?.filter(Boolean); // 공백인 요소 제거
 
   // const createMarkup = () => {
   //   return { __html: fetchUseditem?.contents.replace(/\n/g, "<br>") };
