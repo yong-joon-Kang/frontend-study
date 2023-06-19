@@ -6,6 +6,7 @@ import { IUseditem } from "../../../../commons/types/generated/types";
 import { useMoveToPage } from "../../../../commons/customHooks/useMoveToPage/useMoveToPage";
 import { useApolloClient } from "@apollo/client";
 import { FETCH_USED_ITEM } from "../../detail/UsedItemsDetail.queries";
+import { useDeletedErrorMsg } from "../../../../commons/customHooks/useDeletedErrorMsg/useDeletedErrorMsg";
 
 interface IProps {
   todayItems: string[];
@@ -13,8 +14,9 @@ interface IProps {
 
 function index(props: IProps) {
   const client = useApolloClient();
-
   const { onClickMoveToPage } = useMoveToPage();
+  const { onClickDeleted } = useDeletedErrorMsg();
+
   const [todayItems, setTodayItems] = useState<IUseditem[]>([]);
   useEffect(() => {
     const fetchData = async () => {
@@ -31,17 +33,21 @@ function index(props: IProps) {
           });
           if (data.fetchUseditem) todayItems.push(data.fetchUseditem);
           console.log(todayItems.length);
-        } catch (error) {
-          console.log(error);
-        }
+        } catch (error) {}
       }
 
-      console.log("todayItems:", todayItems);
       setTodayItems(todayItems);
     };
 
     fetchData();
   }, []);
+
+  const onClickOneItem = async (id: string) => {
+    const isErrorOccurred = await onClickDeleted(id);
+    if (isErrorOccurred) return false;
+
+    onClickMoveToPage(`/usedItems/detail/${id}`)();
+  };
 
   return (
     <S.Wrap>
@@ -49,7 +55,9 @@ function index(props: IProps) {
       {todayItems.map((el: IUseditem) => (
         <>
           <S.ItemWrap
-            onClick={onClickMoveToPage(`/usedItems/detail/${el._id}`)}
+            onClick={() => {
+              onClickOneItem(el._id);
+            }}
           >
             <S.LikeWrap>
               <LikeIcon />

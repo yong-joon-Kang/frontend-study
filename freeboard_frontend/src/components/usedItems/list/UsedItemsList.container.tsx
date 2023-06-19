@@ -12,6 +12,7 @@ import {
   IQueryFetchUseditemsArgs,
 } from "../../../commons/types/generated/types";
 import styled from "@emotion/styled";
+import { useDeletedErrorMsg } from "../../../commons/customHooks/useDeletedErrorMsg/useDeletedErrorMsg";
 
 const ListWrap = styled.div`
   position: relative;
@@ -19,6 +20,8 @@ const ListWrap = styled.div`
 
 export default function BoardListContainerPage() {
   const { onClickMoveToPage } = useMoveToPage();
+  const { onClickDeleted } = useDeletedErrorMsg();
+
   const [todayItems, setTodayItems] = useState([]);
   const [searchKeyword, setSearchKeyword] = useState("");
   const [startDate, setStartDate] = useState(
@@ -38,18 +41,29 @@ export default function BoardListContainerPage() {
     },
   });
 
-  const onClickOneRow = (list: any) => {
+  const onClickOneRow = async (list: any) => {
+    const isErrorOccurred = await onClickDeleted(list._id); // 삭제된 게시글인지
+    if (isErrorOccurred) return false;
+
     const Storage = JSON.parse(localStorage.getItem("todayItems") ?? "[]");
     const result = Storage.filter((el: any) => el === list._id);
+
+    // 최근 본 상품에 중복된 상품이 있으면
     if (result.length > 0) {
       const resultStorage = Storage.filter((el: any) => el !== list._id);
       resultStorage.splice(0, 0, list._id);
+      resultStorage.length = 5;
       localStorage.setItem("todayItems", JSON.stringify(resultStorage));
+
       onClickMoveToPage(`/usedItems/detail/${list._id}`)();
       return;
     }
+
+    // 최근 본 상품에 중복된 상품이 없으면
     Storage.splice(0, 0, list._id);
+    Storage.length = 5;
     localStorage.setItem("todayItems", JSON.stringify(Storage));
+
     onClickMoveToPage(`/usedItems/detail/${list._id}`)();
   };
 
