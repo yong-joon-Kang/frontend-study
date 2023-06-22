@@ -66,7 +66,10 @@ function index(props: IProps) {
             </S.LikeWrap>
             <S.ImgWrap>
               <S.Img
-                src={`https://storage.googleapis.com/${el.images?.[0] ?? ""}`}
+                src={`https://storage.googleapis.com/${
+                  // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
+                  el.images?.[0] || el.images?.[1] || el.images?.[2]
+                }`}
                 alt={el.images?.[0]}
               />
             </S.ImgWrap>

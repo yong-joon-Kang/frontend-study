@@ -7,7 +7,11 @@ function OneRowPresenter(props: IProps) {
     <S.Wrap>
       <S.Part isImgPart={true}>
         <S.Img
-          src={`https://storage.googleapis.com/${props.list.images?.[0]}`}
+          src={`https://storage.googleapis.com/${
+            props.list.images?.[0] ||
+            props.list.images?.[1] ||
+            props.list.images?.[2]
+          }`}
           alt={props.list.images[0]}
         />
       </S.Part>
