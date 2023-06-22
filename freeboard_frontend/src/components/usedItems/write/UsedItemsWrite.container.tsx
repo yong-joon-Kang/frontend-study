@@ -15,7 +15,6 @@ import {
   IQuery,
   IQueryFetchUseditemArgs,
   IUpdateUseditemInput,
-  InputMaybe,
 } from "../../../commons/types/generated/types";
 import { UPLOAD_FILE } from "../../../commons/imageUpload/ImageUpload.queries";
 
@@ -53,11 +52,6 @@ function UsedItemsWriteContainerPage(props: indexPageProps) {
   const [registedFileUrls, setRegistedFileUrls] = useState(["", "", ""]);
 
   useEffect(() => {
-    setFileUrls(
-      fetchUsedItemData?.fetchUseditem?.images?.map(
-        (el) => el && `https://storage.googleapis.com/${el}`
-      ) ?? []
-    );
     setRegistedFileUrls(
       fetchUsedItemData?.fetchUseditem?.images ?? ["", "", ""]
     );
