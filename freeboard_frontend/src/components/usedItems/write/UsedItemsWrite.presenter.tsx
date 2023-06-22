@@ -8,7 +8,6 @@ import DefaultFormat from "../../commons/validation/DefaultFormat";
 import RegisterPatternFormat from "../../commons/validation/RegisterPatternFormat";
 import { MemoizedKakaoMap } from "../../commons/kakaoMap/KakaoMap";
 import { useRef, useState } from "react";
-import { Controller } from "react-hook-form";
 import { useMoveToPage } from "../../../commons/customHooks/useMoveToPage/useMoveToPage";
 import "react-quill/dist/quill.snow.css";
 import _ from "lodash";
@@ -21,8 +20,6 @@ export default function BoardWritePresenterPage(
 
   const usedItem = props?.data?.fetchUseditem;
   // console.log(usedItem);
-
-  const addressRef = useRef("");
 
   const [address, setAddress] = useState(null);
 
@@ -149,9 +146,9 @@ export default function BoardWritePresenterPage(
                       />
                     )}
                   /> */}
-                  <input
+                  <S.Input
                     type="text"
-                    defaultValue={usedItem?.useditemAddress?.address}
+                    defaultValue={usedItem?.useditemAddress?.address ?? ""}
                     onChange={handleDebounce}
                   />
                 </S.InputWrap>
@@ -172,8 +169,6 @@ export default function BoardWritePresenterPage(
                 setFileUrls={props.setFileUrls}
                 index={index}
                 isProduct={true}
-                // imageUrls={usedItem?.images ?? []}
-                registedFileUrl={usedItem?.images?.[index] ?? ""}
               />
             ))}
           </S.FlexRow>

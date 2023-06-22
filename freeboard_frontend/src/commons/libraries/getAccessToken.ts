@@ -1,4 +1,5 @@
 import { GraphQLClient, gql } from "graphql-request";
+import { IMutation } from "../types/generated/types";
 
 const RESTORE_ACCESS_TOKEN = gql`
   mutation restoreAccessToken {
@@ -18,9 +19,11 @@ export const getAccessToken = async () => {
         credentials: "include", // 중요한 기밀 정보를 포함할 것 인지?
       }
     );
-    const result = await graphQLClient.request(RESTORE_ACCESS_TOKEN);
+    const result = await graphQLClient.request<
+      Pick<IMutation, "restoreAccessToken">
+    >(RESTORE_ACCESS_TOKEN);
+
     const newAccessToken = result?.restoreAccessToken.accessToken;
-    console.log("getAccessToken?????");
     return newAccessToken;
   } catch (error) {
     if (error instanceof Error) console.log(error.message);

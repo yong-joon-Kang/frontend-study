@@ -29,7 +29,7 @@ interface IProps {
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
   placeholder: string;
   style?: any;
-  searchInputRef: any;
+  searchInputRef?: any;
 }
 
 function SearchInput(props: IProps) {

@@ -5,6 +5,7 @@ import { gql, useMutation } from "@apollo/client";
 import {
   IMutation,
   IMutationCreatePointTransactionOfLoadingArgs,
+  IUser,
 } from "../../../commons/types/generated/types";
 import Head from "next/head";
 import { userInfoState } from "../../../commons/libraries/recoil";
@@ -69,8 +70,8 @@ function PointChargingBtn(props: IProps) {
         // merchant_uid: "ORD20180131-0000011", // 중복되면 안됨
         name: "포인트 충전",
         amount: props.selectedOption.value,
-        buyer_email: JSON.parse(localStorage.getItem("userInfo") ?? "").email,
-        buyer_name: JSON.parse(localStorage.getItem("userInfo") ?? "").name,
+        buyer_email: userInfo.email,
+        buyer_name: userInfo.name,
         // buyer_tel: "010-4242-4242",
         // buyer_addr: "서울특별시 강남구 신사동",
         // buyer_postcode: "01181",
@@ -100,7 +101,12 @@ function PointChargingBtn(props: IProps) {
 
             setUserInfo({
               ...userInfo,
-              userPoint: { ...userInfo.userPoint, amount: resultAmount },
+              userPoint: {
+                _id: userInfo?.userPoint?._id as string,
+                user: Object.create(null) as IUser,
+                ...userInfo.userPoint,
+                amount: resultAmount,
+              },
             });
 
             Modal.success({ content: "결제가 정상적으로 완료되었습니다!" });

@@ -23,7 +23,11 @@ export const FETCH_USER_LOGGED_IN = gql`
         }
         createdAt
         updatedAt
+        deletedAt
       }
+      createdAt
+      updatedAt
+      deletedAt
     }
   }
 `;

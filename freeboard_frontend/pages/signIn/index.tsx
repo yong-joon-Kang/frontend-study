@@ -1,4 +1,4 @@
-import SignInContainer from "../../src/components/signIn/signIn.container";
+import SignInContainer from "../../src/components/signIn/SignIn.container";
 
 function index() {
   return <SignInContainer />;

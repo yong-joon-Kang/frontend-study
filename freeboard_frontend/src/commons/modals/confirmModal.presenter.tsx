@@ -51,14 +51,7 @@ const ConfirmModalPresenter = (props: any) => {
         )}
         <S.Footer>
           {props.btnFnc === "charging" ? (
-            <PointChargingBtn
-              // btnFnc={props.btnFnc}
-              // type="primary"
-              // onClick={props.handleOk}
-              selectedOption={props.selectedOption}
-            >
-              충전하기
-            </PointChargingBtn>
+            <PointChargingBtn selectedOption={props.selectedOption} />
           ) : (
             <>
               <S.Button onClick={props.handleOk}>확인</S.Button>
