@@ -10,6 +10,7 @@ import {
   IUser,
 } from "../../../commons/types/generated/types";
 import { Modal } from "antd";
+import { UPLOAD_FILE } from "../../../commons/imageUpload/ImageUpload.queries";
 
 const UPDATE_USER_INPUT = gql`
   mutation updateUser($updateUserInput: UpdateUserInput!) {
@@ -21,10 +22,13 @@ const UPDATE_USER_INPUT = gql`
 `;
 
 function mySettingsContainer() {
+  const [uploadFile] = useMutation(UPLOAD_FILE);
   const [userInfoObj, setUserInfo] = useRecoilState(userInfoState);
 
   const [name, setName] = useState(userInfoObj.name ?? "");
-  const [fileUrls, setFileUrls] = useState([userInfoObj.picture ?? ""]);
+  const [fileUrls, setFileUrls] = useState([userInfoObj.picture ?? ""]); // fileReader(사진 미리보기)
+
+  const [file, setFile] = useState([""]);
 
   const [updateUserInput] = useMutation<
     Pick<IMutation, "updateUser">,
@@ -32,14 +36,28 @@ function mySettingsContainer() {
   >(UPDATE_USER_INPUT);
 
   const onClickBtn = async () => {
+    let result;
+    if (file[0]) {
+      result = await uploadFile({
+        variables: {
+          file: file[0],
+        },
+      });
+    }
+
+    const resultUrl = result?.data.uploadFile.url ?? fileUrls[0];
+
     const updateUserInputObj = Object.create(null) as IUser;
-    if (userInfoObj.picture === fileUrls[0] && userInfoObj.name === name) {
+    if (userInfoObj.picture === resultUrl && userInfoObj.name === name) {
       Modal.warning({ content: "수정한 것이 없습니다." });
       return false;
     }
 
-    if (userInfoObj.picture !== fileUrls[0])
-      updateUserInputObj.picture = fileUrls[0];
+    if (userInfoObj.picture !== result?.data.uploadFile.url) {
+      if (result) updateUserInputObj.picture = result?.data.uploadFile.url;
+      else updateUserInputObj.picture = "";
+    }
+
     if (userInfoObj.name !== name) updateUserInputObj.name = name;
 
     try {
@@ -49,7 +67,11 @@ function mySettingsContainer() {
         },
       });
       Modal.success({ content: "성공적으로 변경되었습니다." });
-      setUserInfo({ ...userInfoObj, name: name, picture: fileUrls[0] });
+      setUserInfo({
+        ...userInfoObj,
+        name: name,
+        picture: result?.data.uploadFile.url ?? fileUrls[0],
+      });
     } catch (error) {
       console.log(error);
     }
@@ -65,6 +87,8 @@ function mySettingsContainer() {
           fileUrls={fileUrls}
           index={0}
           isProfile={true}
+          setFile={setFile}
+          file={file}
         />
       </S.RowWrap>
       <S.RowWrap>

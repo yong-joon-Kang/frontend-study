@@ -18,7 +18,13 @@ function ImageUploadPresenterPage(props: IUploadProps) {
               src="/cancel.png"
             ></S.Cancel>
 
-            <S.Img src={props.fileUrl} />
+            <S.Img
+              src={
+                props.file
+                  ? props.fileUrl
+                  : `https://storage.googleapis.com/${props.fileUrl}`
+              }
+            />
           </>
         ) : (
           <>

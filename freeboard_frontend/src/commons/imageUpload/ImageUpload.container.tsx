@@ -1,13 +1,10 @@
 import { ChangeEvent, MouseEvent, useRef } from "react";
 import ImageUploadPresenterPage from "./ImageUpload.presenter";
-import { UPLOAD_FILE } from "./ImageUpload.queries";
-import { useMutation } from "@apollo/client";
 import { IBoardWriteProps } from "./ImageUpload.types";
 import checkValidationImage from "./ImageUpload.validations";
 
 function ImageUpload(props: IBoardWriteProps) {
   const uploadRef = useRef<HTMLInputElement>(null);
-  const [uploadFile] = useMutation(UPLOAD_FILE);
   const fileArr = [...props.file];
   const fileUrls = [...props.fileUrls];
 
@@ -39,15 +36,6 @@ function ImageUpload(props: IBoardWriteProps) {
         props.setFileUrls(fileUrls);
       }
     };
-
-    // 등록, 수정 시 업로드 api 요청
-
-    // console.log(event.target.files?.[0]);
-    // const result = await uploadFile({
-    //   variables: {
-    //     file: event.target.files?.[0],
-    //   },
-    // });
   };
 
   const onClickUploadImgCancel = (event: MouseEvent<HTMLImageElement>) => {
@@ -56,6 +44,8 @@ function ImageUpload(props: IBoardWriteProps) {
 
     fileUrls[props.index] = "";
     props.setFileUrls(fileUrls);
+    fileArr[props.index] = "";
+    props.setFile(fileArr);
   };
 
   return (
@@ -65,9 +55,9 @@ function ImageUpload(props: IBoardWriteProps) {
       onClickUploadImgCancel={onClickUploadImgCancel}
       uploadRef={uploadRef}
       fileUrl={props.fileUrls[props.index]}
+      file={props.file[props.index]}
       isProduct={props.isProduct}
       isProfile={props.isProfile}
-      registedFileUrl={props.registedFileUrl}
     />
   );
 }
