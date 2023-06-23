@@ -13,7 +13,7 @@ export interface IUsedItemsCommentPresenterPageProps extends editProps {
 export interface editProps extends editContentsProps {
   isEdit?: boolean;
   id?: string;
-  setIsEditArr?: Dispatch<SetStateAction<boolean[]>>;
+  setIsEditArr?: any;
   index?: number;
 }
 

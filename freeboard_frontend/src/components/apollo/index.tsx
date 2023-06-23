@@ -28,14 +28,12 @@ const ApolloSettings = (props: IProps) => {
   const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
   const [isLogin] = useRecoilState(loginState);
   const [, setUserInfo] = useRecoilState(userInfoState);
-  const aaa = useRecoilValueLoadable(restoreAccessTokenLoadable);
+  const loadable = useRecoilValueLoadable(restoreAccessTokenLoadable);
 
   // 새로고침 할 때
   useEffect(() => {
-    aaa.toPromise().then((newAccessToken) => {
-      console.log("newAccessToken==============================");
-      console.log(newAccessToken);
-      setAccessToken(newAccessToken);
+    loadable.toPromise().then((newAccessToken) => {
+      setAccessToken(newAccessToken ?? "");
     });
   }, []);
 
@@ -45,7 +43,13 @@ const ApolloSettings = (props: IProps) => {
     if (!isLogin) {
       console.log("로그아웃 한 경우===================");
       setAccessToken("");
-      setUserInfo({});
+      setUserInfo({
+        _id: "",
+        createdAt: "",
+        email: "",
+        updatedAt: "",
+        name: "",
+      });
       client.clearStore(); // 캐시된 서버 데이터(로그인 정보 등) 초기화 ( accessToken 초기화 )
     }
   }, [isLogin]);
@@ -62,7 +66,7 @@ const ApolloSettings = (props: IProps) => {
             // 2-1. refreshToken으로 accessToken을 재발급 받기
             getAccessToken().then((newAccessToken) => {
               // 2-2. 재발급 받은 accessToken 저장하기
-              setAccessToken(newAccessToken);
+              setAccessToken(newAccessToken ?? "");
 
               // 3-1. 재발급 받은 accessToken으로 방금 실패한 쿼리의 정보 수정하기
               operation.setContext({
