@@ -1,17 +1,29 @@
-import { IQuery } from "../../../commons/types/generated/types";
+import {
+  IUseditemQuestion,
+  IUseditemQuestionAnswer,
+} from "../../../commons/types/generated/types";
 import { MouseEvent } from "react";
 
 export interface UsedItemsCommentListPresenterPageProps {
-  isAnswer: boolean;
+  isAnswer?: boolean;
   hasMore: boolean;
-  data: Pick<IQuery, "fetchUseditemQuestions" | "fetchUseditemQuestionAnswers">;
+  data:
+    | {
+        fetchUseditemQuestions: IUseditemQuestion[];
+        fetchUseditemQuestionAnswers?: never;
+      }
+    | {
+        fetchUseditemQuestions?: never;
+        fetchUseditemQuestionAnswers: IUseditemQuestionAnswer[];
+      }
+    | undefined;
   onLoadMore: () => void;
   onClickUpdate: (event: MouseEvent<HTMLImageElement>) => void;
   onToggleModal: (event: MouseEvent<HTMLImageElement>) => void;
   // onClickDelete: (event: MouseEvent<HTMLImageElement>) => void;
   isEditArr: boolean[];
   setIsEditArr: any;
-  useditemQuestionId: string;
+  useditemQuestionId?: string;
 }
 
 export interface IPropsAnswerList {

@@ -12,7 +12,7 @@ export default function BoardCommentListPresenterPage(
     props.data?.fetchUseditemQuestionAnswers;
 
   return (
-    <S.Wrapper isAnswer={props.isAnswer}>
+    <S.Wrapper isAnswer={typeof props.isAnswer === "boolean" && props.isAnswer}>
       <S.CommentListWrap>
         <InfiniteScroll
           pageStart={0}
@@ -46,7 +46,7 @@ export default function BoardCommentListPresenterPage(
                 index={index}
                 onClickUpdate={props.onClickUpdate}
                 onToggleModal={props.onToggleModal}
-                isAnswer={props.isAnswer}
+                isAnswer={typeof props.isAnswer === "boolean" && props.isAnswer}
               />
             )
           )}
