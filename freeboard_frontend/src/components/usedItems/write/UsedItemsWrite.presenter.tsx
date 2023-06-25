@@ -7,7 +7,7 @@ import NumberFormat from "../../commons/validation/NumberFormat";
 import DefaultFormat from "../../commons/validation/DefaultFormat";
 import RegisterPatternFormat from "../../commons/validation/RegisterPatternFormat";
 import { MemoizedKakaoMap } from "../../commons/kakaoMap/KakaoMap";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { useMoveToPage } from "../../../commons/customHooks/useMoveToPage/useMoveToPage";
 import "react-quill/dist/quill.snow.css";
 import _ from "lodash";
@@ -24,7 +24,7 @@ export default function BoardWritePresenterPage(
   const [address, setAddress] = useState(null);
 
   const handleDebounce = _.debounce((event) => {
-    props.setValue("address", event.target.value);
+    props.setValue("useditemAddress.address", event.target.value);
     setAddress(event.target.value);
   }, 300);
 

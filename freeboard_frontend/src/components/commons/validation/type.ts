@@ -1,4 +1,7 @@
 export interface ValidationProps {
+  watch?: any;
+  isSubmitted?: any;
+  errors?: any;
   val?: any;
   onChangeReactQuill?: (value: string) => void;
   ref?: any;

@@ -91,7 +91,7 @@ function FireBase() {
         console.log("에러발생");
       });
 
-    console.log("=======이미지 리스트 확인 : " + imageList);
+    // console.log("=======이미지 리스트 확인 : " + imageList);
     console.log(imageList.length);
     if (imageList.length === 3) {
       // console.log("이미지 세개라서 타는 로직");

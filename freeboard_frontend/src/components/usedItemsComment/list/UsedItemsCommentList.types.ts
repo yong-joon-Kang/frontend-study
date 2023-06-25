@@ -6,7 +6,7 @@ import { MouseEvent } from "react";
 
 export interface UsedItemsCommentListPresenterPageProps {
   isAnswer?: boolean;
-  hasMore: boolean;
+  hasMore?: boolean;
   data:
     | {
         fetchUseditemQuestions: IUseditemQuestion[];
@@ -17,7 +17,7 @@ export interface UsedItemsCommentListPresenterPageProps {
         fetchUseditemQuestionAnswers: IUseditemQuestionAnswer[];
       }
     | undefined;
-  onLoadMore: () => void;
+  onLoadMore?: any;
   onClickUpdate: (event: MouseEvent<HTMLImageElement>) => void;
   onToggleModal: (event: MouseEvent<HTMLImageElement>) => void;
   // onClickDelete: (event: MouseEvent<HTMLImageElement>) => void;

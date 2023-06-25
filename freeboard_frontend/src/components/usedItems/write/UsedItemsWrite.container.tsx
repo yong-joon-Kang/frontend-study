@@ -60,10 +60,11 @@ function UsedItemsWriteContainerPage(props: indexPageProps) {
   const [file, setFile] = useState([]);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+
   const onSubmit = async (data: any) => {
+    console.log("datatatatatatatatatatatatatatatatatat");
     console.log(data);
     if (Object.keys(errors).length > 0) return false;
-    else setIsSubmitting(true);
     if (!data.price) return false;
     if (data.contents === "<p><br></p>") return false;
 
@@ -115,7 +116,8 @@ function UsedItemsWriteContainerPage(props: indexPageProps) {
           // console.log(resultFile);
 
           // 업로드 후 return된 순수urls
-          const cloudResultUrls = await Promise.all(resultFile);
+          let cloudResultUrls: any = [];
+          cloudResultUrls = await Promise.all(resultFile);
 
           console.log(
             "cloudResultUrlscloudResultUrlscloudResultUrlscloudResultUrls"
@@ -144,7 +146,7 @@ function UsedItemsWriteContainerPage(props: indexPageProps) {
         console.log(images);
 
         // updateUseditemInput
-        const updateUseditemInput: IUpdateUseditemInput = {
+        let updateUseditemInput: IUpdateUseditemInput = {
           useditemAddress: {},
         };
         const isChangedName =
@@ -160,7 +162,7 @@ function UsedItemsWriteContainerPage(props: indexPageProps) {
           JSON.stringify(data.tags);
         const isChangedAddress =
           fetchUsedItemData?.fetchUseditem.useditemAddress?.address !==
-          data.address;
+          data.useditemAddress.address;
         const isChangedImages =
           JSON.stringify(registedFileUrls) !== JSON.stringify(images);
         if (isChangedName) updateUseditemInput.name = data.name;
@@ -168,34 +170,17 @@ function UsedItemsWriteContainerPage(props: indexPageProps) {
         if (isChangedContents) updateUseditemInput.contents = data.contents;
         if (isChangedPrice) updateUseditemInput.price = price;
         if (isChangedAddress && updateUseditemInput.useditemAddress) {
-          updateUseditemInput.useditemAddress.address = data.address;
+          updateUseditemInput.useditemAddress.address =
+            data.useditemAddress.address;
+        } else {
+          const result = { ...updateUseditemInput };
+          const { useditemAddress, ...rest } = result;
+          updateUseditemInput = rest;
         }
-        if (updateUseditemInput.useditemAddress)
-          updateUseditemInput.useditemAddress.addressDetail =
-            data.addressDetail;
         if (isChangedTags) updateUseditemInput.tags = tags;
         if (isChangedImages) updateUseditemInput.images = images;
 
-        // console.log(Object.values(updateUseditemInput)[0]);
-
-        // 주소 수정된 것이 없으면 useditemAddress key 삭제
-        let resultUpdateInput = updateUseditemInput;
-        if (!Object.values(updateUseditemInput)[0]?.address) {
-          const { useditemAddress, ...rest } = updateUseditemInput;
-          resultUpdateInput = rest;
-        }
-
-        console.log("resultUpdateInput===========");
-        console.log(Object.keys(resultUpdateInput));
-
-        if (
-          // Object.keys(updateUseditemInput).every(
-          //   (el) => el === "useditemAddress"
-          // ) &&
-          // !Object.values(updateUseditemInput)[0]?.address &&
-          // !Object.values(updateUseditemInput)[0]?.addressDetail &&
-          Object.keys(resultUpdateInput).length === 0
-        ) {
+        if (JSON.stringify(updateUseditemInput) === "{}") {
           messageApi.open({
             type: "warning",
             content: "수정한 것이 없습니다.",
@@ -203,11 +188,12 @@ function UsedItemsWriteContainerPage(props: indexPageProps) {
 
           return false;
         }
+        setIsSubmitting(true);
 
-        const result = await updateUsedItems({
+        await updateUsedItems({
           variables: {
             useditemId: router.query.id,
-            updateUseditemInput: resultUpdateInput,
+            updateUseditemInput: updateUseditemInput,
           },
         });
 
@@ -215,7 +201,6 @@ function UsedItemsWriteContainerPage(props: indexPageProps) {
         router.push(`/usedItems/detail/${router.query.id}`);
       } catch (error) {
         if (error instanceof Error) {
-          // if (Object.keys(updateUseditemInput).length < 1) {
           messageApi.open({
             type: "error",
             content: (
@@ -230,6 +215,7 @@ function UsedItemsWriteContainerPage(props: indexPageProps) {
     } else {
       // 등록 시
       try {
+        setIsSubmitting(true);
         const resultFile = file.map(
           async (el, index) =>
             // file태그가 존재하고 fileUrls가 존재할 때
@@ -243,7 +229,8 @@ function UsedItemsWriteContainerPage(props: indexPageProps) {
         );
 
         // undefined를 공백으로 치환
-        const cloudResultUrls = await Promise.all(resultFile);
+        let cloudResultUrls: any = [];
+        cloudResultUrls = await Promise.all(resultFile);
         console.log("cloudResultUrls==========================");
         console.log(cloudResultUrls);
         const images: any[] | null | undefined = [];
@@ -265,7 +252,7 @@ function UsedItemsWriteContainerPage(props: indexPageProps) {
               tags,
               images,
               useditemAddress: {
-                address: "",
+                address: data.useditemAddress.address,
               },
             },
           },

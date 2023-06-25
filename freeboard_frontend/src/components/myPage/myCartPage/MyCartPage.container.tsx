@@ -18,7 +18,7 @@ import _ from "lodash";
 function MyCartPageContainer() {
   const [resultData, setResultData]: any = useState();
   const [clickedTab, setClickedTab] = useState("fetchUseditemsISold");
-  const searchInputRef = useRef();
+  const searchInputRef = useRef<HTMLInputElement>();
 
   const { data: myUseditemsData, refetch: refetchUsedItems } = useQuery<
     Pick<IQuery, "fetchUseditemsISold">,
@@ -46,14 +46,14 @@ function MyCartPageContainer() {
   const onClickMyUseditems = () => {
     setResultData(myUseditemsData);
     setClickedTab("fetchUseditemsISold");
-    searchInputRef?.current?.value = "";
+    searchInputRef.current && (searchInputRef.current.value = "");
     refetchIPicked({ page: 1, search: "" });
   };
 
   const onClickMyPick = () => {
     setResultData(myPickedData);
     setClickedTab("fetchUseditemsIPicked");
-    searchInputRef?.current?.value = "";
+    searchInputRef.current && (searchInputRef.current.value = "");
     refetchUsedItems({ page: 1, search: "" });
   };
 

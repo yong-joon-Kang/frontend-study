@@ -1,18 +1,19 @@
 import CartPresenter from "./Cart.presenter";
 import { ChangeEvent, useEffect, useState } from "react";
 import { message } from "antd";
+import { IUseditem } from "../../../commons/types/generated/types";
 
 function CartContainer() {
   const [messageApi, contextHolder] = message.useMessage();
   const [allChecked, setAllChecked] = useState(false);
 
   // 장바구니 정보
-  const [cartData, setCartData] = useState([{}]);
+  const [cartData, setCartData] = useState<IUseditem[]>([]);
 
   useEffect(() => {
     const result = localStorage.getItem("cart");
     if (result) {
-      const cartObj = JSON.parse(result).map((el: any) => ({
+      const cartObj = JSON.parse(result).map((el: IUseditem) => ({
         ...el,
         quantity: 1,
         isChecked: false,
@@ -20,7 +21,7 @@ function CartContainer() {
       }));
 
       let TotalPrice = 0;
-      cartObj.map((el) => (TotalPrice += Number(el.price)));
+      cartObj.map((el: IUseditem) => (TotalPrice += Number(el.price)));
       console.log(TotalPrice);
 
       setCartData(cartObj);
@@ -31,21 +32,22 @@ function CartContainer() {
     event: ChangeEvent<HTMLInputElement>,
     index: number
   ) => {
-    const copyCartData = [...cartData];
+    const copyCartData: any = [...cartData];
     const result = event.target.value
       .replace(/[^0-9.]/g, "")
       .replace(/(\..*)\./g, "$1");
 
-    copyCartData[index] = {
-      ...copyCartData[index],
-      quantity: Number(result),
-      oneItemTotalPrice: copyCartData[index].price * Number(result),
-    };
+    if (copyCartData)
+      copyCartData[index] = {
+        ...copyCartData[index],
+        quantity: Number(result),
+        oneItemTotalPrice: copyCartData[index].price * Number(result),
+      };
     setCartData(copyCartData);
   };
 
   const onClickQuantityBtn = (index: number, unit: string) => {
-    const copyCartData = [...cartData];
+    const copyCartData: any = [...cartData];
     if (unit === "minus") {
       if (copyCartData[index].quantity < 2) return;
       copyCartData[index] = {
@@ -72,10 +74,10 @@ function CartContainer() {
     const copyCartData = [...cartData];
 
     if (event.target.checked) {
-      copyCartData.map((el) => (el.isChecked = true));
+      copyCartData.map((el: any) => (el.isChecked = true));
       setAllChecked(true);
     } else {
-      copyCartData.map((el) => (el.isChecked = false));
+      copyCartData.map((el: any) => (el.isChecked = false));
       setAllChecked(false);
     }
 
@@ -83,7 +85,7 @@ function CartContainer() {
   };
 
   const onChangeOne = (index: number) => {
-    const copyCartData = [...cartData];
+    const copyCartData: any = [...cartData];
     copyCartData[index] = {
       ...copyCartData[index],
       isChecked: !copyCartData[index].isChecked,
@@ -91,17 +93,17 @@ function CartContainer() {
 
     setCartData(copyCartData);
 
-    const allChecked = copyCartData.every((el) => el.isChecked);
+    const allChecked = copyCartData.every((el: any) => el.isChecked);
     setAllChecked(allChecked);
   };
 
   const onClickDelete = () => {
     const copyCartData = [...cartData];
-    if (copyCartData.every((el) => !el.isChecked)) {
+    if (copyCartData.every((el: any) => !el.isChecked)) {
       messageApi.warning({ content: "삭제할 항목이 없습니다!" });
       return;
     }
-    const resultData = copyCartData.filter((el) => !el.isChecked);
+    const resultData = copyCartData.filter((el: any) => !el.isChecked);
     setCartData(resultData);
     localStorage.setItem("cart", JSON.stringify(resultData));
   };

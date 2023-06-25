@@ -7,6 +7,7 @@ import SlickSlide from "../../commons/slickSlide/SlickSlide";
 import { useMoveToPage } from "../../../commons/customHooks/useMoveToPage/useMoveToPage";
 import { MemoizedKakaoMap } from "../../commons/kakaoMap/KakaoMap";
 import DOMPurify from "dompurify";
+import { IUseditem } from "../../../commons/types/generated/types";
 
 export default function UseditemDetailPresenterPage(
   props: IUsedItemsDetailPresenterPageProps
@@ -14,6 +15,9 @@ export default function UseditemDetailPresenterPage(
   const { onClickMoveToPage } = useMoveToPage();
   const fetchUseditem = props.data?.fetchUseditem;
   const slickImages = fetchUseditem?.images?.filter(Boolean); // 공백인 요소 제거
+
+  console.log("fetchUseditemfetchUseditemfetchUseditemfetchUseditem");
+  console.log(fetchUseditem);
 
   // const createMarkup = () => {
   //   return { __html: fetchUseditem?.contents.replace(/\n/g, "<br>") };
@@ -82,7 +86,7 @@ export default function UseditemDetailPresenterPage(
           <>
             <DefaultButton
               onClick={() => {
-                props.onClickInCart(fetchUseditem ?? "");
+                props.onClickInCart(fetchUseditem as IUseditem);
               }}
               text="장바구니 담기"
             />

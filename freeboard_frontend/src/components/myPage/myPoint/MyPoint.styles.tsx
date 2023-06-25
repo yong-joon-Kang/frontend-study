@@ -39,7 +39,7 @@ export const OneRow = styled.div`
 
 export const Label = styled.span`
   font-weight: ${(props: cssProps) =>
-    (props.isHeader || props.isName) && "bold"};
+    (props.isHeader ?? props.isName) && "bold"};
   font-size: ${(props) => props.isName && "1.3em"};
 `;
 

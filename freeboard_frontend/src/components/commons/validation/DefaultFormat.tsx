@@ -21,7 +21,6 @@ function DefaultFormat(props: ValidationProps) {
             {...field}
             defaultValue={props.value}
             placeholder={props.placeholder}
-            // onChange={(e) => props.onChange(e.target.value)}
           ></Input>
         )}
       />
