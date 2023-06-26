@@ -102,9 +102,15 @@ export default function BoardCommentWriteContainerPage(
             },
           ],
         });
-        const isEditArr = [...editCmtProps.isEditArr];
-        isEditArr[editCmtProps.index] = false;
-        editCmtProps.setIsEditArr(isEditArr);
+        if (
+          editCmtProps.isEditArr &&
+          (editCmtProps.index === 0 || editCmtProps.index) &&
+          editCmtProps.setIsEditArr
+        ) {
+          const isEditArr = [...editCmtProps.isEditArr];
+          isEditArr[editCmtProps.index] = false;
+          editCmtProps.setIsEditArr(isEditArr);
+        }
       } else {
         await createBoardComment({
           variables: {

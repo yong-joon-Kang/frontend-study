@@ -15,9 +15,15 @@ export default function BoardCommentPresenterPage(
         ) : (
           <S.DeleteBtn
             onClick={() => {
-              const isEditArr = [...props.isEditArr];
-              isEditArr[props.index] = false;
-              props.setIsEditArr(isEditArr);
+              if (
+                props.isEditArr &&
+                (props.index === 0 || props.index) &&
+                props.setIsEditArr
+              ) {
+                const isEditArr = [...props.isEditArr];
+                isEditArr[props.index] = false;
+                props.setIsEditArr(isEditArr);
+              }
             }}
             src="/cancel.png"
           ></S.DeleteBtn>
