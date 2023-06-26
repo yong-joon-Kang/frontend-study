@@ -22,6 +22,8 @@ export default function BoardDetailPresenterPage(
   }
   console.log(videoId);
 
+  const slickImages = fetchBoard?.images?.filter(Boolean); // 공백인 요소 제거
+
   // let youtubeUrl = fetchBoard?.youtubeUrl;
   // if(youtubeUrl?.includes("shorts")){
 
@@ -54,7 +56,7 @@ export default function BoardDetailPresenterPage(
         <S.Contents>
           <S.Title>{fetchBoard?.title}</S.Title>
           <S.Content>{fetchBoard?.contents}</S.Content>
-          <SlickSlide images={fetchBoard?.images ?? []} />
+          {<SlickSlide images={slickImages ?? []} />}
           {videoId && (
             <YouTube
               style={{ margin: "200px auto 0 auto" }}

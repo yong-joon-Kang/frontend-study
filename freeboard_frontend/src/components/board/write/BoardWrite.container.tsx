@@ -17,6 +17,7 @@ import {
 import { useDaumPostcodePopup } from "react-daum-postcode";
 import { message } from "antd";
 import { useMoveToPage } from "../../../commons/customHooks/useMoveToPage/useMoveToPage";
+import { UPLOAD_FILE } from "../../../commons/imageUpload/ImageUpload.queries";
 
 export default function BoardWriteContainerPage(
   props: IBoardWriteContainerPageProps
@@ -32,6 +33,23 @@ export default function BoardWriteContainerPage(
     IMutationUpdateBoardArgs
   >(EDIT_BOARD);
 
+  // 기존 imageUrl
+  const [registedFileUrls, setRegistedFileUrls] = useState(["", "", ""]);
+
+  useEffect(() => {
+    setRegistedFileUrls(
+      props?.fetchBoardDataList?.fetchBoard?.images ?? ["", "", ""]
+    );
+  }, []);
+
+  useEffect(() => {
+    if (props?.fetchBoardDataList) {
+      const fileUrlArr = props?.fetchBoardDataList?.fetchBoard?.images;
+      if (fileUrlArr) setFileUrls(fileUrlArr);
+    }
+  }, [props]);
+
+  const [file, setFile] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [writer, setWriter] = useState("");
   const [password, setPassword] = useState("");
@@ -52,14 +70,9 @@ export default function BoardWriteContainerPage(
 
   const [messageApi, contextHolder] = message.useMessage();
 
-  const router = useRouter();
+  const [uploadFile] = useMutation(UPLOAD_FILE);
 
-  useEffect(() => {
-    if (props?.fetchBoardDataList) {
-      const fileUrlArr = props?.fetchBoardDataList?.fetchBoard?.images;
-      if (fileUrlArr) setFileUrls(fileUrlArr);
-    }
-  }, [props]);
+  const router = useRouter();
 
   const onWriterChanged = (event: ChangeEvent<HTMLInputElement>) => {
     setWriter(event.target.value);
@@ -131,6 +144,30 @@ export default function BoardWriteContainerPage(
     }
 
     try {
+      const resultFile = file.map(
+        async (el, index) =>
+          // file태그가 존재하고 fileUrls가 존재할 때
+          el &&
+          fileUrls[index] &&
+          (await uploadFile({
+            variables: {
+              file: el,
+            },
+          }))
+      );
+
+      // undefined를 공백으로 치환
+      let cloudResultUrls: any = [];
+      cloudResultUrls = await Promise.all(resultFile);
+      const images: any[] | null | undefined = [];
+      new Array(3)
+        .fill("")
+        .map((_el, index) =>
+          cloudResultUrls[index]
+            ? images.push(cloudResultUrls[index]?.data.uploadFile.url)
+            : images.push("")
+        );
+
       if (writer && password && title && contents) {
         const result = await createBoard({
           variables: {
@@ -144,7 +181,7 @@ export default function BoardWriteContainerPage(
                 address: address,
                 addressDetail: detailAddress,
               },
-              images: fileUrls,
+              images,
               youtubeUrl: youtubeUrl,
             },
           },
@@ -157,30 +194,86 @@ export default function BoardWriteContainerPage(
   };
 
   const onSubmitUpdate = async () => {
-    const currentFileUrls = JSON.stringify(fileUrls);
-    const defaultFileUrls = JSON.stringify(
-      props.fetchBoardDataList?.fetchBoard.images
-    );
-    const isChangedFileUrls = currentFileUrls !== defaultFileUrls;
-
-    if (
-      // 수정한게 하나도 없을 때
-      !title &&
-      !contents &&
-      !zipcode &&
-      !address &&
-      !detailAddress &&
-      !youtubeUrl &&
-      !isChangedFileUrls
-    ) {
-      messageApi.open({
-        type: "warning",
-        content: "수정한 것이 없습니다.",
-      });
-      return;
-    }
+    // const currentFileUrls = JSON.stringify(fileUrls);
+    // const defaultFileUrls = JSON.stringify(
+    //   props.fetchBoardDataList?.fetchBoard.images
+    // );
+    // const isChangedFileUrls = currentFileUrls !== defaultFileUrls;
 
     try {
+      let images: string[] = [];
+
+      // file 업로드 할게 없으면
+      if (file.length === 0) {
+        // 이미지 변경사항이 있다면 fileUrls의 결과를 images에 넣어준다!
+        images = [...fileUrls];
+      } else {
+        // file 업로드 할게 있다면!
+        // file을 업로드 후 나온 순수url을 registed에 넣는다! 그리고 images에 넣어준다!
+        const resultFile = file.map(
+          async (el, index) =>
+            // file태그가 존재하고 fileUrls가 존재할 때
+            el &&
+            fileUrls[index] &&
+            (await uploadFile({
+              variables: {
+                file: el,
+              },
+            }))
+        );
+        // console.log("resultFileresultFileresultFileresultFileresultFile");
+        // console.log(resultFile);
+
+        // 업로드 후 return된 순수urls
+        let cloudResultUrls: any = [];
+        cloudResultUrls = await Promise.all(resultFile);
+
+        console.log(
+          "cloudResultUrlscloudResultUrlscloudResultUrlscloudResultUrls"
+        );
+        console.log(cloudResultUrls);
+
+        // registed와 합치기
+        const registedUrls = [...registedFileUrls];
+        new Array(3).fill("").map(
+          (_el, index) =>
+            cloudResultUrls[index] // 신규 이미지 있으면 신규이미지 넣어줌
+              ? (registedUrls[index] =
+                  cloudResultUrls[index]?.data.uploadFile.url)
+              : !fileUrls[index] && (registedUrls[index] = "") // 신규 이미지 없고 fileUrls 없을 때 공백 넣어줌
+        );
+
+        console.log(
+          "registedUrlsregistedUrlsregistedUrlsregistedUrlsregistedUrls"
+        );
+        console.log(registedUrls);
+
+        images = registedUrls;
+      }
+
+      console.log("imagesimagesimagesimagesimagesimagesimagesimagesimages");
+      console.log(images);
+
+      const isChangedFileUrls =
+        JSON.stringify(images) !== JSON.stringify(registedFileUrls);
+
+      if (
+        // 수정한게 하나도 없을 때
+        !title &&
+        !contents &&
+        !zipcode &&
+        !address &&
+        !detailAddress &&
+        !youtubeUrl &&
+        !isChangedFileUrls
+      ) {
+        messageApi.open({
+          type: "warning",
+          content: "수정한 것이 없습니다.",
+        });
+        return;
+      }
+
       const updateBoardInput: IUpdateBoardInput = {};
       if (title) updateBoardInput.title = title;
       if (contents) updateBoardInput.contents = contents;
@@ -192,7 +285,7 @@ export default function BoardWriteContainerPage(
         if (detailAddress)
           updateBoardInput.boardAddress.addressDetail = detailAddress;
       }
-      if (fileUrls) updateBoardInput.images = fileUrls;
+      if (isChangedFileUrls) updateBoardInput.images = images;
 
       const result = await updateBoard({
         variables: {
@@ -274,6 +367,8 @@ export default function BoardWriteContainerPage(
         fileUrls={fileUrls}
         onChangeYoutubeUrl={onChangeYoutubeUrl}
         isSubmitting={isSubmitting}
+        file={file}
+        setFile={setFile}
       />
     </>
   );

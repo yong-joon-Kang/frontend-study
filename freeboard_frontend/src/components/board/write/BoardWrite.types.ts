@@ -31,6 +31,8 @@ export interface IBoardWritePresenterPageProps {
   zipcode: string;
   isSubmitting: boolean;
   fetchBoardDataList?: Pick<IQuery, "fetchBoard">;
+  file: string[];
+  setFile: any;
   onWriterChanged: (event: ChangeEvent<HTMLInputElement>) => void;
   onPasswordChanged: (event: ChangeEvent<HTMLInputElement>) => void;
   onTitleChanged: (event: ChangeEvent<HTMLInputElement>) => void;

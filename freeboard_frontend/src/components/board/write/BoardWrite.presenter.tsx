@@ -101,6 +101,8 @@ export default function BoardWritePresenterPage(
               fileUrls={props.fileUrls}
               index={index}
               setFileUrls={props.setFileUrls}
+              setFile={props.setFile}
+              file={props.file}
             />
           ))}
         </S.UploadWrap>
