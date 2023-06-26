@@ -30,7 +30,7 @@ export interface IEditComment {
   writer: string | undefined | null;
   contents: string;
   rating: number;
-  index?: number;
-  isEditArr?: boolean[];
-  setIsEditArr?: Dispatch<SetStateAction<boolean[]>>;
+  index: number;
+  isEditArr: boolean[];
+  setIsEditArr: Dispatch<SetStateAction<boolean[]>>;
 }

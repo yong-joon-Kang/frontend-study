@@ -62,8 +62,6 @@ function UsedItemsWriteContainerPage(props: indexPageProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const onSubmit = async (data: any) => {
-    console.log("datatatatatatatatatatatatatatatatatat");
-    console.log(data);
     if (Object.keys(errors).length > 0) return false;
     if (!data.price) return false;
     if (data.contents === "<p><br></p>") return false;
@@ -92,12 +90,8 @@ function UsedItemsWriteContainerPage(props: indexPageProps) {
 
         // file 업로드 할게 없으면
         if (file.length === 0) {
-          // 이미지 변경사항이 있다면 fileUrls의 결과를 images에 넣어준다!(googleapis는 제거!)
-          images = fileUrls.map((el) =>
-            el.includes("https://storage.googleapis.com/")
-              ? el.split("https://storage.googleapis.com/")[1]
-              : el
-          );
+          // 이미지 변경사항이 있다면 fileUrls의 결과를 images에 넣어준다!
+          images = [...fileUrls];
         } else {
           // file 업로드 할게 있다면!
           // file을 업로드 후 나온 순수url을 registed에 넣는다! 그리고 images에 넣어준다!

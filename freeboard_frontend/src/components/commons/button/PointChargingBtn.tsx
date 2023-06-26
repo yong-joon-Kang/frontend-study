@@ -104,6 +104,8 @@ function PointChargingBtn(props: IProps) {
               userPoint: {
                 _id: userInfo?.userPoint?._id as string,
                 user: Object.create(null) as IUser,
+                createdAt: userInfo?.userPoint?.createdAt as string,
+                updatedAt: userInfo?.userPoint?.updatedAt as string,
                 ...userInfo.userPoint,
                 amount: resultAmount,
               },

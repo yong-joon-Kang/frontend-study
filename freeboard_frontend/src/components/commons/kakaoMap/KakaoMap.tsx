@@ -5,6 +5,8 @@ declare const window: typeof globalThis & {
 };
 
 export function KakaoMap(props: any) {
+  console.log("propspropspropspropspropspropspropspropspropspropsprops");
+  console.log(props);
   useEffect(() => {
     const script = document.createElement("script");
     script.src =
