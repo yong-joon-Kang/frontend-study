@@ -5,34 +5,25 @@ export const Wrap = styled.div`
   margin: 100px auto;
   width: 400px;
   height: 250px;
-  border: 1px solid #aaa;
-  background-color: #f5f5f5;
-  padding: 30px;
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  background-color: #fff;
+  padding: 69px;
+  border-radius: 5px;
 `;
 
 export const SubWrap = styled.div`
   width: 100%;
-  height: 80px;
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 20px;
-`;
-
-export const Label = styled.div`
-  width: 100%;
-  margin-bottom: 5px;
+  height: 60px;
+  margin-top: 10px;
 `;
 
 export const Input = styled.input`
   outline: none;
+  width: 100%;
   height: 40px;
   font-size: 16px;
-  padding-left: 10px;
-  border: 1px solid #aaa;
+  border: none;
+  border-bottom: 1px solid #aaa;
 `;
 
 export const ErrorMsg = styled.div`

@@ -4,11 +4,10 @@ import { ISignUpBtnProps } from "./SignUp.types";
 export const Wrap = styled.div`
   margin: 100px auto;
   width: 400px;
-  height: 550px;
-  border: 1px solid #aaa;
-  background-color: #f5f5f5;
-  padding: 30px;
-  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  background-color: #fff;
+  padding: 69px;
+  border-radius: 5px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -19,20 +18,14 @@ export const SubWrap = styled.div`
   height: 80px;
   display: flex;
   flex-direction: column;
-  margin-bottom: 20px;
-`;
-
-export const Label = styled.div`
-  width: 100%;
-  margin-bottom: 5px;
 `;
 
 export const Input = styled.input`
   outline: none;
   height: 40px;
   font-size: 16px;
-  padding-left: 10px;
-  border: 1px solid #aaa;
+  border: none;
+  border-bottom: 1px solid #aaa;
 `;
 
 export const ErrorMsg = styled.div`
@@ -50,4 +43,5 @@ export const SignUpBtn = styled.div`
   justify-content: center;
   align-items: center;
   color: #fff;
+  margin-top: 30px;
 `;
