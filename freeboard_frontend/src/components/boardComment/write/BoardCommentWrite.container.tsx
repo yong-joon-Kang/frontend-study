@@ -179,7 +179,7 @@ export default function BoardCommentWriteContainerPage(
         editWriter={editCmtProps.writer}
         editContents={editCmtProps.contents}
         editRating={editCmtProps.rating}
-        isEditArr={editCmtProps.isEditArr}
+        isEditArr={editCmtProps.isEditArr ?? []}
         setIsEditArr={editCmtProps.setIsEditArr}
         index={editCmtProps.index}
       />

@@ -15,9 +15,9 @@ export interface IBoardCommentPresenterPageProps {
   editWriter: string | undefined | null;
   editContents: string;
   editRating: number;
-  isEditArr: boolean[];
-  setIsEditArr: Dispatch<SetStateAction<boolean[]>>;
-  index: number;
+  isEditArr?: boolean[];
+  setIsEditArr?: any;
+  index?: number;
 }
 
 export interface ICurrLengthProps {
