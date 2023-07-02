@@ -10,9 +10,7 @@ import { createUploadLink } from "apollo-upload-client";
 import { useRecoilState, useRecoilValueLoadable } from "recoil";
 import {
   accessTokenState,
-  loginState,
   restoreAccessTokenLoadable,
-  userInfoState,
 } from "../../commons/libraries/recoil";
 import { useEffect } from "react";
 import { getAccessToken } from "../../commons/libraries/getAccessToken";
@@ -26,33 +24,18 @@ const GLOBAL_STATE = new InMemoryCache();
 
 const ApolloSettings = (props: IProps) => {
   const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
-  const [isLogin] = useRecoilState(loginState);
-  const [, setUserInfo] = useRecoilState(userInfoState);
   const loadable = useRecoilValueLoadable(restoreAccessTokenLoadable);
 
+  console.log(" 몇번 렌더링 되나요?");
   // 새로고침 할 때
   useEffect(() => {
-    loadable.toPromise().then((newAccessToken) => {
-      setAccessToken(newAccessToken ?? "");
-    });
-  }, []);
-
-  useEffect(() => {
-    console.log("isLogin 변경 시");
-    // 로그아웃인 경우
-    if (!isLogin) {
-      console.log("로그아웃 한 경우===================");
-      setAccessToken("");
-      setUserInfo({
-        _id: "",
-        createdAt: "",
-        email: "",
-        updatedAt: "",
-        name: "",
+    if (localStorage.getItem("accessToken"))
+      setAccessToken(localStorage.getItem("accessToken") ?? "");
+    else
+      loadable.toPromise().then((newAccessToken) => {
+        setAccessToken(newAccessToken ?? "");
       });
-      client.clearStore(); // 캐시된 서버 데이터(로그인 정보 등) 초기화 ( accessToken 초기화 )
-    }
-  }, [isLogin]);
+  }, []);
 
   const errorLink = onError(({ graphQLErrors, operation, forward }) => {
     // 1-1. 에러 캐치
@@ -62,6 +45,7 @@ const ApolloSettings = (props: IProps) => {
         // console.log("api요청 시 무슨 에러인가??=======================");
         // console.log(err.extensions.code);
         if (err.extensions.code === "UNAUTHENTICATED") {
+          console.log("error 발생했고 여기는 타ㅇ나요??");
           return fromPromise(
             // 2-1. refreshToken으로 accessToken을 재발급 받기
             getAccessToken().then((newAccessToken) => {

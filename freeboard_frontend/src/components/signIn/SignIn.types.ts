@@ -8,6 +8,7 @@ export interface ISignInContainerProps {
   onChangeEmail: (event: ChangeEvent<HTMLInputElement>) => void;
   onChangePassword: (event: ChangeEvent<HTMLInputElement>) => void;
   onClickSignIn: () => void;
+  onChangeKeepLoginChk: (event: any) => void;
   isAbled: boolean | "";
 }
 

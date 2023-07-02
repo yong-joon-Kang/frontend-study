@@ -18,10 +18,18 @@ function SignUpPresenter(props: ISignInContainerProps) {
         />
         <S.ErrorMsg>{props.errorInfo.passwordError}</S.ErrorMsg>
       </S.SubWrap>
+
       <div style={{ display: "flex", margin: "30px 0" }}>
-        <input type="checkbox" style={{ width: "20px", height: "20px" }} />
-        &nbsp; 로그인 상태 유지
+        <label style={{ display: "flex" }}>
+          <input
+            type="checkbox"
+            onChange={props.onChangeKeepLoginChk}
+            style={{ width: "20px", height: "20px" }}
+          />
+          &nbsp; 로그인 상태 유지
+        </label>
       </div>
+
       <S.SubWrap>
         <S.SignUpBtn isAbled={props.isAbled} onClick={props.onClickSignIn}>
           로그인

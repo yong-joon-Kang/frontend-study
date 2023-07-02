@@ -5,18 +5,18 @@ import { LOGIN_USER } from "./SignIn.queries";
 import { Modal } from "antd";
 import { useRouter } from "next/router";
 import { useRecoilState } from "recoil";
-import { accessTokenState, loginState } from "../../commons/libraries/recoil";
+import { accessTokenState } from "../../commons/libraries/recoil";
 
 function SignInContainer() {
   const router = useRouter();
   const [, setaccessToken] = useRecoilState(accessTokenState);
-  const [, setIsLogin] = useRecoilState(loginState);
 
   const [loginUser] = useMutation(LOGIN_USER);
 
   const [info, setInfo] = useState({
     email: "",
     password: "",
+    keepLoginChk: false,
   });
 
   const [errorInfo, setErrorInfo] = useState({
@@ -75,11 +75,10 @@ function SignInContainer() {
           password: info.password,
         },
       });
+      if (info.keepLoginChk)
+        localStorage.setItem("accessToken", result.data.loginUser.accessToken);
       setaccessToken(result.data.loginUser.accessToken);
-      // setIsLogin(true);
-
       Modal.info({ content: "로그인에 성공하였습니다!" });
-
       router.push(localStorage.getItem("prevPage") ?? "/");
     } catch (error) {
       if (error instanceof Error)
@@ -87,6 +86,13 @@ function SignInContainer() {
           content: error.message,
         });
     }
+  };
+
+  const onChangeKeepLoginChk = (event: any) => {
+    setInfo({
+      ...info,
+      keepLoginChk: event.target.checked,
+    });
   };
 
   const isAbled = useMemo(
@@ -102,6 +108,7 @@ function SignInContainer() {
       onChangeEmail={onChangeEmail}
       onChangePassword={onChangePassword}
       onClickSignIn={onClickSignIn}
+      onChangeKeepLoginChk={onChangeKeepLoginChk}
       info={info}
       errorInfo={errorInfo}
       isAbled={isAbled}

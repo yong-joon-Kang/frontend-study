@@ -3,7 +3,6 @@ import { useState } from "react";
 import { useRecoilState } from "recoil";
 import {
   accessTokenState,
-  loginState,
   userInfoState,
 } from "../../../commons/libraries/recoil";
 import { Drawer, Modal } from "antd";
@@ -63,16 +62,18 @@ function Header() {
   const [open, setOpen] = useState(false);
 
   const [userInfo] = useRecoilState(userInfoState);
-  const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
-  const [, setIsLogin] = useRecoilState(loginState);
+  const [accessToken] = useRecoilState(accessTokenState);
 
   const [logoutUser] = useMutation(LOGOUT_USER);
-  // console.log(accessToken);
   const onClickOk = async () => {
-    setAccessToken("");
-    await logoutUser();
+    try {
+      if (accessToken) await logoutUser();
+    } catch (error) {
+      if (error instanceof Error) console.log(error.message);
+    }
+
+    localStorage.setItem("accessToken", "");
     location.reload();
-    setIsLogin(false);
   };
 
   const onClickLogOut = async () => {
