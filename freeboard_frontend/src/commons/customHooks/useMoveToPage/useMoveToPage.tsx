@@ -5,7 +5,8 @@ export function useMoveToPage() {
 
   const onClickMoveToPage = (page: string) => () => {
     router.push(page);
-    if (page !== "/signIn") localStorage.setItem("prevPage", page);
+    if (page !== "/signIn" && page !== "/signUp")
+      localStorage.setItem("prevPage", page);
   };
 
   return { onClickMoveToPage };
