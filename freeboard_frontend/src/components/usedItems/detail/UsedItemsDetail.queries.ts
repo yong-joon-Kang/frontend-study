@@ -30,6 +30,7 @@ export const FETCH_USED_ITEM = gql`
           _id
         }
         name
+        picture
       }
       updatedAt
     }

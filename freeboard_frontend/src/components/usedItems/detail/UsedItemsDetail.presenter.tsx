@@ -28,7 +28,9 @@ export default function UseditemDetailPresenterPage(
       <S.CardWrapper>
         <S.Header>
           <S.HeadLeft>
-            <S.ProfileImg src="/profileDef.png"></S.ProfileImg>
+            <S.ProfileImg
+              src={`https://storage.googleapis.com/${fetchUseditem?.seller?.picture}`}
+            ></S.ProfileImg>
             <S.ProfileDetailWrap>
               <S.ProfileName>{fetchUseditem?.seller?.name}</S.ProfileName>
               <S.ProfileDate>{getDate(fetchUseditem?.updatedAt)}</S.ProfileDate>
