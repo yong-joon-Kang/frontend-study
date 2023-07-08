@@ -25,11 +25,9 @@ function UsedItemsCommentOneRow(props: IProps) {
   >(FETCH_USEDITEM_QUESTION_ANSWERS, {
     variables: {
       page: 1,
-      useditemQuestionId: props.el.user?._id ?? "",
+      useditemQuestionId: props.el._id ?? "",
     },
   });
-  // console.log("얘 안나오냐 설마");
-  // console.log(props.el._id);
   return (
     <S.CommentList isAnswer={props.isAnswer} key={props.el._id}>
       <S.CommentHeader>
