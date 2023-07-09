@@ -25,11 +25,13 @@ export const MiddleWrap = styled.div`
   flex-direction: column;
   flex: 1;
   justify-content: center;
+  padding: 30px;
 `;
 
 export const Price = styled.span`
   font-size: 1.5em;
   font-weight: bold;
+  display: flex;
 `;
 
 export const Name = styled.span`
@@ -78,6 +80,7 @@ export const Title = styled.div`
 
 export const Label = styled.span`
   font-size: 1.2em;
+  display: flex;
 `;
 
 export const CheckBox = styled.input`

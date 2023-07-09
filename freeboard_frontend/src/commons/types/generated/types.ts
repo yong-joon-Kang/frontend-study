@@ -436,6 +436,8 @@ export type IUpdateUserInput = {
 };
 
 export type IUseditem = {
+  oneItemTotalPrice: any;
+  isChecked: any;
   __typename?: "Useditem";
   _id: Scalars["ID"];
   buyer?: Maybe<IUser>;

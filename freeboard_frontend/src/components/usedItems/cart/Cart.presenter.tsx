@@ -1,4 +1,6 @@
 import { getComma } from "../../../commons/libraries/utils";
+import DefaultButton from "../../commons/button/DefaultButton";
+import Point from "../../commons/icon/Point";
 import * as S from "./Cart.styles";
 import { IProps } from "./Cart.types";
 // import OneItem from "./oneItem";
@@ -44,7 +46,10 @@ function CartPresenter(props: IProps) {
             </S.RightWrap>
             <S.MiddleWrap>
               <S.Name>{el.name}</S.Name>
-              <S.Price>{getComma(String(el.oneItemTotalPrice))}원</S.Price>
+              <S.Price>
+                {getComma(String(el.oneItemTotalPrice))}{" "}
+                <Point width="35px" height="30px" marginTop="3px" />
+              </S.Price>
             </S.MiddleWrap>
             <S.LeftWrap>
               <S.Quantity>
@@ -73,7 +78,22 @@ function CartPresenter(props: IProps) {
             </S.LeftWrap>
           </S.ItemWrap>
         ))}
-      <S.Label>합계: {}</S.Label>
+      <div
+        style={{
+          paddingTop: "20px",
+          display: "flex",
+          justifyContent: "space-between",
+        }}
+      >
+        <S.Label>
+          선택 합계: {getComma(String(props.checkedPrice))}{" "}
+          <Point width="35px" height="30px" marginTop="" />
+        </S.Label>
+        <DefaultButton
+          text="구매하기"
+          onClick={props.onClickBuying}
+        ></DefaultButton>
+      </div>
     </div>
   );
 }

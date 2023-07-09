@@ -5,8 +5,10 @@ export interface IProps {
   onChangeOne: any;
   allChecked: boolean;
   cartData: any;
+  checkedPrice: number;
   onChangeInput: (event: ChangeEvent<HTMLInputElement>, index: number) => void;
   onClickQuantityBtn: (index: number, unit: string) => void;
+  onClickBuying: () => void;
 }
 
 export interface OneItemsProps {
