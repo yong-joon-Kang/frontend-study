@@ -9,6 +9,7 @@ import { WithAuth } from "../../src/components/commons/withAuth/WithAuth";
 
 export const Wrap = styled.div`
   display: flex;
+  margin-top: 200px;
 `;
 
 function index() {

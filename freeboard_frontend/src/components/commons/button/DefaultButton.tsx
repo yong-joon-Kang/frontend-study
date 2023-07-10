@@ -1,11 +1,14 @@
 import styled from "@emotion/styled";
 
 export const Input = styled.input`
-  border: 1px solid black;
+  border: ${(props: IProps) =>
+    props.isActive ? "1px solid #53bd53" : "1px solid#000"};
+  color: ${(props) => (props.isActive ? "#fff" : "#000")};
+  font-weight: ${(props) => (props.isActive ? "bold" : "")};
   width: 200px;
   height: 40px;
-  margin: 0 15px;
-  background-color: #fff;
+  margin: ${(props) => (props.margin ? "0" : "0 15px")};
+  background-color: ${(props) => (props.isActive ? "#53bd53" : "#fff")};
   font-size: 16px;
   cursor: pointer;
 `;
@@ -15,6 +18,7 @@ interface IProps {
   onClick?: () => void;
   isActive?: boolean;
   isSubmitting?: boolean;
+  margin?: string;
 }
 
 function DefaultButton(props: IProps) {
@@ -25,6 +29,8 @@ function DefaultButton(props: IProps) {
         type="submit"
         value={props.text}
         disabled={props.isSubmitting}
+        isActive={props.isActive}
+        margin={props.margin}
       />
     </>
   );

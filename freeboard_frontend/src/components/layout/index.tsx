@@ -10,6 +10,7 @@ interface IPropsLayout {
 }
 
 const hiddenBannerPath = [
+  "/myPage",
   "/signIn",
   "/signUp",
   "/signUpSuccess",

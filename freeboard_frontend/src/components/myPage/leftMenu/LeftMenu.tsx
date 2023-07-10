@@ -115,7 +115,7 @@ function LeftMenu(props: IProps) {
                 props.onClickMenu("myProfile");
               }}
             >
-              내 프로필
+              비밀번호 변경
             </S.Label>
           </S.LabelWrap>
         </S.MyInfoSubWrap2>
