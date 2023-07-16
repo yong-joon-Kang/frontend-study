@@ -28,6 +28,7 @@ export const UploadText = styled.div`
 export const Img = styled.img`
   width: 100%;
   height: 100%;
+  object-fit: contain;
 `;
 
 export const Cancel = styled.img`

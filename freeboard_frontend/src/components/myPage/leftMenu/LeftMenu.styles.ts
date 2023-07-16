@@ -47,6 +47,7 @@ export const SettingImg = styled.img`
 export const ProfileImg = styled.img`
   width: 100%;
   height: 100%;
+  object-fit: contain;
 `;
 
 export const MyInfoSubWrap1 = styled.div`
