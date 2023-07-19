@@ -83,7 +83,16 @@ export default function UseditemDetailPresenterPage(
         />
         {/* 권한에 따른 수정버튼 표출 */}
         {props.userName === fetchUseditem?.seller?.name ? (
-          <DefaultButton onClick={props.onClickUsedItemsEdit} text="수정하기" />
+          <>
+            <DefaultButton
+              onClick={props.onClickUsedItemsEdit}
+              text="수정하기"
+            />
+            <DefaultButton
+              onClick={props.onClickUsedItemsDelete}
+              text="삭제하기"
+            />
+          </>
         ) : (
           <>
             <DefaultButton

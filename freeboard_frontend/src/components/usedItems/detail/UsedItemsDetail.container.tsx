@@ -1,5 +1,6 @@
 import UsedItemsDetailPresenterPage from "./UsedItemsDetail.presenter";
 import {
+  DELETEUSEDITEM,
   FETCH_USED_ITEM,
   TOGGLE_USEDITEM_PICK,
 } from "./UsedItemsDetail.queries";
@@ -21,6 +22,7 @@ import { userInfoState } from "../../../commons/libraries/recoil";
 export default function UsedItemsDetailContainerPage() {
   const [userInfo] = useRecoilState(userInfoState);
   const [userName, setUserName] = useState("");
+  const [confirmKind, setConfirmKind] = useState("");
   const router = useRouter();
 
   const { data } = useQuery<
@@ -33,6 +35,8 @@ export default function UsedItemsDetailContainerPage() {
     fetchPolicy: "network-only",
   });
 
+  const [deleteUseditem] = useMutation(DELETEUSEDITEM);
+
   const [ismodalToggle, setModalToggle] = useState(false);
 
   const onToggleModal = () => {
@@ -41,7 +45,23 @@ export default function UsedItemsDetailContainerPage() {
 
   const handleOk = () => {
     setModalToggle(!ismodalToggle);
-    router.push("/usedItems/cart");
+    if (confirmKind === "cartIn") {
+      router.push("/usedItems/cart");
+    } else {
+      try {
+        deleteUseditem({
+          variables: {
+            useditemId: router.query.id,
+          },
+        });
+      } catch (error) {
+        if (error instanceof Error) {
+          Modal.warning({ title: error.message });
+        }
+      }
+
+      router.push("/usedItems/list");
+    }
   };
 
   const onClickInCart = (cart: IUseditem) => {
@@ -59,11 +79,17 @@ export default function UsedItemsDetailContainerPage() {
     cartStorage.push(cart);
     localStorage.setItem("cart", JSON.stringify(cartStorage));
 
+    setConfirmKind("cartIn");
     onToggleModal();
   };
 
   const onClickUsedItemsEdit = () => {
     router.push(`/usedItems/detail/${String(router.query.id)}/edit`);
+  };
+
+  const onClickUsedItemsDelete = () => {
+    setConfirmKind("deleteUseditem");
+    onToggleModal();
   };
 
   const [toggleUsedItemPick] = useMutation(TOGGLE_USEDITEM_PICK);
@@ -94,7 +120,7 @@ export default function UsedItemsDetailContainerPage() {
         onToggleModal={onToggleModal}
         handleOk={handleOk}
         ismodalToggle={ismodalToggle}
-        btnFnc="cartIn"
+        btnFnc={confirmKind}
       />
       <UsedItemsDetailPresenterPage
         data={data}
@@ -103,6 +129,7 @@ export default function UsedItemsDetailContainerPage() {
         onToggleModal={onToggleModal}
         onClickUsedItemsEdit={onClickUsedItemsEdit}
         onClickCountLike={onClickCountLike}
+        onClickUsedItemsDelete={onClickUsedItemsDelete}
       />
       <UsedItemsCommentWriteContainerPage />
       <UsedItemsCommentListContainerPage />

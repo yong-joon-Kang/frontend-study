@@ -30,6 +30,7 @@ const ConfirmModalPresenter = (props: any) => {
         )}
 
         {props.btnFnc === "boardDelete" && <p>정말로 삭제하시겠습니까?</p>}
+        {props.btnFnc === "deleteUseditem" && <p>정말로 삭제하시겠습니까?</p>}
         {props.btnFnc === "usedItemQuestionDelete" && (
           <p>정말로 삭제하시겠습니까?</p>
         )}

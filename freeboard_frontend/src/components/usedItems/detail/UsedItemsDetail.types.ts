@@ -7,6 +7,7 @@ export interface IUsedItemsDetailPresenterPageProps {
   onClickUsedItemsEdit: () => void;
   onClickCountLike: () => void;
   onToggleModal: () => void;
+  onClickUsedItemsDelete: () => void;
 }
 
 export interface LikeType {
